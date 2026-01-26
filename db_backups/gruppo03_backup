@@ -1,0 +1,664 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict HxhoYzABATJ9pGZUbuHn6CeDKQZ4pKksKhSpGIIYUia4bnf0lecB3ASwvQzLoCe
+
+-- Dumped from database version 14.20 (Homebrew)
+-- Dumped by pg_dump version 18.0
+
+-- Started on 2026-01-26 17:34:34 CET
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: ruben
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO ruben;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 213 (class 1259 OID 16421)
+-- Name: categories; Type: TABLE; Schema: public; Owner: www
+--
+
+CREATE TABLE public.categories (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    slug character varying(100),
+    description character varying(255),
+    sort_order integer DEFAULT 0,
+    parent_id integer
+);
+
+
+ALTER TABLE public.categories OWNER TO www;
+
+--
+-- TOC entry 212 (class 1259 OID 16420)
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: www
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.categories_id_seq OWNER TO www;
+
+--
+-- TOC entry 3901 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: www
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 16487)
+-- Name: post_attachments; Type: TABLE; Schema: public; Owner: www
+--
+
+CREATE TABLE public.post_attachments (
+    id integer NOT NULL,
+    post_id integer NOT NULL,
+    file_url character varying(255) NOT NULL,
+    file_type character varying(50),
+    file_size integer,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.post_attachments OWNER TO www;
+
+--
+-- TOC entry 218 (class 1259 OID 16486)
+-- Name: post_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: www
+--
+
+CREATE SEQUENCE public.post_attachments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.post_attachments_id_seq OWNER TO www;
+
+--
+-- TOC entry 3902 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: post_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: www
+--
+
+ALTER SEQUENCE public.post_attachments_id_seq OWNED BY public.post_attachments.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16499)
+-- Name: post_votes; Type: TABLE; Schema: public; Owner: www
+--
+
+CREATE TABLE public.post_votes (
+    user_id integer NOT NULL,
+    post_id integer NOT NULL,
+    vote_value integer DEFAULT 1,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.post_votes OWNER TO www;
+
+--
+-- TOC entry 217 (class 1259 OID 16462)
+-- Name: posts; Type: TABLE; Schema: public; Owner: www
+--
+
+CREATE TABLE public.posts (
+    id integer NOT NULL,
+    thread_id integer NOT NULL,
+    user_id integer,
+    parent_id integer,
+    content text NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone,
+    ip_address character varying(45)
+);
+
+
+ALTER TABLE public.posts OWNER TO www;
+
+--
+-- TOC entry 216 (class 1259 OID 16461)
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: www
+--
+
+CREATE SEQUENCE public.posts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.posts_id_seq OWNER TO www;
+
+--
+-- TOC entry 3903 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: www
+--
+
+ALTER SEQUENCE public.posts_id_seq OWNED BY public.posts.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 16436)
+-- Name: threads; Type: TABLE; Schema: public; Owner: www
+--
+
+CREATE TABLE public.threads (
+    id integer NOT NULL,
+    category_id integer NOT NULL,
+    user_id integer,
+    title character varying(255) NOT NULL,
+    slug character varying(255),
+    is_locked boolean DEFAULT false,
+    is_sticky boolean DEFAULT false,
+    view_count integer DEFAULT 0,
+    reply_count integer DEFAULT 0,
+    last_activity_at timestamp without time zone,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.threads OWNER TO www;
+
+--
+-- TOC entry 214 (class 1259 OID 16435)
+-- Name: threads_id_seq; Type: SEQUENCE; Schema: public; Owner: www
+--
+
+CREATE SEQUENCE public.threads_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.threads_id_seq OWNER TO www;
+
+--
+-- TOC entry 3904 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: threads_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: www
+--
+
+ALTER SEQUENCE public.threads_id_seq OWNED BY public.threads.id;
+
+
+--
+-- TOC entry 211 (class 1259 OID 16405)
+-- Name: user_settings; Type: TABLE; Schema: public; Owner: www
+--
+
+CREATE TABLE public.user_settings (
+    user_id integer NOT NULL,
+    theme character varying(20) DEFAULT 'light'::character varying,
+    language character varying(5) DEFAULT 'en'::character varying,
+    receive_newsletter boolean DEFAULT true,
+    email_notifications boolean DEFAULT true,
+    show_signatures boolean DEFAULT true
+);
+
+
+ALTER TABLE public.user_settings OWNER TO www;
+
+--
+-- TOC entry 210 (class 1259 OID 16389)
+-- Name: users; Type: TABLE; Schema: public; Owner: www
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    username character varying(50) NOT NULL,
+    email character varying(100) NOT NULL,
+    password_hash character varying(255) NOT NULL,
+    bio text,
+    avatar_url character varying(255),
+    location character varying(100),
+    website character varying(255),
+    signature text,
+    role character varying(20) DEFAULT 'user'::character varying,
+    reputation integer DEFAULT 0,
+    is_banned boolean DEFAULT false,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    last_login timestamp without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO www;
+
+--
+-- TOC entry 209 (class 1259 OID 16388)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: www
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.users_id_seq OWNER TO www;
+
+--
+-- TOC entry 3905 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: www
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 3698 (class 2604 OID 16424)
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- TOC entry 3708 (class 2604 OID 16490)
+-- Name: post_attachments id; Type: DEFAULT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.post_attachments ALTER COLUMN id SET DEFAULT nextval('public.post_attachments_id_seq'::regclass);
+
+
+--
+-- TOC entry 3706 (class 2604 OID 16465)
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_id_seq'::regclass);
+
+
+--
+-- TOC entry 3700 (class 2604 OID 16439)
+-- Name: threads id; Type: DEFAULT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.threads ALTER COLUMN id SET DEFAULT nextval('public.threads_id_seq'::regclass);
+
+
+--
+-- TOC entry 3688 (class 2604 OID 16392)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3887 (class 0 OID 16421)
+-- Dependencies: 213
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: www
+--
+
+COPY public.categories (id, name, slug, description, sort_order, parent_id) FROM stdin;
+1	Annunci	annunci	News	1	\N
+2	Hardware	hardware	PC Hardware	2	\N
+\.
+
+
+--
+-- TOC entry 3893 (class 0 OID 16487)
+-- Dependencies: 219
+-- Data for Name: post_attachments; Type: TABLE DATA; Schema: public; Owner: www
+--
+
+COPY public.post_attachments (id, post_id, file_url, file_type, file_size, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3894 (class 0 OID 16499)
+-- Dependencies: 220
+-- Data for Name: post_votes; Type: TABLE DATA; Schema: public; Owner: www
+--
+
+COPY public.post_votes (user_id, post_id, vote_value, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3891 (class 0 OID 16462)
+-- Dependencies: 217
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: www
+--
+
+COPY public.posts (id, thread_id, user_id, parent_id, content, created_at, updated_at, deleted_at, ip_address) FROM stdin;
+1	1	1	\N	Primo post del forum!	2026-01-26 17:32:08.884398	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 3889 (class 0 OID 16436)
+-- Dependencies: 215
+-- Data for Name: threads; Type: TABLE DATA; Schema: public; Owner: www
+--
+
+COPY public.threads (id, category_id, user_id, title, slug, is_locked, is_sticky, view_count, reply_count, last_activity_at, created_at) FROM stdin;
+1	1	1	Benvenuti	benvenuti	f	f	0	0	2026-01-26 17:32:08.884398	2026-01-26 17:32:08.884398
+\.
+
+
+--
+-- TOC entry 3885 (class 0 OID 16405)
+-- Dependencies: 211
+-- Data for Name: user_settings; Type: TABLE DATA; Schema: public; Owner: www
+--
+
+COPY public.user_settings (user_id, theme, language, receive_newsletter, email_notifications, show_signatures) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3884 (class 0 OID 16389)
+-- Dependencies: 210
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: www
+--
+
+COPY public.users (id, username, email, password_hash, bio, avatar_url, location, website, signature, role, reputation, is_banned, created_at, last_login) FROM stdin;
+1	Admin	admin@gruppo03.it	pass_criptata	Il capo	\N	\N	\N	Staff Gruppo03	admin	0	f	2026-01-26 17:32:08.884398	\N
+2	Mario	mario@email.it	pass_criptata	Utente nuovo	\N	\N	\N	Ciao a tutti!	user	0	f	2026-01-26 17:32:08.884398	\N
+3	Luigi	luigi@email.it	pass_criptata	Modero le discussioni	\N	\N	\N	\N	moderator	0	f	2026-01-26 17:32:08.884398	\N
+\.
+
+
+--
+-- TOC entry 3906 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: www
+--
+
+SELECT pg_catalog.setval('public.categories_id_seq', 2, true);
+
+
+--
+-- TOC entry 3907 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: post_attachments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: www
+--
+
+SELECT pg_catalog.setval('public.post_attachments_id_seq', 1, false);
+
+
+--
+-- TOC entry 3908 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: www
+--
+
+SELECT pg_catalog.setval('public.posts_id_seq', 1, true);
+
+
+--
+-- TOC entry 3909 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: threads_id_seq; Type: SEQUENCE SET; Schema: public; Owner: www
+--
+
+SELECT pg_catalog.setval('public.threads_id_seq', 1, true);
+
+
+--
+-- TOC entry 3910 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: www
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 3, true);
+
+
+--
+-- TOC entry 3721 (class 2606 OID 16427)
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3723 (class 2606 OID 16429)
+-- Name: categories categories_slug_key; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_slug_key UNIQUE (slug);
+
+
+--
+-- TOC entry 3731 (class 2606 OID 16493)
+-- Name: post_attachments post_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.post_attachments
+    ADD CONSTRAINT post_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3733 (class 2606 OID 16505)
+-- Name: post_votes post_votes_pkey; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.post_votes
+    ADD CONSTRAINT post_votes_pkey PRIMARY KEY (user_id, post_id);
+
+
+--
+-- TOC entry 3729 (class 2606 OID 16470)
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3725 (class 2606 OID 16448)
+-- Name: threads threads_pkey; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.threads
+    ADD CONSTRAINT threads_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3727 (class 2606 OID 16450)
+-- Name: threads threads_slug_key; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.threads
+    ADD CONSTRAINT threads_slug_key UNIQUE (slug);
+
+
+--
+-- TOC entry 3719 (class 2606 OID 16414)
+-- Name: user_settings user_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.user_settings
+    ADD CONSTRAINT user_settings_pkey PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 3713 (class 2606 OID 16404)
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3715 (class 2606 OID 16400)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3717 (class 2606 OID 16402)
+-- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_username_key UNIQUE (username);
+
+
+--
+-- TOC entry 3741 (class 2606 OID 16494)
+-- Name: post_attachments fk_attachment_post; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.post_attachments
+    ADD CONSTRAINT fk_attachment_post FOREIGN KEY (post_id) REFERENCES public.posts(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3735 (class 2606 OID 16430)
+-- Name: categories fk_category_parent; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT fk_category_parent FOREIGN KEY (parent_id) REFERENCES public.categories(id) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3738 (class 2606 OID 16481)
+-- Name: posts fk_post_parent; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT fk_post_parent FOREIGN KEY (parent_id) REFERENCES public.posts(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3739 (class 2606 OID 16471)
+-- Name: posts fk_post_thread; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT fk_post_thread FOREIGN KEY (thread_id) REFERENCES public.threads(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3740 (class 2606 OID 16476)
+-- Name: posts fk_post_user; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT fk_post_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3734 (class 2606 OID 16415)
+-- Name: user_settings fk_settings_user; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.user_settings
+    ADD CONSTRAINT fk_settings_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3736 (class 2606 OID 16451)
+-- Name: threads fk_thread_category; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.threads
+    ADD CONSTRAINT fk_thread_category FOREIGN KEY (category_id) REFERENCES public.categories(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3737 (class 2606 OID 16456)
+-- Name: threads fk_thread_user; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.threads
+    ADD CONSTRAINT fk_thread_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3742 (class 2606 OID 16511)
+-- Name: post_votes fk_vote_post; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.post_votes
+    ADD CONSTRAINT fk_vote_post FOREIGN KEY (post_id) REFERENCES public.posts(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3743 (class 2606 OID 16506)
+-- Name: post_votes fk_vote_user; Type: FK CONSTRAINT; Schema: public; Owner: www
+--
+
+ALTER TABLE ONLY public.post_votes
+    ADD CONSTRAINT fk_vote_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3900 (class 0 OID 0)
+-- Dependencies: 4
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: ruben
+--
+
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2026-01-26 17:34:34 CET
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict HxhoYzABATJ9pGZUbuHn6CeDKQZ4pKksKhSpGIIYUia4bnf0lecB3ASwvQzLoCe
+
