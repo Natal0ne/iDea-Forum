@@ -443,3 +443,69 @@ h1, h2, h3, h4, h5, h6, .logo {
         padding: 20px 15px; /* Tighter padding for mobile content */
     }
 }
+
+/* =========================================
+   Search Bar Styles
+   ========================================= */
+.search-li {
+    display: flex;
+    align-items: center;
+}
+.search-container {
+    position: relative;
+}
+.search-container input {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.1);
+    color: white;
+    width: 200px;
+    transition: all 0.3s ease;
+}
+.search-container input:focus {
+    background: white;
+    color: #333;
+    outline: none;
+    border-color: white;
+    width: 240px;
+}
+.search-container input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    margin-top: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+.suggestions-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: #333 !important;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+.suggestions-dropdown a:last-child {
+    border-bottom: none;
+}
+.suggestions-dropdown a:hover {
+    background-color: #f5f7fa;
+    color: #50616d !important;
+    padding-left: 15px; /* Override footer hover effect if leaked, but explicit here */
+}
+.no-results {
+    padding: 10px 15px;
+    color: #888;
+    font-size: 14px;
+    font-style: italic;
+}

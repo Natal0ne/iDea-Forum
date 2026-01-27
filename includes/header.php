@@ -1,69 +1,5 @@
 <!-- Inizio Navbar Component -->
-<style>
-/* Search Bar Styles */
-.search-li {
-    display: flex;
-    align-items: center;
-}
-.search-container {
-    position: relative;
-}
-.search-container input {
-    padding: 6px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.5);
-    background: rgba(255,255,255,0.1);
-    color: white;
-    width: 200px;
-    transition: all 0.3s ease;
-}
-.search-container input:focus {
-    background: white;
-    color: #333;
-    outline: none;
-    border-color: white;
-    width: 240px;
-}
-.search-container input::placeholder {
-    color: rgba(255,255,255,0.7);
-}
-.suggestions-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border-radius: 8px;
-    margin-top: 5px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    display: none;
-    z-index: 1000;
-    overflow: hidden;
-}
-.suggestions-dropdown a {
-    display: block;
-    padding: 10px 15px;
-    color: #333 !important;
-    text-decoration: none;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    transition: background 0.2s;
-}
-.suggestions-dropdown a:last-child {
-    border-bottom: none;
-}
-.suggestions-dropdown a:hover {
-    background-color: #f5f7fa;
-    color: #50616d !important;
-    padding-left: 15px; /* Override footer hover effect if leaked, but explicit here */
-}
-.no-results {
-    padding: 10px 15px;
-    color: #888;
-    font-size: 14px;
-    font-style: italic;
-}
-</style>
+
 
 
 <nav class="navbar" id="mainNavbar">
@@ -78,14 +14,14 @@
     <ul class="nav-links" id="navLinks">
         <li class="search-li">
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Cerca discussioni..." autocomplete="off">
+                <input type="text" id="searchInput" placeholder="Search discussions..." autocomplete="off">
                 <div id="searchSuggestions" class="suggestions-dropdown"></div>
             </div>
         </li>
         <li><a href="index.php">Home</a></li>
         
         <?php if (isset($_SESSION['user_id'])): ?>
-            <li><span style="color: white; margin-right: 15px;">Benvenuto, <?php echo htmlspecialchars($_SESSION['username']); ?></span></li>
+            <li><span style="color: white; margin-right: 15px;">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></span></li>
              <li><a href="includes/logout.php" class="btn-logout" style="background: transparent; border: 1px solid white;">Logout</a></li>
         <?php else: ?>
             <li><a href="#" class="btn-login">Login</a></li>
@@ -161,7 +97,7 @@
                     } else {
                         const noRes = document.createElement('div');
                         noRes.className = 'no-results';
-                        noRes.textContent = 'Nessuna discussione trovata';
+                        noRes.textContent = 'No discussion found';
                         searchSuggestions.appendChild(noRes);
                         searchSuggestions.style.display = 'block';
                     }
