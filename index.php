@@ -18,9 +18,10 @@
     </div>
 
     <div class="page-content">
-        <h2>Page content ...</h2>
-        <p>Scroll down to see navbar become solid.</p>
+        <?php include "includes/feed.php"; ?>
     </div>
+    
+    <?php include "includes/create_thread.php"; ?>
 
     <?php include "includes/footer.php"; ?>
 

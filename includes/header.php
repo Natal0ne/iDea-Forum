@@ -13,7 +13,7 @@
     <ul class="nav-links" id="navLinks">
         <?php if (isset($_SESSION['user_id'])): ?>
             <li>
-                <a href="includes/create_thread.php" class="btn-create-thread">
+                <a href="includes/create_thread.php" id="createThreadBtn" class="btn-create-thread">
                     <svg width="18" height="18" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                         <path d="M19 9.375h-8.375V1h-1.25v8.375H1v1.25h8.375V19h1.25v-8.375H19v-1.25Z"></path>
                     </svg>
@@ -108,6 +108,30 @@
                 userDropdown.classList.remove('active');
             }
         }
+    });
+
+    // 4. Create Thread Modal Trigger
+    const createBtn = document.getElementById('createThreadBtn');
+    if (createBtn) {
+        createBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('createThreadModal');
+            if (modal) {
+                modal.classList.add('active');
+            }
+        });
+    }
+    
+    // Generic Modal Close
+    document.querySelectorAll('.close-btn, .modal-overlay').forEach(el => {
+        el.addEventListener('click', function() {
+            const target = this.getAttribute('data-target');
+            if (target) {
+                document.getElementById(target).classList.remove('active');
+            } else {
+                this.closest('.modal').classList.remove('active');
+            }
+        });
     });
 </script>
 <!-- Fine Navbar Component -->
