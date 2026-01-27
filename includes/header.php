@@ -83,7 +83,13 @@
             </div>
         </li>
         <li><a href="index.php">Home</a></li>
-        <li><a href="#" class="btn-login">Login</a></li>
+        
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <li><span style="color: white; margin-right: 15px;">Benvenuto, <?php echo htmlspecialchars($_SESSION['username']); ?></span></li>
+             <li><a href="includes/logout.php" class="btn-logout" style="background: transparent; border: 1px solid white;">Logout</a></li>
+        <?php else: ?>
+            <li><a href="#" class="btn-login">Login</a></li>
+        <?php endif; ?>
     </ul>
 </nav>
 
@@ -136,7 +142,7 @@
         debounceTimer = setTimeout(() => {
             // Assume we are in uploads/index.php, so path is ../includes/search_handler.php
             // If this fails, we might need a dynamic path approach.
-            fetch('../includes/search_handler.php?q=' + encodeURIComponent(query))
+            fetch('includes/search_handler.php?q=' + encodeURIComponent(query))
                 .then(response => response.json())
                 .then(data => {
                     searchSuggestions.innerHTML = '';

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <?php
 require_once "db_connect.php"; 
 
@@ -37,19 +38,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register_user'])) {
 } 
 ?>
 
+=======
+>>>>>>> Stashed changes
 <!-- Register Modal -->
-<div id="registerModal" class="modal <?php echo !empty($register_error) ? 'active' : ''; ?>">
+<div id="registerModal" class="modal <?php echo (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'register') ? 'active' : ''; ?>">
     <div class="modal-overlay"></div>
     <div class="modal-content">
         <span class="close-btn" data-target="registerModal">&times;</span>
         <h2>Sign up</h2>
         
-        <?php if (!empty($register_error)): ?>
-            <p class="error-msg"><?php echo $register_error; ?></p>
+        <?php if (isset($_SESSION['register_error'])): ?>
+            <p class="error-msg"><?php echo $_SESSION['register_error']; ?></p>
+            <?php unset($_SESSION['register_error']); ?>
         <?php endif; ?>
 
-        <form method="post" action=""> 
-            <input type="hidden" name="register_user" value="1">
+        <form method="post" action="includes/process_register.php"> 
             
             <div class="form-group">
                 <label for="reg_username">Username</label>
@@ -80,3 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register_user'])) {
         </p>
     </div>
 </div>
+<?php 
+// Clean up
+if (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'register') {
+    unset($_SESSION['open_modal']);
+}
+?>

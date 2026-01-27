@@ -83,6 +83,19 @@ h1, h2, h3, h4, h5, h6, .logo {
     color: #50616d !important; 
 }
 
+.btn-logout {
+    border: 2px solid white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 /* Hamburger Menu */
 .hamburger {
     display: none;

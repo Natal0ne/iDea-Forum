@@ -1,52 +1,24 @@
-<?php
-session_start();
-require_once "db_connect.php"; 
-
-$login_error = "";
-
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login_user'])) {
-    $username = trim($_POST["username"]);
-    $password = $_POST["password"];
-
-    if (empty($username) || empty($password)) {
-        $login_error = "Inserisci username e password";
-    } else {
-        $sql = "SELECT * FROM users WHERE username = :username";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([":username" => $username]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user && password_verify($password, $user['password_hash'])) {
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["username"] = $user["username"];
-            
-            header("Location: index.php");
-            exit;
-        } else {
-            $login_error = "Username o password errati";
-        }
-    }
-}
-?>
-
-
 <!-- Login Modal -->
-<div id="loginModal" class="modal <?php echo !empty($login_error) ? 'active' : ''; ?>">
+<div id="loginModal" class="modal <?php echo (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'login') ? 'active' : ''; ?>">
     <div class="modal-overlay"></div>
     <div class="modal-content">
         <span class="close-btn" data-target="loginModal">&times;</span>
         <h2>Sign in</h2>
         
-        <?php if (!empty($login_error)): ?>
-            <p class="error-msg"><?php echo $login_error; ?></p>
+        <?php if (isset($_SESSION['login_error'])): ?>
+            <p class="error-msg"><?php echo $_SESSION['login_error']; ?></p>
+            <?php unset($_SESSION['login_error']); ?>
         <?php endif; ?>
 
-        <form action="" method="post">
-            <input type="hidden" name="login_user" value="1">
+        <form action="includes/process_login.php" method="post">
             <div class="form-group">
                 <label for="login_username">Username</label>
+<<<<<<< Updated upstream
                 <!-- Changed ID to avoid conflict with register -->
                 <input type="text" id="login_username" name="username" required placeholder="Insert username">
+=======
+                <input type="text" id="login_username" name="username" required placeholder="Inserisci il tuo username">
+>>>>>>> Stashed changes
             </div>
 
             <div class="form-group">
@@ -63,3 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login_user'])) {
         </p>
     </div>
 </div>
+<?php 
+// Clean up open_modal if it was login
+if (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'login') {
+    unset($_SESSION['open_modal']);
+}
+?>

@@ -18,10 +18,12 @@ function closeModal(modal) {
 
 // 1. Apri Login cliccando il bottone della navbar
 // IMPORTANTE: Assicurati che il tuo link HTML sia <a href="#" ...> e non vada a un'altra pagina
-loginBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Evita che il link ricarichi la pagina
-    openModal(loginModal);
-});
+if (loginBtn) {
+    loginBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Evita che il link ricarichi la pagina
+        openModal(loginModal);
+    });
+}
 
 // 2. Chiudi cliccando sulla X
 closeButtons.forEach(btn => {
