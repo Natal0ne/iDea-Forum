@@ -1,9 +1,14 @@
 <!-- Inizio Navbar Component -->
-
-
-
 <nav class="navbar" id="mainNavbar">
     <a href="index.php" class="logo">iDea</a>
+
+    <!-- Desktop Search (Centered) -->
+    <div class="search-desktop desktop-only">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search discussions..." autocomplete="off">
+            <div class="suggestions-dropdown search-suggestions"></div>
+        </div>
+    </div>
 
     <div class="hamburger" id="hamburgerBtn">
         <span></span>
@@ -12,10 +17,11 @@
     </div>
 
     <ul class="nav-links" id="navLinks">
-        <li class="search-li">
+        <!-- Mobile Search (Inside Menu) -->
+        <li class="search-li mobile-only">
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search discussions..." autocomplete="off">
-                <div id="searchSuggestions" class="suggestions-dropdown"></div>
+                <input type="text" class="search-input" placeholder="Search discussions..." autocomplete="off">
+                <div class="suggestions-dropdown search-suggestions"></div>
             </div>
         </li>
         <li><a href="index.php">Home</a></li>
@@ -59,59 +65,60 @@
         }
     });
 
-    // 3. Search Suggestions Logic
-    const searchInput = document.getElementById('searchInput');
-    const searchSuggestions = document.getElementById('searchSuggestions');
-    let debounceTimer;
+    // 3. Search Suggestions Logic (Updated for Multiple Inputs)
+    const searchInputs = document.querySelectorAll('.search-input');
 
-    searchInput.addEventListener('input', function() {
-        const query = this.value.trim();
-        
-        clearTimeout(debounceTimer); // Clear previous timer
-        
-        if (query.length < 2) {
-            searchSuggestions.style.display = 'none';
-            searchSuggestions.innerHTML = '';
-            return;
-        }
+    searchInputs.forEach(searchInput => {
+        // Find the suggestions dropdown RELATIVE to the input
+        const searchContainer = searchInput.closest('.search-container');
+        const searchSuggestions = searchContainer.querySelector('.suggestions-dropdown');
+        let debounceTimer;
 
-        debounceTimer = setTimeout(() => {
-            // Assume we are in uploads/index.php, so path is ../includes/search_handler.php
-            // If this fails, we might need a dynamic path approach.
-            fetch('includes/search_handler.php?q=' + encodeURIComponent(query))
-                .then(response => response.json())
-                .then(data => {
-                    searchSuggestions.innerHTML = '';
-                    if (data.length > 0) {
-                        data.forEach(thread => {
-                            const link = document.createElement('a');
-                            // We assume a view_thread.php or thread.php exists. 
-                            // Since we didn't find one, we'll link to # for now but allow ID in URL.
-                            // If user creates thread.php?id=X later, this will work.
-                            // However, we should probably check if uploads/thread.php exists? No.
-                            link.href = 'thread.php?id=' + thread.id; 
-                            link.textContent = thread.title;
-                            searchSuggestions.appendChild(link);
-                        });
-                        searchSuggestions.style.display = 'block';
-                    } else {
-                        const noRes = document.createElement('div');
-                        noRes.className = 'no-results';
-                        noRes.textContent = 'No discussion found';
-                        searchSuggestions.appendChild(noRes);
-                        searchSuggestions.style.display = 'block';
-                    }
-                })
-                .catch(err => {
-                    console.error('Search error:', err);
-                });
-        }, 300); // 300ms debounce
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim();
+            
+            clearTimeout(debounceTimer); // Clear previous timer
+            
+            if (query.length < 2) {
+                searchSuggestions.style.display = 'none';
+                searchSuggestions.innerHTML = '';
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                fetch('includes/search_handler.php?q=' + encodeURIComponent(query))
+                    .then(response => response.json())
+                    .then(data => {
+                        searchSuggestions.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(thread => {
+                                const link = document.createElement('a');
+                                link.href = 'thread.php?id=' + thread.id; 
+                                link.textContent = thread.title;
+                                searchSuggestions.appendChild(link);
+                            });
+                            searchSuggestions.style.display = 'block';
+                        } else {
+                            const noRes = document.createElement('div');
+                            noRes.className = 'no-results';
+                            noRes.textContent = 'No discussion found';
+                            searchSuggestions.appendChild(noRes);
+                            searchSuggestions.style.display = 'block';
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Search error:', err);
+                    });
+            }, 300); // 300ms debounce
+        });
     });
 
     // Close suggestions when clicking outside
     document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
-            searchSuggestions.style.display = 'none';
+        if (!e.target.closest('.search-container')) {
+             document.querySelectorAll('.suggestions-dropdown').forEach(el => {
+                 el.style.display = 'none';
+             });
         }
     });
 </script>
