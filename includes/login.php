@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login_user'])) {
     <div class="modal-overlay"></div>
     <div class="modal-content">
         <span class="close-btn" data-target="loginModal">&times;</span>
-        <h2>Accedi</h2>
+        <h2>Sign in</h2>
         
         <?php if (!empty($login_error)): ?>
             <p class="error-msg"><?php echo $login_error; ?></p>
@@ -46,20 +46,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login_user'])) {
             <div class="form-group">
                 <label for="login_username">Username</label>
                 <!-- Changed ID to avoid conflict with register -->
-                <input type="text" id="login_username" name="username" required placeholder="Inserisci il tuo username">
+                <input type="text" id="login_username" name="username" required placeholder="Insert username">
             </div>
 
             <div class="form-group">
                 <label for="login_password">Password</label>
-                <input type="password" id="login_password" name="password" required placeholder="Inserisci la password">
+                <input type="password" id="login_password" name="password" required placeholder="Insert password">
             </div>
 
             <button type="submit" class="btn-submit">Login</button>
         </form>
 
         <p class="switch-text">
-            Non hai un account? 
-            <a href="#" id="switchToRegister">Registrati</a>
+            First time on iDea? 
+            <a href="#" id="switchToRegister">Sign up</a>
         </p>
     </div>
 </div>
