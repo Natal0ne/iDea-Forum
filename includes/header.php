@@ -12,7 +12,14 @@
 
     <ul class="nav-links" id="navLinks">
         <?php if (isset($_SESSION['user_id'])): ?>
-            <li><a href="create_thread.php" class="btn-create-thread">Create Thread</a></li>
+            <li>
+                <a href="create_thread.php" class="btn-create-thread">
+                    <svg width="18" height="18" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                        <path d="M19 9.375h-8.375V1h-1.25v8.375H1v1.25h8.375V19h1.25v-8.375H19v-1.25Z"></path>
+                    </svg>
+                    <span class="btn-text">Create</span>
+                </a>
+            </li>
             <li class="user-profile">
                 <div class="avatar" id="avatarBtn">
                     <?php echo strtoupper(substr($_SESSION['username'], 0, 1)); ?>
@@ -103,5 +110,4 @@
         }
     });
 </script>
-<!-- Fine Navbar Component -->
 <!-- Fine Navbar Component -->
