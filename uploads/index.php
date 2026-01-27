@@ -17,6 +17,8 @@
         <h2>Contenuto della pagina...</h2>
         <p>Scorri in basso per vedere la navbar diventare solida.</p>
     </div>
+
+    <?php include "../includes/footer.php"; ?>
     
 </body>
 </html>
