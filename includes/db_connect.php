@@ -16,7 +16,7 @@ $db = pg_connect($connection_string);
 if (!$db) {
     // In fase di sviluppo stampiamo l'errore per capire cosa non va
     die("Errore di connessione al Database: " . pg_last_error());
-} else {
+} /*else {
     echo "Connessione riuscita con utente www!";
-}
+}*/
 ?>
