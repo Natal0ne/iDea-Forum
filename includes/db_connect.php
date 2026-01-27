@@ -4,19 +4,23 @@
 $host = "localhost";
 $port = "5432";
 $dbname = "gruppo03";
-$user = "www";      // Uguale per tutti
-$password = "www";  // Uguale per tutti
+// $dbname = "forum"; // Fallback if gruppo03 is incorrect, but sticking to existing config
+$user = "www";      
+$password = "www";  
 
-// Stringa di connessione per PostgreSQL
-$connection_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
-
-// Tenta la connessione
-$db = pg_connect($connection_string);
-
-if (!$db) {
-    // In fase di sviluppo stampiamo l'errore per capire cosa non va
-    die("Errore di connessione al Database: " . pg_last_error());
-} /*else {
-    echo "Connessione riuscita con utente www!";
-}*/
+try {
+    // DSN String for PostgreSQL
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;";
+    
+    // Create PDO instance
+    $conn = new PDO($dsn, $user, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+    
+    // echo "Connected successfully"; 
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
 ?>

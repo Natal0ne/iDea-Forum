@@ -15,7 +15,7 @@ body {
 
 /* Titles & Logo specific font */
 h1, h2, h3, h4, h5, h6, .logo {
-    font-family: 'Bitcount Single', sans-serif;
+    font-family: 'Bitcount Single', sans-serif; 
 }
 
 /* =========================================
@@ -97,6 +97,148 @@ h1, h2, h3, h4, h5, h6, .logo {
     height: 3px;
     background-color: white;
     transition: 0.3s;
+}
+
+/* =========================================
+   Modal Styles (Login & Register)
+   ========================================= */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none; /* Hidden by default */
+    z-index: 2000; /* Above navbar */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex; /* Show when active */
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(44, 53, 58, 0.85); /* Tertiary color with opacity */
+    cursor: pointer;
+}
+
+.modal-content {
+    position: relative;
+    background: #ffffff;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 2001;
+    animation: slideDown 0.3s ease-out;
+    text-align: center;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaaaaa;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #50616d; /* Primary Color */
+}
+
+.modal-content h2 {
+    color: #50616d; /* Primary Color */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3b4b52; /* Secondary Color */
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    font-family: inherit;
+}
+
+.form-group input:focus {
+    border-color: #50616d; /* Primary Color */
+    outline: none;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #50616d; /* Primary Color */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #3b4b52; /* Secondary Color */
+    transform: translateY(-2px);
+}
+
+.switch-text {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.switch-text a {
+    color: #50616d;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.switch-text a:hover {
+    border-bottom-color: #50616d;
+}
+
+.error-msg {
+    color: #e74c3c;
+    background-color: #fadbd8;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
 }
 
 /* =========================================
