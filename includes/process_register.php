@@ -6,9 +6,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST["username"]);
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
 
-    if (empty($username) || empty($email) || empty($password)) {
-        $_SESSION['register_error'] = "Tutti i campi sono obbligatori";
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        $_SESSION['register_error'] = "All fields are required";
+        $_SESSION['open_modal'] = 'register';
+        header("Location: ../index.php");
+        exit;
+    } elseif ($password !== $confirm_password) {
+        $_SESSION['register_error'] = "Passwords do not match";
         $_SESSION['open_modal'] = 'register';
         header("Location: ../index.php");
         exit;
@@ -36,13 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../index.php");
         exit;
     } catch (PDOException $e) {
-        $_SESSION['register_error'] = "Username o email già esistenti";
+        $_SESSION['register_error'] = "Username or email already exists";
         $_SESSION['open_modal'] = 'register';
         header("Location: ../index.php");
         exit;
     }
 } else {
-    header("Location: ../uploads/index.php");
+    header("Location: ../index.php");
     exit;
 }
 ?>
