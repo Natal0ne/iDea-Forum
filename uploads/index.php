@@ -13,12 +13,12 @@
     <?php include "../includes/register.php"; ?>
 
     <div class="hero-header">
-        <h1>Benvenuto su iDea</h1>
+        <h1>Welcome on iDea</h1>
     </div>
 
     <div class="page-content">
-        <h2>Contenuto della pagina...</h2>
-        <p>Scorri in basso per vedere la navbar diventare solida.</p>
+        <h2>Page content ...</h2>
+        <p>Scroll down to see navbar become solid.</p>
     </div>
 
     <?php include "../includes/footer.php"; ?>
