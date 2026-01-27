@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = $_POST["password"];
 
     if (empty($username) || empty($password)) {
-        $_SESSION['login_error'] = "Inserisci username e password";
+        $_SESSION['login_error'] = "Enter username and password";
         $_SESSION['open_modal'] = 'login';
         header("Location: ../index.php");
         exit;
@@ -29,14 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../index.php");
         exit;
     } else {
-        $_SESSION['login_error'] = "Username o password errati";
+        $_SESSION['login_error'] = "Wrong username or password";
         $_SESSION['open_modal'] = 'login';
         header("Location: ../index.php");
         exit;
     }
 } else {
     // If accessed directly without POST, go home
-    header("Location: ../uploads/index.php");
+    header("Location: ../index.php");
     exit;
 }
 ?>
