@@ -11,7 +11,8 @@
     </div>
 
     <ul class="nav-links" id="navLinks">
-        <?php if (isset($_SESSION['user_id'])): ?>
+        <?php if ($is_logged_in): ?>
+            <!-- Utente Loggato -->
             <li>
                 <a href="includes/create_thread.php" id="createThreadBtn" class="btn-create-thread">
                     <svg width="18" height="18" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
@@ -22,11 +23,11 @@
             </li>
             <li class="user-profile">
                 <div class="avatar" id="avatarBtn">
-                    <?php echo strtoupper(substr($_SESSION['username'], 0, 1)); ?>
+                    <?php echo $user_initial; ?>
                 </div>
                 <div class="user-dropdown" id="userDropdown">
                     <div class="dropdown-header">
-                        <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
+                        <strong><?php echo $username_display; ?></strong>
                     </div>
                     <hr>
                     <a href="account_settings.php">Account Settings</a>
