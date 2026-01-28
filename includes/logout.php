@@ -1,10 +1,10 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Unset all session variables
-$_SESSION = array();
+session_unset();
 
-// Destroy the session cookie
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -13,10 +13,8 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Destroy the session
 session_destroy();
 
-// Redirect to home
 header("Location: ../index.php");
 exit;
 ?>

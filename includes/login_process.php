@@ -1,6 +1,5 @@
 <?php
-session_start();
-include "db_connect.php";
+require_once 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username_or_email = trim($_POST["username"]);
