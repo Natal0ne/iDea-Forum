@@ -452,6 +452,8 @@ h6,
 
 .search-container {
     position: relative;
+    width: 100%;
+    max-width: 600px;
 }
 
 .search-container input {
@@ -460,7 +462,7 @@ h6,
     border: 1px solid rgba(255, 255, 255, 0.5);
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    width: 300px;
+    width: 100% !important;
     height: 40px;
     transition: all 0.3s ease;
 }
@@ -470,7 +472,6 @@ h6,
     color: #333;
     outline: none;
     border-color: white;
-    width: 240px;
 }
 
 .search-container input::placeholder {
@@ -526,14 +527,7 @@ h6,
     min-width: 0;
 }
 
-.search-container {
-    position: relative;
-}
-
-.search-container input {
-    width: 100% !important;
-    /* Force width */
-}
+/* Consolidated above */
 
 @media (max-width: 768px) {
     .navbar {
