@@ -24,6 +24,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <div class="">
         <p>Bella a tutti ragazzi </p>
+        <p>Bella a tutti ragazzi </p>
+        <p>Bella a tutti ragazzi </p>
+        <p>Bella a tutti ragazzi </p>
+        <p>Bella a tutti ragazzi </p>
+        <p>Bella a tutti ragazzi </p>
     </div>
 
     <?php include "includes/footer.php"; ?>
