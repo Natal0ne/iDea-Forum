@@ -16,10 +16,9 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
     <?php include "includes/navbar.php"; ?>
     <?php include "includes/login.php"; ?>
-    <?php include "includes/register.php"; ?>
+    <!-- <?php include "includes/register.php"; ?> -->
 
     <div class="header">
-
         <h1 class="bitcount-single">Welcome to iDea</h1>
     </div>
 
