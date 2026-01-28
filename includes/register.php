@@ -1,16 +1,17 @@
 <!-- Register Modal -->
-<div id="registerModal" class="modal <?php echo (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'register') ? 'active' : ''; ?>">
+<div id="registerModal" class="modal <?php echo $register_modal_class; ?>">
     <div class="modal-overlay"></div>
     <div class="modal-content">
-        <span class="close-btn" data-target="registerModal">&times;</span>
+        <span class="close-btn" data-target="registerModal" onclick="this.closest('.modal').classList.remove('active')">&times;</span>
         <h2>Sign up</h2>
         
-        <?php if (isset($_SESSION['register_error'])): ?>
-            <p class="error-msg"><?php echo $_SESSION['register_error']; ?></p>
-            <?php unset($_SESSION['register_error']); ?>
+        <?php if (!empty($register_error_message)): ?>
+            <div class="alert-box error">
+                <p class="error-msg"><?php echo htmlspecialchars($register_error_message); ?></p>
+            </div>
         <?php endif; ?>
 
-        <form method="post" action="includes/process_register.php"> 
+        <form method="post" action="includes/register_process.php"> 
             
             <div class="form-group">
                 <label for="reg_username">Username</label>
@@ -43,7 +44,5 @@
 </div>
 <?php 
 // Clean up
-if (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'register') {
-    unset($_SESSION['open_modal']);
-}
+
 ?>

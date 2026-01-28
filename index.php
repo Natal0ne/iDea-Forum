@@ -19,16 +19,26 @@ if (isset($_SESSION['user_id'])) {
 
 // Logica MODAL
 $modal_class = ""; 
+$register_modal_class = "";
 $error_message = "";
+$register_error_message = "";
 
-if (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'login') {
-    $modal_class = "active"; 
-    
-    if (isset($_SESSION['login_error'])) {
-        $error_message = $_SESSION['login_error'];
-        unset($_SESSION['login_error']); 
+if (isset($_SESSION['open_modal'])) {
+    if ($_SESSION['open_modal'] === 'login') {
+        $modal_class = "active"; 
+        
+        if (isset($_SESSION['login_error'])) {
+            $error_message = $_SESSION['login_error'];
+            unset($_SESSION['login_error']); 
+        }
+    } elseif ($_SESSION['open_modal'] === 'register') {
+        $register_modal_class = "active"; // New variable for register modal
+
+        if (isset($_SESSION['register_error'])) {
+            $register_error_message = $_SESSION['register_error'];
+            unset($_SESSION['register_error']);
+        }
     }
-    
     unset($_SESSION['open_modal']);
 }
 ?>
@@ -44,6 +54,7 @@ if (isset($_SESSION['open_modal']) && $_SESSION['open_modal'] === 'login') {
 <body>
     <?php include "includes/header.php"; ?>
     <?php include "includes/login.php"; ?>
+    <?php include "includes/register.php"; ?>
 
     <div class="hero-header">
         <h1>Welcome to iDea</h1>
