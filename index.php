@@ -20,8 +20,6 @@
     <div class="page-content">
         <p>Bella a tutti ragazzi </p>
     </div>
-    
-    <?php include "includes/create_thread.php"; ?>
 
     <?php include "includes/footer.php"; ?>
 
