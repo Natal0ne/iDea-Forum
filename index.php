@@ -18,8 +18,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <?php include "includes/login.php"; ?>
     <?php include "includes/register.php"; ?>
 
-    <div class="">
-        <h1>Welcome to iDea</h1>
+    <div class="header">
+
+        <h1 class="bitcount-single">Welcome to iDea</h1>
     </div>
 
     <div class="">
