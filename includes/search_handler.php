@@ -1,5 +1,6 @@
 <?php
-include 'db_connect.php';
+require_once 'db_connect.php';
+$conn = connect_db();
 
 header('Content-Type: application/json');
 
@@ -15,6 +16,11 @@ if (isset($_GET['q'])) {
     $sql = "SELECT id, title, slug FROM threads WHERE title ILIKE '%$safe_search%' LIMIT 5";
     $result = pg_query($conn, $sql);
     
+    // Debug: log query errors to server log if query fails
+    if (!$result) {
+        error_log("Search query failed: " . pg_last_error($conn));
+    }
+
     // Se la query ha successo
     if($result) {
         // Ciclo per ogni riga della query

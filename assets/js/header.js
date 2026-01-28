@@ -41,7 +41,7 @@ if (searchInput && searchSuggestions) {
                             const link = document.createElement('a');
                             link.href = 'thread.php?id=' + thread.id;
                             link.textContent = thread.title;
-                            link.className = 'suggestion-item';
+                            link.className = 'suggestions-item';
                             searchSuggestions.appendChild(link);
                         });
                         searchSuggestions.style.display = 'block';
