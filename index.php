@@ -14,6 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <script src="assets/js/script.js"></script>
 </head>
 <body>
+    <?php include "includes/navbar.php"; ?>
     <?php include "includes/login.php"; ?>
     <?php include "includes/register.php"; ?>
 
