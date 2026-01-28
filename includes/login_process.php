@@ -1,7 +1,11 @@
 <?php
-require_once 'config.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+require_once "db_connect.php";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username_or_email = trim($_POST["username"]);
     $password = $_POST["password"];
 
