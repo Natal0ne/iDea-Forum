@@ -1,21 +1,34 @@
 <?php
-// includes/search_handler.php
-require_once 'db_connect.php';
+include 'db_connect.php';
 
 header('Content-Type: application/json');
 
+$response = [];
+
 if (isset($_GET['q'])) {
-    $query = $_GET['q'];
-    try {
-        // Search for threads with titles matching the query (case-insensitive)
-        $stmt = $conn->prepare("SELECT id, title, slug FROM threads WHERE title ILIKE :query LIMIT 5");
-        $stmt->execute(['query' => '%' . $query . '%']);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($results);
-    } catch (PDOException $e) {
-        echo json_encode(['error' => $e->getMessage()]);
+    $search = $_GET['q'];
+
+    // Per sicurezza
+    $safe_search = pg_escape_string($conn, $search);
+
+    // Query per cercare i thread (limitata a 5 risultati)
+    $sql = "SELECT id, title, slug FROM threads WHERE title ILIKE '%$safe_search%' LIMIT 5";
+    $result = pg_query($conn, $sql);
+    
+    // Se la query ha successo
+    if($result) {
+        // Ciclo per ogni riga della query
+        while($row = pg_fetch_assoc($result)) {
+            // Aggiungo il thread alla risposta
+            $response[] = [
+                'id' => $row['id'],
+                'title' => $row['title'],
+            ];
+        }
     }
-} else {
-    echo json_encode([]);
+    
+    // Invio la risposta codificata in JSON
+    echo json_encode($response);
 }
+    
 ?>

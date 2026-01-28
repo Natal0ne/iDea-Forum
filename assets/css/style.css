@@ -478,20 +478,21 @@ h6,
 }
 
 .suggestions-dropdown {
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
     background: white;
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px;
     margin-top: 5px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    display: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    overflow: hidden;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
-.suggestions-dropdown a {
+.suggestions-dropdown a.suggestions-item {
     display: block;
     padding: 10px 15px;
     color: #333 !important;
@@ -505,11 +506,8 @@ h6,
     border-bottom: none;
 }
 
-.suggestions-dropdown a:hover {
+.suggestions-dropdown a.suggestions-item:hover {
     background-color: #f5f7fa;
-    color: #50616d !important;
-    padding-left: 15px;
-    /* Override footer hover effect if leaked, but explicit here */
 }
 
 .no-results {
@@ -529,8 +527,7 @@ h6,
 }
 
 .search-container {
-    width: 100%;
-    max-width: 600px;
+    position: relative;
 }
 
 .search-container input {
