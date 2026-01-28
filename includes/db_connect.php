@@ -1,26 +1,16 @@
 <?php
-// includes/db_connect.php
+function connect_db() {
+    $host = "localhost";
+    $port = "5432";
+    $dbname = "gruppo03";
+    $user = "www";
+    $password = "www";
 
-$host = "localhost";
-$port = "5432";
-$dbname = "gruppo03";
-// $dbname = "forum"; // Fallback if gruppo03 is incorrect, but sticking to existing config
-$user = "www";      
-$password = "www";  
+    $conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
 
-try {
-    // DSN String for PostgreSQL
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;";
-    
-    // Create PDO instance
-    $conn = new PDO($dsn, $user, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
-    ]);
-    
-    // echo "Connected successfully"; 
-} catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    $conn = pg_connect($conn_string)
+        or die('connection failed: ' . pg_last_error()); // commentare pg_last_error() per il deploy
+
+    return $conn;
 }
 ?>
