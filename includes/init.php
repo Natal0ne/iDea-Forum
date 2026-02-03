@@ -39,4 +39,6 @@ if (isset($_SESSION['open_modal'])) {
     }
     unset($_SESSION['open_modal']);
 }
+
+$modal_class = 'hidden';
 ?>
