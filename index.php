@@ -17,13 +17,13 @@
     <div class="gradient-box">
         <h1>Welcome to iDea</h1>
     </div>
-    <p>Ciao</p>
-    <p>Ciao</p>
-    <p>Ciao</p>
-    <p>Ciao</p>
-    <p>Ciao</p>
-    <p>Ciao</p>
-    <p>Ciao</p>
+    <div>
+        <p>Ciao</p>
+        <p>Ciao</p>
+        <p>Ciao</p>
+        <p>Ciao</p>
+        <p>Ciao</p>
+    </div>
 
     <script src="assets/js/script.js"></script>
     <script src="assets/js/navbar.js"></script>
