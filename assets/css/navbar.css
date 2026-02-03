@@ -16,7 +16,7 @@
 navbar {
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   width: 100%;
 }
 
@@ -38,9 +38,10 @@ navbar li {
   font-size: 2rem;
   font-weight: bold;
   font-family: "Bitcount Single";
+  padding-top: 3px !important;
 }
 
-navbar a{
+navbar a {
   text-decoration: none;
   color: inherit;
 }
