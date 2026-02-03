@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const signUpBtn = document.getElementById('signUpBtn');
     const signUpCloseBtn = document.getElementById('signUpCloseBtn');
     const signUpOverlay = document.getElementById('signUpModal');
-    
+
     // Apre il modale SIGN IN da navbar
     navSignInBtn.addEventListener('click', (e) => {
         e.preventDefault();

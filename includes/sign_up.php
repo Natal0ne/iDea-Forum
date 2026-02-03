@@ -3,12 +3,13 @@
     <div class="modal-overlay"></div>
 
     <div class="modal-content">
+        
         <div class="close-btn-div">
-            <span id='signUpCloseBtn' class="close-btn" data-target="signUpModal"
-                onclick="this.closest('.modal').classList.add('hidden')">&times;</span>
+            <span id='signUpCloseBtn' class="close-btn">&times;</span>
         </div>
 
         <h2>Sign up</h2>
+
         <form action="/includes/sign_up_process.php" method="POST">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required placeholder="Username" />
@@ -18,8 +19,9 @@
             <input type="password" id="password" name="password" required placeholder="Password" />
             <button type="submit" class="btn-submit">Sign up</button>
         </form>
-        <p>
-            Already on iDea? <a href="#" id="signInBtn">Sign in</a>
+        <p class="switch-text">
+            Already on iDea? 
+            <a href="#" id="signInBtn">Sign in</a>
         </p>
     </div>
 </div>

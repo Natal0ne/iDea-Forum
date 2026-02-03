@@ -5,7 +5,7 @@
     <div class="modal-content">
         
         <div class="close-btn-div">
-            <span id='signInCloseBtn' class="close-btn" data-target="signInModal" onclick="this.closest('.modal').classList.add('hidden')">&times;</span>
+            <span id='signInCloseBtn' class="close-btn">&times;</span>
         </div>
         
         <h2>Sign in</h2>

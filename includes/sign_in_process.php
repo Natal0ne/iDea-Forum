@@ -1,7 +1,8 @@
 <?php
 require_once 'config.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     $username_or_email = trim($_POST["username"]);
     $password = $_POST["password"];
 
@@ -28,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     $_SESSION['login_error'] = "Invalid username or password.";
-    $_SESSION['open_modal'] = 'login';
     header("Location: ../index.php");
     exit;
 }
