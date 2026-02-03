@@ -1,4 +1,4 @@
-<div id="signInModal" class="modal hidden">
+<div id="signInModal" class="modal <?php echo $modal_class?>">
     
     <div class="modal-overlay"></div>
     
@@ -16,11 +16,11 @@
             </div>
         <?php endif; ?>
 
-        <form action="includes/signIn_process.php" method="post">
-            <label for="signIn_username">Username/Email</label>
-            <input type="text" id="signIn_username" name="username" required placeholder="Username or Email">
-            <label for="signIn_password">Password</label>
-            <input type="password" id="signIn_password" name="password" required placeholder="Password">
+        <form action="includes/sign_in_process.php" method="post">
+            <label for="username">Username/Email</label>
+            <input type="text" id="username" name="username" required placeholder="Username or Email">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="Password">
             <button type="submit" class="btn-submit">Sign in</button>
         </form>
 

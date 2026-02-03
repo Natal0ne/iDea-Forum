@@ -57,8 +57,9 @@ form {
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin: 10px 0;
     font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 input {
