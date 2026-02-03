@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="assets/css/navbar.css">
 </head>
 <body>
-    <?php require_once 'includes/login.php' ?>
+    <?php require_once 'includes/sign_up.php' ?>
+    <?php require_once 'includes/sign_in.php' ?>
     <?php require_once 'includes/navbar.php' ?>
     <div class="gradient-box">
         <h1>Welcome to iDea</h1>

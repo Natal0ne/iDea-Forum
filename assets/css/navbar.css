@@ -49,7 +49,6 @@ navbar a {
 
 .login-btn {
   height: inherit;
-  aspect-ratio: 1.3;
   border: 2px solid white;
   border-radius: 20px;
   padding: 0 10px;

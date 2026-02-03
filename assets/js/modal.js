@@ -1,16 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginBtn = document.getElementById('loginBtn');
-    const closeBtn = document.getElementById('closeBtn');
-    const loginOverlay = document.getElementById('loginModal');
 
-    // Apre il div
-    loginBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Impedisce al link di navigare
-        loginOverlay.classList.remove('hidden');
+    const navSignInBtn = document.getElementById('navSignInBtn');
+
+    const signInBtn = document.getElementById('signInBtn');
+    const signInCloseBtn = document.getElementById('signInCloseBtn');
+    const signInOverlay = document.getElementById('signInModal');
+
+    const signUpBtn = document.getElementById('signUpBtn');
+    const signUpCloseBtn = document.getElementById('signUpCloseBtn');
+    const signUpOverlay = document.getElementById('signUpModal');
+    
+    // Apre il modale SIGN IN da navbar
+    navSignInBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        signInOverlay.classList.remove('hidden');
     });
 
-    // Chiude il div
-    closeBtn.addEventListener('click', () => {
-        loginOverlay.classList.add('hidden');
+    // Apre il modale SIGN IN
+    signInBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Impedisce al link di navigare
+        signInOverlay.classList.remove('hidden');
+        signUpOverlay.classList.add('hidden');
+    });
+
+    // Chiude il modale SIGN IN
+    signInCloseBtn.addEventListener('click', () => {
+        signInOverlay.classList.add('hidden');
+    });
+
+
+    // Apre il modale SIGN UP
+    signUpBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        signInOverlay.classList.add('hidden');
+        signUpOverlay.classList.remove('hidden');
+    });
+
+    // Chiude il modale SIGN UP
+    signUpCloseBtn.addEventListener('click', () => {
+        signUpOverlay.classList.add('hidden');
     });
 });
