@@ -3,7 +3,7 @@
     <div class="modal-overlay"></div>
     
     <div class="modal-content">
-        <span class="close-btn" data-target="loginModal" onclick="this.closest('.modal').classList.remove('active')">&times;</span>
+        <span id='closeBtn' class="close-btn" data-target="loginModal" onclick="this.closest('.modal').classList.remove('active')">&times;</span>
         
         <h2>Sign in</h2>
         
