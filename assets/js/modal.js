@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
     });
 
-
     // Apre il modale SIGN UP
     signUpBtn.addEventListener('click', (e) => {
         e.preventDefault();

@@ -10,9 +10,7 @@
         
         <h2>Sign in</h2>
         
-        <?php if (!empty($sign_in_error_message)): ?>
-            <p id='signInErrorMsg' class="error"><?php echo htmlspecialchars($error_message); ?></p>
-        <?php endif; ?>
+        <p id='signInErrorMsg' class="error"><?php echo htmlspecialchars($sign_in_error_message); ?></p>
 
         <form action="includes/sign_in_process.php" method="post">
             <label for="username">Username/Email</label>
