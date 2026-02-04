@@ -61,7 +61,7 @@ nav a {
   user-select: none;
 }
 
-.login-btn:hover {
+.login-btn:hover, .thread-btn:hover {
   background-color: var(--light-bg-color);
   color: var(--primary-color);
   cursor: pointer;
@@ -76,13 +76,7 @@ nav a {
   border-radius: 50%;
 }
 
-nav .avatar:hover {
+.avatar:hover {
   cursor: pointer;
   box-shadow: var(--light-bg-color) 0 0 5px;
-}
-
-.thread-btn:hover {
-  background-color: var(--light-bg-color);
-  color: var(--primary-color);
-  cursor: pointer;
 }
