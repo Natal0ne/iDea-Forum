@@ -60,11 +60,6 @@ body {
     box-shadow: var(--light-bg-color) 0 0 5px;
 }
 
-
-p {
-    margin-top: 0;
-}
-
 .hidden {
     display: none !important;
 }
