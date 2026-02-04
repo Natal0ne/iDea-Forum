@@ -55,9 +55,14 @@ body {
     font-family: 'Bitcount Single';
     font-weight: normal;
     color: var(--light-title-color);
-    font-size: 3rem;
+    font-size: 3vw;
+    user-select: none;
 }
-
+@media (max-width:600px) {
+    #animatedWelcome {
+        font-size: 10vw;
+    }
+}
 
 .welcome {
     display: flex;
