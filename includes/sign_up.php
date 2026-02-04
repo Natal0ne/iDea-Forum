@@ -1,4 +1,4 @@
-<div id="signUpModal" class="modal hidden">
+<div id="signUpModal" class="modal <?php echo $sign_up_modal_class?>">
 
     <div class="modal-overlay"></div>
 
@@ -9,6 +9,10 @@
         </div>
 
         <h2>Sign up</h2>
+
+        <?php if (!empty($sign_up_error_message)): ?>
+            <p id='signUpErrorMsg' class="error"><?php echo htmlspecialchars($error_message); ?></p>
+        <?php endif; ?>
 
         <form action="/includes/sign_up_process.php" method="POST">
             <label for="username">Username</label>

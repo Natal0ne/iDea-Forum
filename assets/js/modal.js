@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navSignInBtn.addEventListener('click', (e) => {
         e.preventDefault();
         signInOverlay.classList.remove('hidden');
-        console.log("Apro modale login da navbar");
     });
 
     // Apre il modale SIGN IN
@@ -28,8 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Chiude il modale SIGN IN
     signInCloseBtn.addEventListener('click', () => {
         signInOverlay.classList.add('hidden');
-        signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale 
-        console.log("chiudo modale login da x");
+        signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
     });
 
 
@@ -37,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     signUpBtn.addEventListener('click', (e) => {
         e.preventDefault();
         signInOverlay.classList.add('hidden');
-        signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale 
+        signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
         signUpOverlay.classList.remove('hidden');
     });
 

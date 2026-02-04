@@ -1,4 +1,4 @@
-<div id="signInModal" class="modal <?php echo $modal_class?>">
+<div id="signInModal" class="modal <?php echo $sign_in_modal_class?>">
     
     <div class="modal-overlay"></div>
     
@@ -10,7 +10,7 @@
         
         <h2>Sign in</h2>
         
-        <?php if (!empty($error_message)): ?>
+        <?php if (!empty($sign_in_error_message)): ?>
             <p id='signInErrorMsg' class="error"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
 

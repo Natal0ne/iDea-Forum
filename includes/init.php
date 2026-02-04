@@ -1,15 +1,24 @@
 <?php
 require_once 'config.php';
 
-// Logica login modal in caso di errore
-$modal_class = "hidden"; 
-$error_message = "";
+// Logica sign_in e sign_up modal in caso di errore
+$sign_in_modal_class = "hidden"; 
+$sign_in_error_message = "";
 
-if (isset($_SESSION['login_error'])) {
+$sign_up_modal_class = "hidden"; 
+$sign_up_error_message = "";
 
-    $error_message = $_SESSION['login_error'];
-    $modal_class = ""; 
-    unset($_SESSION['login_error']);
+if (isset($_SESSION['sign_in_error'])) {
 
+    $sign_in_error_message = $_SESSION['sign_in_error'];
+    $sign_in_modal_class = ""; 
+    unset($_SESSION['sign_in_error']);
+
+} elseif (isset($_SESSION['sign_up_error'])) {
+
+    $sign_up_error_message = $_SESSION['sign_up_error'];
+    $sign_up_modal_class = ""; 
+    unset($_SESSION['sign_up_error']);
+    
 }
 ?>
