@@ -1,16 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+:root {
+    --primary-color: #334E68;
+    --secondary-color: #1E293B;
+    --tertiary-color: #0F172A;
+    --accent-color: #3B82F6;
+    --accent-hover-color: #2563EB;
+
+    --light-bg-color: #F8FAFC;
+
+    --light-title-color: #F8FAFC;
+    --light-text-color: #E2E8F0;
+    --light-text-secondary-color: #CBD5E1;
+
+    --dark-title-color: #0F172A;
+    --dark-text-color: #64748B;
+    --dark-text-secondary-color: #94A3B8;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', system-ui;
-    background-color: #f4f4f4;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error {
+    color: #DC2626;
 }
 
 .gradient-box {
     margin: 0;
-    background: linear-gradient(135deg, #50616d 0%, #2c353a 100%);
+    background: linear-gradient(135deg, var(--tertiary-color) 0%, var(--secondary-color) 50%, var(--primary-color) 100%);
     height: 100vh;
     align-content: center;
     text-align: center;
@@ -21,9 +46,5 @@ body {
     font-weight: normal;
     font-size: 5vh;
     margin: 0;
-    color: white;
-}
-
-.error {
-    color: rgb(255 55 55);
+    color: var(--light-title-color);
 }
