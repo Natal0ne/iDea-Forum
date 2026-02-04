@@ -40,6 +40,8 @@ navbar li {
   font-weight: 500;
   font-family: "Bitcount Single";
   padding-top: 4px !important;
+  /* disabilità la possibilità di selezionare testo */
+  user-select: none;
 }
 
 navbar a {
@@ -54,6 +56,8 @@ navbar a {
   padding: 0 10px;
   align-content: center;
   text-align: center;
+  /* disabilità la possibilità di selezionare testo */
+  user-select: none;
 }
 
 .login-btn:hover {

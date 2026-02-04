@@ -11,9 +11,7 @@
         <h2>Sign in</h2>
         
         <?php if (!empty($error_message)): ?>
-            <div class="alert-box error">
-                <p class="error-msg"><?php echo htmlspecialchars($error_message); ?></p>
-            </div>
+            <p id='signInErrorMsg' class="error"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
 
         <form action="includes/sign_in_process.php" method="post">
