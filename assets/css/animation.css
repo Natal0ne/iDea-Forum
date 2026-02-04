@@ -1,0 +1,50 @@
+.welcome-in {
+    animation-name: welcomeIn;
+    animation-duration: 2s;
+}
+
+@keyframes welcomeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.welcome-out {
+    animation-name: welcomeOut;
+    animation-duration: 0.5s;
+}
+
+@keyframes welcomeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.content-in {
+    animation-name: contentIn;
+    animation-timing-function: ease-out;
+    animation-duration: 2s;
+}
+
+
+@keyframes contentIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh);
+    }
+
+    45% {
+        transform: translateY(-40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

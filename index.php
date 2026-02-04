@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/animation.css">
 </head>
 <body>
 
@@ -19,10 +20,34 @@
     <?php require_once 'includes/sign_in.php' ?>
     <?php require_once 'includes/navbar.php' ?>
 
-        <div class="animated-content hidden">
+        <div class="welcome">
             <h1 id="animatedWelcome">Welcome to iDea</h1>
         </div>
-        <div class="content">
+        <div class="content hidden">
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
             <p>Ciao</p>
             <p>Ciao</p>
             <p>Ciao</p>

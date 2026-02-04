@@ -43,7 +43,8 @@ body {
     font-size: 3rem;
 }
 
-.animated-content {
+
+.welcome {
     display: flex;
     height: 100vh;
     align-items: center;
@@ -58,6 +59,7 @@ body {
     border-radius: 12px;
     box-shadow: var(--light-bg-color) 0 0 5px;
 }
+
 
 p {
     margin-top: 0;
