@@ -12,42 +12,29 @@
     <link rel="stylesheet" href="assets/css/navbar.css">
 </head>
 <body>
+
+    <div class="bg-gradient"></div>
+
     <?php require_once 'includes/sign_up.php' ?>
     <?php require_once 'includes/sign_in.php' ?>
     <?php require_once 'includes/navbar.php' ?>
-    <div class="gradient-box">
-        <h1>Welcome to iDea</h1>
-    </div>
-    <div>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-    </div>
+
+        <div class="animated-content hidden">
+            <h1 id="animatedWelcome">Welcome to iDea</h1>
+        </div>
+        <div class="content">
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+            <p>Ciao</p>
+        </div>
+
 
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>
+    <script src="assets/js/animation.js"></script>
 </body>
 
 </html>

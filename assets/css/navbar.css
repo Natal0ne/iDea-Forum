@@ -11,23 +11,24 @@
 .scrolled {
   padding: 0 40px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, var(--tertiary-color) 0%, var(--secondary-color) 50%, var(--primary-color) 100%);
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(20px);
 }
 
-navbar {
+nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
 }
 
-navbar ul {
+nav ul {
   list-style: none;
   display: flex;
   align-items: center;
 }
 
-navbar li {
+nav li {
   margin-left: 20px;
 }
 
@@ -44,7 +45,7 @@ navbar li {
   user-select: none;
 }
 
-navbar a {
+nav a {
   text-decoration: none;
   color: inherit;
 }
@@ -75,7 +76,7 @@ navbar a {
   border-radius: 50%;
 }
 
-navbar .avatar:hover {
+nav .avatar:hover {
   cursor: pointer;
   box-shadow: var(--light-bg-color) 0 0 5px;
 }
