@@ -14,13 +14,14 @@ if (isset($_SESSION['sign_in_error'])) {
     $sign_in_modal_class = ""; 
     unset($_SESSION['sign_in_error']);
 
-} elseif (isset($_SESSION['sign_up_error'])) {
+} elseif (isset($_SESSION['sign_up_errors'])) {
 
-    $sign_up_error_message = $_SESSION['sign_up_error'];
+    $sign_up_error_message = $_SESSION['sign_up_errors'];
     $sign_up_modal_class = ""; 
-    unset($_SESSION['sign_up_error']);
+    unset($_SESSION['sign_up_errors']);
     
 }
+
 //Logica sign_in e sign_up a buon fine 
 $is_logged = isset($_SESSION['user_id']);
 ?>

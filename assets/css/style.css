@@ -1,5 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/* Roboto */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Bitcount Single */
+@font-face {
+    font-family: 'Bitcount Single';
+    src: url('../fonts/BitcountSingle-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
 
 :root {
     --primary-color: #334E68;

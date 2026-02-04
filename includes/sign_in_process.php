@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $conn = connect_db();
 
-    $stmt_name = "login_query";
+    $stmt_name = "sign_in_query";
     $query = "SELECT * FROM users WHERE username = $1 OR email = $1";
 
     if (!pg_prepare($conn, $stmt_name, $query)) {
@@ -25,11 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
             header("Location: ../index.php");
+            pg_close($conn);
             exit;
         }
     }
     $_SESSION['sign_in_error'] = "Invalid username or password.";
     header("Location: ../index.php");
+    pg_close($conn);
     exit;
 }
 ?>

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const signUpBtn = document.getElementById('signUpBtn');
     const signUpCloseBtn = document.getElementById('signUpCloseBtn');
     const signUpOverlay = document.getElementById('signUpModal');
+    const signUpErrorMsg = document.getElementById('signUpErrorMsg');
 
     // Apre il modale SIGN IN da navbar
     navSignInBtn.addEventListener('click', (e) => {
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     signInBtn.addEventListener('click', (e) => {
         e.preventDefault(); // Impedisce al link di navigare
         signInOverlay.classList.remove('hidden');
+        signUpErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
         signUpOverlay.classList.add('hidden');
     });
 
@@ -41,5 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Chiude il modale SIGN UP
     signUpCloseBtn.addEventListener('click', () => {
         signUpOverlay.classList.add('hidden');
+        signUpErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
     });
 });

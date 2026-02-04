@@ -10,9 +10,15 @@
 
         <h2>Sign up</h2>
 
-        <p id='signUpErrorMsg' class="error"><?php echo htmlspecialchars($sign_up_error_message); ?></p>
+        <div id='signUpErrorMsg'>
+            <?php if (!empty($sign_up_error_message)): ?>
+                <div class="error-box">
+                    <p class="error"><?php echo htmlspecialchars($sign_up_error_message); ?></p>
+                </div>
+            <?php endif; ?>
+        </div>
 
-        <form action="/includes/sign_up_process.php" method="POST">
+        <form action="includes/sign_up_process.php" method="POST">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required placeholder="Username" />
             <label for="email">Email</label>

@@ -1,25 +1,35 @@
-window.addEventListener('load', () => {
+window.addEventListener("DOMContentLoaded", () => {
 
     const welcome = document.querySelector('.welcome');
     const content = document.querySelector('.content');
+    const hasSeenIntro = localStorage.getItem('hasSeenIntro');
 
-    welcome.classList.add('welcome-in');
+    if (!hasSeenIntro) {
 
-    // setta il body non scrollabile per non rovinare l'animazione
-    document.body.style.overflow = 'hidden';
+        localStorage.setItem('hasSeenIntro', 'true');
 
-    setTimeout(() => {
-        welcome.classList.replace('welcome-in', 'welcome-out');
-        content.classList.add('content-in');
-    }, 2000);
+        welcome.classList.add('welcome-in');
 
-    setTimeout(() => {
+        // setta il body non scrollabile per non rovinare l'animazione
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            welcome.classList.replace('welcome-in', 'welcome-out');
+            content.classList.add('content-in');
+        }, 2000);
+
+        setTimeout(() => {
+            welcome.classList.add('hidden');
+            content.classList.remove('hidden');
+        }, 2500);
+
+        // alla fine dell'animazione riabilita lo scrolling verticale
+        setTimeout(() => {
+            document.body.style.overflow = "";
+        }, 4500);
+
+    } else {
         welcome.classList.add('hidden');
         content.classList.remove('hidden');
-    }, 2500);
-
-    // alla fine dell'animazione riabilita lo scrolling verticale
-    setTimeout(() => {
-        document.body.style.overflow = "";
-    }, 4500);
+    }
 });

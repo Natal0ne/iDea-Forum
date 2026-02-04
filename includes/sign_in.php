@@ -9,9 +9,13 @@
         </div>
         
         <h2>Sign in</h2>
-        
-        <div class="error-box">
-            <p id='signInErrorMsg' class="error"><?php echo htmlspecialchars($sign_in_error_message); ?></p>
+
+        <div id='signInErrorMsg'>
+            <?php if (!empty($sign_in_error_message)): ?>
+                <div class="error-box">
+                    <p class="error"><?php echo htmlspecialchars($sign_in_error_message); ?></p>
+                </div>
+            <?php endif; ?>
         </div>
 
         <form action="includes/sign_in_process.php" method="post">
