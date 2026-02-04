@@ -21,4 +21,6 @@ if (isset($_SESSION['sign_in_error'])) {
     unset($_SESSION['sign_up_error']);
     
 }
+//Logica sign_in e sign_up a buon fine 
+$is_logged = isset($_SESSION['user_id']);
 ?>
