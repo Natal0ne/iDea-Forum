@@ -50,7 +50,7 @@ nav a {
   color: inherit;
 }
 
-.login-btn {
+.login-btn, .thread-btn {
   height: inherit;
   border: 2px solid var(--light-bg-color);
   border-radius: 20px;
@@ -79,4 +79,10 @@ nav a {
 nav .avatar:hover {
   cursor: pointer;
   box-shadow: var(--light-bg-color) 0 0 5px;
+}
+
+.thread-btn:hover {
+  background-color: var(--light-bg-color);
+  color: var(--primary-color);
+  cursor: pointer;
 }
