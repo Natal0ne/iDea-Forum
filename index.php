@@ -20,7 +20,7 @@
     <?php require_once 'includes/sign_in.php' ?>
     <?php require_once 'includes/navbar.php' ?>
 
-        <div class="welcome">
+        <div class="welcome hidden">
             <h1 id="animatedWelcome">Welcome to iDea</h1>
         </div>
         <div class="content hidden">

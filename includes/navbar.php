@@ -1,7 +1,7 @@
 <nav id="navbar">
   <div class="navbar-wrapper" id="navbarWrapper">
     <a class="logo" href="index.php">iDea</a>
-    <input class="search-bar" type="text" placeholder="Search discussion">
+    <input class="search-bar" type="text" placeholder="Search discussion...">
     <ul class="nav-links">
       <?php if (!$is_logged): ?>
         <li class="login-btn">
@@ -17,7 +17,7 @@
         <li class='avatar'>
         <?php
         if (isset($_SESSION['username'])) {
-          echo ($_SESSION['username'][0]);
+          echo (strtoupper($_SESSION['username'][0]));
         }
         ?>
         </li>

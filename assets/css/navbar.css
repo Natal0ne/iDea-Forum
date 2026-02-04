@@ -5,6 +5,8 @@
   color: var(--light-title-color);
   padding: 10px 20px;
   transition: background-color 0.3s ease, padding 0.3s ease;
+  /* disabilità la possibilità di selezionare testo */
+  user-select: none;
 }
 
 /* Navbar scrolling animation */
@@ -29,7 +31,7 @@ nav ul {
 }
 
 /* aggiungi il margin a sinistra solo dal secondo elemento della lista in poi*/
-li + li {
+li+li {
   margin-left: 10px;
 }
 
@@ -52,7 +54,8 @@ nav a {
   color: inherit;
 }
 
-.login-btn, .thread-btn {
+.login-btn,
+.thread-btn {
   height: inherit;
   border: 2px solid var(--light-bg-color);
   border-radius: 20px;
@@ -62,6 +65,7 @@ nav a {
   /* disabilità la possibilità di selezionare testo */
   user-select: none;
   transition: background-color 0.3s ease, color 0.3s ease;
+
   svg {
     fill: var(--light-bg-color);
     transition: fill 0.3s ease, color 0.3s ease;
@@ -86,16 +90,19 @@ nav a {
     aspect-ratio: 1;
     padding: 0;
   }
+
   input.search-bar {
     font-size: medium !important;
     padding: 8px !important;
   }
 }
 
-.login-btn:hover, .thread-btn:hover {
+.login-btn:hover,
+.thread-btn:hover {
   background-color: var(--light-bg-color);
   color: var(--primary-color);
   cursor: pointer;
+
   svg {
     fill: var(--primary-color);
   }
@@ -109,6 +116,8 @@ nav a {
   align-content: center;
   border-radius: 50%;
   transition: box-shadow 0.2s linear;
+  /* disabilità la possibilità di selezionare testo */
+  user-select: none;
 }
 
 .avatar:hover {
@@ -129,9 +138,9 @@ input.search-bar {
   width: 35%;
   text-indent: 15px;
   outline: none;
-  font-weight: bold;
+  font-weight: normal;
   padding: 7px 0;
-  font-size: large;
+  font-size: 18px;
   transition: box-shadow 0.2s linear;
 }
 

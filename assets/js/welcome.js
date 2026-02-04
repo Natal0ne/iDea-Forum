@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('hasSeenIntro', 'true');
 
         welcome.classList.add('welcome-in');
+        welcome.classList.remove('hidden');
 
         // setta il body non scrollabile per non rovinare l'animazione
         document.body.style.overflow = 'hidden';
@@ -29,7 +30,6 @@ window.addEventListener("DOMContentLoaded", () => {
         }, 4500);
 
     } else {
-        welcome.classList.add('hidden');
         content.classList.remove('hidden');
     }
 });
