@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/animation.css">
+    <link rel="stylesheet" href="assets/css/welcome.css">
 </head>
 <body>
 
@@ -59,7 +59,7 @@
 
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>
-    <script src="assets/js/animation.js"></script>
+    <script src="assets/js/welcome.js"></script>
 </body>
 
 </html>

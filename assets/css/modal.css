@@ -32,6 +32,18 @@
     z-index: 2001;
     text-align: center;
     color: var(--primary-color);
+    animation-name: modalIn;
+    animation-timing-function: ease;
+    animation-duration: 0.5s;
+}
+
+@keyframes modalIn {
+    from {
+        transform: scale(0.9);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
 .close-btn-div {
