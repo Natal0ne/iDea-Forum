@@ -59,6 +59,7 @@ nav a {
   text-align: center;
   /* disabilità la possibilità di selezionare testo */
   user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .login-btn:hover, .thread-btn:hover {
@@ -74,9 +75,10 @@ nav a {
   text-align: center;
   align-content: center;
   border-radius: 50%;
+  transition: box-shadow 0.2s linear;
 }
 
 .avatar:hover {
   cursor: pointer;
-  box-shadow: var(--light-bg-color) 0 0 5px;
+  box-shadow: var(--light-bg-color) 0 0 8px;
 }
