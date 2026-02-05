@@ -103,6 +103,7 @@ input {
     background-color: var(--primary-color);
     color: #f4f4f4;
     font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-submit:hover {

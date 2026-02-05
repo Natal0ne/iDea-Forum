@@ -54,6 +54,18 @@ nav a {
   color: inherit;
 }
 
+/* Le due regole css seguenti servono a rendere cliccabile tutto il li senza dover necessariamente cliccare sul testo di a */
+li a {
+  position: relative;
+}
+
+li a::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+}
+/* ---- */
+
 .login-btn,
 .thread-btn {
   height: inherit;
