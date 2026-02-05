@@ -2,7 +2,7 @@
 @font-face {
     font-family: 'Roboto';
     src: url('../fonts/Roboto-VariableFont_wdth,wght.ttf') format('truetype');
-    font-weight: 400;
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
@@ -51,24 +51,6 @@ body {
     background: linear-gradient(135deg, var(--tertiary-color) 0%, var(--secondary-color) 50%, var(--primary-color) 100%);
 }
 
-#animatedWelcome {
-    font-family: 'Bitcount Single';
-    font-weight: normal;
-    color: var(--light-title-color);
-    font-size: 3vw;
-    user-select: none;
-}
-@media (max-width:600px) {
-    #animatedWelcome {
-        font-size: 10vw;
-    }
-}
-
-.welcome {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-}
 
 .content {
     margin-top: 120px;

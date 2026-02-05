@@ -31,7 +31,7 @@ nav ul {
 }
 
 /* aggiungi il margin a sinistra solo dal secondo elemento della lista in poi*/
-li+li {
+nav li+li {
   margin-left: 10px;
 }
 
@@ -55,11 +55,11 @@ nav a {
 }
 
 /* Le due regole css seguenti servono a rendere cliccabile tutto il li senza dover necessariamente cliccare sul testo di a */
-li a {
+nav li a {
   position: relative;
 }
 
-li a::after {
+nav li a::after {
   content: "";
   position: absolute;
   inset: -10px;
@@ -106,6 +106,7 @@ li a::after {
   input.search-bar {
     font-size: medium !important;
     padding: 8px !important;
+    text-indent: 0;
   }
 }
 
@@ -148,7 +149,6 @@ input.search-bar {
   background-color: transparent;
   color: var(--light-title-color);
   width: 35%;
-  text-indent: 15px;
   outline: none;
   font-weight: normal;
   padding: 7px 0;

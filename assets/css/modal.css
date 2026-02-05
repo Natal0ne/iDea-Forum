@@ -37,6 +37,13 @@
     animation-duration: 0.5s;
 }
 
+/* riduce la dimensione del modale quando lo schermo è troppo piccolo per non farlo apparire a tutto schermo */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 60%;
+    }
+}
+
 @keyframes modalIn {
     from {
         transform: scale(0.9);
