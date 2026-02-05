@@ -8,7 +8,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;;
+    justify-content: center;
     background-color: var(--light-bg-color);
     border-radius: 12px 12px 0px 0px;
     box-shadow: var(--light-bg-color) 0 0 5px;
@@ -36,14 +36,14 @@ footer {
 }
 
 .footer-section.links a{
+    display: inline-block;
     text-decoration: none;
     color: var(--secondary-color);
-    transition: margin-left 0.3s ease;
+    transition: transform 0.3s ease;
 }
 .footer-section.links a:hover{
     color: var(--primary-color);
-    transform: translateX(20px);
-    margin-left: 10px;
+    transform: translateX(10px);
 }
 
 .social-icons {
