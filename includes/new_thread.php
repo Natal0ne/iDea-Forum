@@ -23,6 +23,11 @@
             <input type="text" id="title" name="title" required placeholder="Title" />
             <label for="body">Body</label>
             <textarea id="boxy" rows="10" cols="70" placeholder="Body text (optional)"></textarea>
+            <label for="fileInput" class="drop-zone" id="dropZone">
+                <span>Drag & Drop images here or click to select</span>
+            </label>
+            <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+            <div id="fileList" class="thumbnails"></div>
             <button type="submit" class="btn-submit">Create</button>
         </form>
     </div>

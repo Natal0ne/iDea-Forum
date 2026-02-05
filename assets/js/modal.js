@@ -17,8 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const newThreadOverlay = document.getElementById('newThreadModal');
     const newThreadErrorMsg = document.getElementById('newThreadErrorMsg');
 
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+
     // Apre il modale SIGN IN da navbar
-    if(navSignInBtn) {
+    if (navSignInBtn) {
         navSignInBtn.addEventListener('click', (e) => {
             e.preventDefault();
             signInOverlay.classList.remove('hidden');
@@ -54,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Apre il modale NEW THREAD
-    if(newThreadBtn) {
+    if (newThreadBtn) {
         newThreadBtn.addEventListener('click', (e) => {
             e.preventDefault();
             newThreadOverlay.classList.remove('hidden');
@@ -65,5 +69,69 @@ document.addEventListener('DOMContentLoaded', () => {
     newThreadCloseBtn.addEventListener('click', () => {
         newThreadOverlay.classList.add('hidden');
         newThreadErrorMsg.classList.add('hidden');
+        fileList.innerHTML = '';
+        fileInput.value = '';
     });
+
+    // Cambio css quando draggo sulla dropZone
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drop-zone--over');
+    });
+
+    // Quando il file esce dalla dropZone o viene rilasciato
+    ['dragleave', 'dragend'].forEach(type => {
+        dropZone.addEventListener(type, () => {
+            dropZone.classList.remove('drop-zone--over');
+        });
+    });
+
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drop-zone--over');
+
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            updateThumbnailList(e.dataTransfer.files);
+        }
+    });
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length) {
+            updateThumbnailList(fileInput.files);
+        }
+    });
+
+    function updateThumbnailList(files) {
+        fileList.innerHTML = ""; // Pulisce la lista precedente
+
+        Array.from(files).forEach(file => {
+            // Controllo che il file sia un'immagine
+            if (file.type.startsWith('image/')) {
+                const container = document.createElement('div');
+                container.className = 'thumbnail-container';
+
+                const img = document.createElement('img');
+
+                // Creo un url temporaneo
+                // crea una stringa tipo "blob:https://sito/..."
+                img.src = URL.createObjectURL(file);
+
+                // Per ottimizzare la memoria libero l'url appena viene caricata l'immagine
+                img.onload = () => {
+                    URL.revokeObjectURL(img.src);
+                };
+
+                container.appendChild(img);
+                fileList.appendChild(container);
+            } else {
+                // Se non è un'immagine, mostra un'icona di file generica
+                const placeholder = document.createElement('div');
+                placeholder.className = 'thumbnail-container';
+                placeholder.innerHTML = `<div style="display:flex; align-items:center; justify-content:center; height:100%; background:#eee; font-size:20px;">📄</div>`;
+                fileList.appendChild(placeholder);
+            }
+        });
+    }
 });
