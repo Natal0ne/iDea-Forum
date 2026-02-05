@@ -1,5 +1,5 @@
 <footer>
-    <div class="footer-container">
+    <div class="footer-container hidden">
         <div class="footer-content">
             <!-- Column 1: About -->
             <div class="footer-section about">

@@ -88,7 +88,7 @@ input {
     background-color: var(--light-bg-color);
 }
 
-.modal-content h2 {
+.modal h2 {
     margin: 0;
     font-family: 'Bitcount Single';
     font-size: 2.5rem;
@@ -96,7 +96,7 @@ input {
     color: var(--primary-color);
 }
 
-.modal-content a {
+.modal a {
     text-decoration: none;
     color: var(--secondary-color);
     font-weight: bold;
@@ -132,4 +132,32 @@ input {
 
 .error-box p {
     margin: 8px;
+}
+
+/* CSS per il modale new thread */
+
+.thread-modal-content {
+    position: relative;
+    background: var(--light-bg-color);
+    border-radius: 12px;
+    width: 600px;
+    max-width: 90%;
+    box-shadow: var(--light-bg-color) 0 0 5px;
+    padding: 20px 30px;
+    z-index: 2001;
+    text-align: center;
+    color: var(--primary-color);
+    animation-name: modalIn;
+    animation-timing-function: ease;
+    animation-duration: 0.5s;
+}
+
+.thread-modal-content textarea {
+    margin-top: 3px;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    text-indent: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    background-color: var(--light-bg-color);
 }

@@ -2,6 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const welcome = document.querySelector('.welcome');
     const content = document.querySelector('.content');
+    const footer = document.querySelector('.footer-container');
     const hasSeenIntro = localStorage.getItem('hasSeenIntro');
 
     if (!hasSeenIntro) {
@@ -22,6 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             welcome.classList.add('hidden');
             content.classList.remove('hidden');
+            footer.classList.remove('hidden');
         }, 2500);
 
         // alla fine dell'animazione riabilita lo scrolling verticale
@@ -31,5 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     } else {
         content.classList.remove('hidden');
+        footer.classList.remove('hidden');
     }
 });

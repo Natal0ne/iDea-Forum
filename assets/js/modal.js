@@ -12,11 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const signUpOverlay = document.getElementById('signUpModal');
     const signUpErrorMsg = document.getElementById('signUpErrorMsg');
 
+    const newThreadBtn = document.getElementById('newThreadBtn');
+    const newThreadCloseBtn = document.getElementById('newThreadCloseBtn');
+    const newThreadOverlay = document.getElementById('newThreadModal');
+    const newThreadErrorMsg = document.getElementById('newThreadErrorMsg');
+
     // Apre il modale SIGN IN da navbar
-    navSignInBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        signInOverlay.classList.remove('hidden');
-    });
+    if(navSignInBtn) {
+        navSignInBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            signInOverlay.classList.remove('hidden');
+        });
+    }
 
     // Apre il modale SIGN IN
     signInBtn.addEventListener('click', (e) => {
@@ -44,5 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
     signUpCloseBtn.addEventListener('click', () => {
         signUpOverlay.classList.add('hidden');
         signUpErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
+    });
+
+    // Apre il modale NEW THREAD
+    if(newThreadBtn) {
+        newThreadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            newThreadOverlay.classList.remove('hidden');
+        });
+    }
+
+    // Chiude il modale NEW THREAD
+    newThreadCloseBtn.addEventListener('click', () => {
+        newThreadOverlay.classList.add('hidden');
+        newThreadErrorMsg.classList.add('hidden');
     });
 });
