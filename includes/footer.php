@@ -43,7 +43,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; <?php echo date("Y"); ?> iDea-Forum. All rights reserved.</p>
+            <p style="margin-bottom: 0;">&copy; <?php echo date("Y"); ?> iDea-Forum. All rights reserved.</p>
         </div>
     </div>
 </footer>

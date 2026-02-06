@@ -134,4 +134,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // APERTURA MODALE IMMAGINE A SCHERMO INTERO
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("fullImage");
+    const closeBtn = document.querySelector(".image-close");
+
+    // Trova tutte le immagini nei post
+    const images = document.querySelectorAll('.post-image');
+
+    images.forEach(img => {
+        img.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src; // Copia il percorso dell'immagine cliccata
+        }
+    });
+
+    // Chiudi quando clicchi sulla X
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Chiudi quando clicchi ovunque sullo sfondo scuro
+    modal.onclick = function(e) {
+        if (e.target !== modalImg) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Chiudi premendo il tasto ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            modal.style.display = "none";
+        }
+    });
 });

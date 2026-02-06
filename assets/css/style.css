@@ -40,8 +40,13 @@ body {
     font-family: 'Roboto', system-ui;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
+    height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bitcount Single';
+    color: var(--primary-color);
 }
 
 .bg-gradient {
@@ -60,6 +65,7 @@ body {
     background-color: var(--light-bg-color);
     border-radius: 12px;
     box-shadow: var(--light-bg-color) 0 0 5px;
+    flex-grow: 1;
 }
 
 .hidden {
@@ -68,4 +74,104 @@ body {
 
 .error {
     color: #DC2626;
+}
+
+.thread-header h1 {
+    margin: 0;
+    font-family: 'Bitcount Single';
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.thread-header p {
+    margin-top: 0;
+}
+
+.post strong {
+    font-family: 'Bitcount Single';
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.post small {
+    color: var(--light-title-color);
+}
+
+.post .badge-op {
+    font-weight: bold;
+}
+
+.post {
+    display: flex;
+    flex-direction: row;
+    gap: 0 20px;
+    padding: 20px;
+    border-radius: 12px;
+    border-right: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.post.op {
+    background-color: var(--dark-text-secondary-color);
+}
+
+.post-content-attachments {
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+    flex: 1;
+}
+
+.post-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-content {
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 20px;
+    background-color: var(--light-text-secondary-color);
+    min-height: 100px;
+}
+
+.post-content p {
+    margin: 0;
+}
+
+.post-image {
+    border-radius: 12px;
+    object-fit: cover;
+    width: 150px;
+    height: 100px;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.post-image:hover {
+    opacity: 0.8;
+}
+
+.attachments {
+    display: flex;
+    flex-flow: wrap row;
+    gap: 0 20px;
+}
+
+.replies-container h3 {
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .post {
+        flex-direction: column;
+        gap: 10px 0;
+    }
+    .post-image {
+        width: 100px;
+    }
 }
