@@ -14,12 +14,9 @@
             <p>New thread</p>
           </a>
         </li>
-        <li class='avatar'>
-        <?php
-        if (isset($_SESSION['username'])) {
-          echo (strtoupper($_SESSION['username'][0]));
-        }
-        ?>
+        <li class="avatar-container">
+          <?php $avatar_path = !empty($post['avatar_url']) ? $post['avatar_url'] : 'assets/img/default-avatar.png'; ?>
+          <img src="<?php echo htmlspecialchars($avatar_path); ?>" alt="Avatar" class="avatar">
         </li>
       <?php endif; ?>
     </ul>

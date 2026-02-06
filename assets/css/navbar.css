@@ -122,13 +122,19 @@ nav li a::after {
   }
 }
 
-.avatar {
-  border: solid 2px var(--light-bg-color);
-  aspect-ratio: 1;
-  height: inherit;
+.avatar-container {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--light-bg-color);
+}
+
+.avatar{
+  width:inherit;
+  border-radius: inherit;
   text-align: center;
   align-content: center;
-  border-radius: 50%;
   transition: box-shadow 0.2s linear;
   /* disabilità la possibilità di selezionare testo */
   user-select: none;
