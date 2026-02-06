@@ -48,7 +48,7 @@
 .content-in {
     animation-name: contentIn;
     animation-timing-function: ease-out;
-    animation-duration: 2s;
+    animation-duration: 2.5s;
 }
 
 
@@ -62,6 +62,26 @@
         transform: translateY(-40px);
     }
 
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.footer-in {
+    animation-name: footerIn;
+    animation-timing-function: ease-out;
+    animation-duration: 2.5s;
+}
+
+@keyframes footerIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh);
+    }
+    80% {
+        transform: translateY(10px);
+    }
     100% {
         opacity: 1;
         transform: translateY(0);

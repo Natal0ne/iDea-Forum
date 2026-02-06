@@ -10,6 +10,8 @@ window.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('hasSeenIntro', 'true');
 
         welcome.classList.add('welcome-in');
+        content.classList.add('content-in');
+        footer.classList.add('footer-in');
         welcome.classList.remove('hidden');
 
         // setta il body non scrollabile per non rovinare l'animazione
@@ -17,7 +19,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
             welcome.classList.replace('welcome-in', 'welcome-out');
-            content.classList.add('content-in');
         }, 2000);
 
         setTimeout(() => {
@@ -29,7 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
         // alla fine dell'animazione riabilita lo scrolling verticale
         setTimeout(() => {
             document.body.style.overflow = "";
-        }, 4500);
+        }, 5000);
 
     } else {
         content.classList.remove('hidden');

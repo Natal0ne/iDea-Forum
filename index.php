@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="assets/css/welcome.css">
     <link rel="stylesheet" href="assets/css/footer.css">
 </head>
-<body>
 
+<body>
     <div class="bg-gradient"></div>
 
     <?php require_once 'includes/sign_up.php' ?>
@@ -26,36 +26,6 @@
         <h1 id="animatedWelcome">Welcome to iDea</h1>
     </div>
     <div class="content hidden">
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
-        <p>Ciao</p>
     </div>
 
 
