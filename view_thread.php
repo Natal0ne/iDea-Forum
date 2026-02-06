@@ -123,6 +123,10 @@ pg_close($conn);
             <div class="main-post-section">
                 <div class="post op" id="post-<?php echo $main_post['id']; ?>">
                     <div class="post-user-info">
+                        <div>
+                            <?php $avatar_path = !empty($post['avatar_url']) ? $post['avatar_url'] : 'assets/img/default-avatar.png'; ?>
+                            <img src="<?php echo htmlspecialchars($avatar_path); ?>" alt="Avatar" class="user-avatar">
+                        </div>
                         <strong>
                             <?php echo htmlspecialchars($main_post['username']); ?>
                         </strong>

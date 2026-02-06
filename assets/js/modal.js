@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // APERTURA MODALE IMMAGINE A SCHERMO INTERO
-    const modal = document.getElementById("imageModal");
+    const imageModal = document.getElementById("imageModal");
     const modalImg = document.getElementById("fullImage");
     const closeBtn = document.querySelector(".image-close");
 
@@ -145,27 +145,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     images.forEach(img => {
         img.onclick = function() {
-            modal.style.display = "block";
+            imageModal.style.display = "block";
             modalImg.src = this.src; // Copia il percorso dell'immagine cliccata
         }
     });
 
     // Chiudi quando clicchi sulla X
-    closeBtn.onclick = function() {
-        modal.style.display = "none";
+    if(closeBtn) {
+        closeBtn.onclick = function() {
+            imageModal.style.display = "none";
+        }
     }
 
     // Chiudi quando clicchi ovunque sullo sfondo scuro
-    modal.onclick = function(e) {
-        if (e.target !== modalImg) {
-            modal.style.display = "none";
+    if(imageModal) {
+        imageModal.onclick = function(e) {
+            if (e.target !== modalImg) {
+                imageModal.style.display = "none";
+            }
         }
     }
 
     // Chiudi premendo il tasto ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === "Escape") {
-            modal.style.display = "none";
+            imageModal.style.display = "none";
         }
     });
 });
