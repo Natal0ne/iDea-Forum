@@ -7,3 +7,21 @@ window.addEventListener('scroll', function () {
     navbar.classList.remove('scrolled');
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const userMenuBtn = document.getElementById('userMenuBtn');
+  const dropdown = document.getElementById('userDropdown');
+
+  if(userMenuBtn) {
+    userMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.classList.remove('hidden');
+    });
+
+    document.addEventListener('click', function(e) {
+        if(!dropdown.contains(e.target) && !userMenuBtn.contains(e.target)) {
+          dropdown.classList.add('hidden');
+        }
+    });
+  }
+});
