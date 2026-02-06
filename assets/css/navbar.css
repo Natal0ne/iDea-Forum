@@ -64,6 +64,7 @@ nav li a::after {
   position: absolute;
   inset: -10px;
 }
+
 /* ---- */
 
 .login-btn,
@@ -162,5 +163,5 @@ input.search-bar::placeholder {
 }
 
 input.search-bar:hover {
-  box-shadow: var(--light-bg-color) 0 0 5px;
+  box-shadow: var(--light-bg-color) 0 0 8px;
 }
