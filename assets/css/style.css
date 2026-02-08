@@ -44,7 +44,12 @@ body {
     height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Bitcount Single';
     color: var(--primary-color);
 }
@@ -66,7 +71,108 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 12px;
     box-shadow: var(--light-bg-color) 0 0 5px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
 }
+
+/* IL CONTENUTO DA SPOSTARE IN UN ALTRO FILE PER ORDINARE MEGLIO */
+
+.main {
+    display: flex;
+    flex: 1;
+    /* Dice di prendere lo spazio rimanente e di adattarsi se rimpicciolisce */
+    flex-direction: column;
+    gap: 20px;
+}
+
+.category-block {
+    box-shadow: var(--primary-color) 0 0 5px;
+    border-radius: 12px;
+    padding: 12px;
+
+    h2 {
+        margin: 0;
+    }
+}
+
+.thread {
+    border-bottom: solid var(--primary-color);
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.thread-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    a {
+        text-decoration: none;
+        color: var(--primary-color);
+        margin-top: 12px;
+        font-size: 18px;
+        font-family: "Bitcount Single";
+    }
+
+    p {
+        margin: 0;
+        margin-bottom: 4px;
+        font-size: 13px;
+    }
+}
+
+.thread-stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding-bottom: 4px;
+    align-items: center;
+    font-family: "Bitcount Single";
+    color: var(--primary-color);
+}
+
+.side {
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 1000px) {
+    .side {
+        display: none;
+    }
+}
+
+.online-users {
+    box-shadow: var(--primary-color) 0 0 5px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+.admin {
+    font-weight: bold;
+    color: var(--tertiary-color);
+}
+
+.moderator {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* fine roba da levare da qui */
 
 .hidden {
     display: none !important;
@@ -171,6 +277,7 @@ h1, h2, h3, h4, h5, h6 {
         flex-direction: column;
         gap: 10px 0;
     }
+
     .post-image {
         width: 100px;
     }

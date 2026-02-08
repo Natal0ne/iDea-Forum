@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!isset($_SESSION["user_id"])) {
         header("Location: ../index.php");
         exit;
-    }
+    } // POSSIAMO ANCHE LEVARLO DATO CHE IL PULSANTE SI ATTIVA GIÀ DOPO AVER FATTO QUESTO CONTROLLO
 
     $conn = connect_db();
     $user_id = $_SESSION["user_id"];
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
 
-    $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title))) . '-' . time();
+    $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title))) . '-' . time(); // TODO da vedere come fare meglio
 
     pg_query($conn, "BEGIN");
 

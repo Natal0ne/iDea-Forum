@@ -1,4 +1,4 @@
-<div id="newThreadModal" class="modal hidden<?php echo $new_thread_modal_class ?>">
+<div id="newThreadModal" class="modal hidden">
 
     <div class="modal-overlay"></div>
 
@@ -9,14 +9,6 @@
         </div>
 
         <h2>New Thread</h2>
-
-        <div id='newThreadErrorMsg'>
-            <?php if (!empty($new_thread_error_message)): ?>
-                <div class="error-box">
-                    <p class="error"><?php echo htmlspecialchars($new_thread_error_message); ?></p>
-                </div>
-            <?php endif; ?>
-        </div>
 
         <form action="includes/new_thread_process.php" method="POST" enctype="multipart/form-data">
 
