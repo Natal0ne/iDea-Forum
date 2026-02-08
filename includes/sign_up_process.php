@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
-        $_SESSION['user_avatar_path'] = $user['avatar_url'];
+        $_SESSION['user_avatar_url'] = $user['avatar_url'];
         $_SESSION['role'] = $user['role'];       
         header("Location: ../index.php");
         pg_close($conn);

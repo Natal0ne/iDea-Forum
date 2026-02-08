@@ -18,7 +18,7 @@
         </li>
         <li class="user-menu-wrapper">
           <div class="avatar-container" id="userMenuBtn">
-            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_path']); ?>" alt="Avatar" class="avatar">
+            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_url']); ?>" alt="Avatar" class="avatar">
           </div>
           <div class="user-dropdown-menu hidden" id="userDropdown">
             <div class="dropdown-header">
