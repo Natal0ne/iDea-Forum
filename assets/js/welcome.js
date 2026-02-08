@@ -3,11 +3,8 @@ window.addEventListener("DOMContentLoaded", () => {
     const welcome = document.querySelector('.welcome');
     const content = document.querySelector('.content');
     const footer = document.querySelector('.footer-container');
-    const hasSeenIntro = localStorage.getItem('hasSeenIntro');
 
-    if (!hasSeenIntro) {
-
-        localStorage.setItem('hasSeenIntro', 'true');
+    if (!welcome.classList.contains('hidden')) {
 
         welcome.classList.add('welcome-in');
         content.classList.add('content-in');
