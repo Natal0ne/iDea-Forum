@@ -86,7 +86,7 @@ pg_close($conn);
     <?php require_once 'includes/image_modal.php' ?>
 
 
-    <div class="content">
+    <div class="thread-content">
 
         <div class="thread-header">
             <h1 style="margin: 0px">
