@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt_name = "sign_up_query";
 
-    $query = "INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3)";
+    $query = "INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING *";
 
     if (!pg_prepare($conn, $stmt_name, $query)) {
         die("Prepare failed: " . pg_last_error());
@@ -59,11 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = pg_execute($conn, $stmt_name, array($username, $email, $password_hash));
 
     if ($result) {
+        $user = pg_fetch_assoc($result);
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
+        $_SESSION['user_avatar_path'] = $user['avatar_url'];
         $_SESSION['role'] = $user['role'];       
-        header("Location: /index.php");
+        header("Location: ../index.php");
         pg_close($conn);
         exit;
     }

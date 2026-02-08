@@ -19,7 +19,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     bio TEXT,
-    avatar_url VARCHAR(255),
+    avatar_url VARCHAR(255) DEFAULT 'assets/img/default-avatar.png',
     location VARCHAR(100),
     website VARCHAR(255),
     signature TEXT,
@@ -27,7 +27,7 @@ CREATE TABLE users (
     reputation INTEGER DEFAULT 0,
     is_banned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_login TIMESTAMP
+    last_active_at TIMESTAMP
 );
 -- Assicuriamoci che l'owner sia www
 ALTER TABLE users OWNER TO www;
@@ -105,52 +105,8 @@ CREATE TABLE post_votes (
     CONSTRAINT fk_vote_post FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
 );
 ALTER TABLE post_votes OWNER TO www;
+
 -- =========================================================
 --  POPOLAMENTO DATI (INSERT DI PROVA)
 -- =========================================================
-INSERT INTO users (
-        username,
-        email,
-        password_hash,
-        role,
-        bio,
-        signature
-    )
-VALUES (
-        'Admin',
-        'admin@gruppo03.it',
-        'pass_criptata',
-        'admin',
-        'Il capo',
-        'Staff Gruppo03'
-    ),
-    (
-        'Mario',
-        'mario@email.it',
-        'pass_criptata',
-        'user',
-        'Utente nuovo',
-        'Ciao a tutti!'
-    ),
-    (
-        'Luigi',
-        'luigi@email.it',
-        'pass_criptata',
-        'moderator',
-        'Modero le discussioni',
-        NULL
-    );
-INSERT INTO categories (name, slug, description, sort_order)
-VALUES ('Annunci', 'annunci', 'News', 1),
-    ('Hardware', 'hardware', 'PC Hardware', 2);
-INSERT INTO threads (
-        category_id,
-        user_id,
-        title,
-        slug,
-        created_at,
-        last_activity_at
-    )
-VALUES (1, 1, 'Benvenuti', 'benvenuti', NOW(), NOW());
-INSERT INTO posts (thread_id, user_id, parent_id, content)
-VALUES (1, 1, NULL, 'Primo post del forum!');
+

@@ -24,4 +24,14 @@ if (isset($_SESSION['sign_in_error'])) {
 
 //Logica sign_in e sign_up a buon fine 
 $is_logged = isset($_SESSION['user_id']);
+
+if ($is_logged) {
+
+    $conn = connect_db();
+
+    $query = "UPDATE users SET last_active_at = NOW() WHERE id = $_SESSION[user_id];";
+
+    $result = pg_query($conn, $query);
+}
+
 ?>

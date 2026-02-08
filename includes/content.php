@@ -18,77 +18,72 @@ if ($result && pg_num_rows($result) > 0) {
             $children[] = $c;
         }
     }
-
-} else {
-    die("Execute failed: " . pg_last_error());
 }
+
+$query = "SELECT * FROM users WHERE last_active_at > NOW() - INTERVAL '5 minutes' ";
+
+$result = pg_query($conn, $query);
+
+if ($result && pg_num_rows($result) > 0) {
+
+    $online_users = pg_fetch_all($result);
+
+}
+
 
 ?>
 
 <div class="main"> <!-- TODO: DA ORDINARE SECONDO SORT ORDER -->
-    <?php foreach ($roots as $r): ?>
-        <div class="root-category-block">
-            <a href="<?php echo $r['slug']; ?>" ><h2><?php echo $r['name']; ?></h2></a>
-            <div class="categories">
-                <?php $empty = true; ?>
-                <?php foreach ($children as $c): ?> 
-                    <?php if ($c['parent_id'] === $r['id']): ?>
-                        <?php $empty = false; ?>
-                        <div class="category">
-                            <div class="category-main">
-                                <a href="<?php echo $c['slug']; ?>"><h4> <?php echo $c['name']; ?> </h4></a>
-                                <p> <?php echo $c['description']; ?></p>
+    <?php if (isset($roots)): ?>
+        <?php foreach ($roots as $r): ?>
+            <div class="root-category-block">
+                <a href="<?php echo $r['slug']; ?>" ><h2><?php echo $r['name']; ?></h2></a>
+                <div class="categories">
+                    <?php $empty = true; ?>
+                    <?php foreach ($children as $c): ?> 
+                        <?php if ($c['parent_id'] === $r['id']): ?>
+                            <?php $empty = false; ?>
+                            <div class="category">
+                                <div class="category-main">
+                                    <a href="<?php echo $c['slug']; ?>"><h4> <?php echo $c['name']; ?> </h4></a>
+                                    <p> <?php echo $c['description']; ?></p>
+                                </div>
+                                <div class="category-stat">
+                                    <div>threads: <?php echo rand(1, 100000) ?></div>
+                                </div>
                             </div>
-                            <div class="category-stat">
-                                <div>threads: <?php echo rand(1, 100000) ?></div>
-                            </div>
+                        <?php endif; ?>
+                    <?php endforeach ?>
+                    <?php if ($empty): ?>
+                        <div>
+                            <p> <?php echo $r['description']; ?> </p>
                         </div>
-                    <?php endif; ?>
-                <?php endforeach ?>
-                <?php if ($empty): ?>
-                    <div>
-                        <p> <?php echo $r['description']; ?> </p>
-                    </div>
-                <?php endif; ?> 
+                    <?php endif; ?> 
+                </div>
             </div>
-        </div>
-    <?php endforeach ?>
+        <?php endforeach ?>
+    <?php endif; ?>
 </div>
 
 <div class="side">
     <div class="online-users">
-        <h3>online users</h3>  <!-- DA FARE CON PHP -->
+        <h3>online users</h3>
         <div class="users">
-            <div class="user">
-                <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
-                    <img src="assets/img/default-avatar.png" alt="Avatar" class="avatar">
+            <?php if (isset($online_users)): ?>
+                <?php foreach ($online_users as $u): ?>
+                <div class="user <?php echo $u['role']; ?>">
+                    <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
+                        <img src="<?php echo $u['avatar_url']; ?>" alt="Avatar" class="avatar">
+                    </div>
+                    <p><?php echo $u['username']; ?></p>
                 </div>
-                <p> Capocchia </p>
-            </div>
-
-            <div class="user admin">
-                <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
-                    <img src="assets/img/default-avatar.png" alt="Avatar" class="avatar">
-                </div>
-                <p> CapoCapocchia </p>
-            </div>
-
-            <div class="user">
-                <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
-                    <img src="assets/img/default-avatar.png" alt="Avatar" class="avatar">
-                </div>
-                <p> RondoDaSosa </p>
-            </div>
-
-            <div class="user moderator">
-                <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
-                    <img src="assets/img/default-avatar.png" alt="Avatar" class="avatar">
-                </div>
-                <p> Angiolett </p>
-            </div>
+                <?php endforeach ?>
+            <?php else: ?>
+                <p> 0 </p>
+            <?php endif; ?>
         </div>
     </div>
-    <div class="latest-threads">
-
+    <div class="latest-threads"> <!-- TODO DA FARE -->
+        <h3>latest threads</h3>
     </div>
 </div>

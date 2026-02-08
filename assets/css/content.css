@@ -65,6 +65,7 @@
     width: 190px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 @media (max-width: 1000px) {
@@ -73,7 +74,8 @@
     }
 }
 
-.online-users {
+.online-users,
+.latest-threads {
     box-shadow: var(--primary-color) 0 0 5px;
     border-radius: 12px;
     display: flex;
@@ -98,5 +100,3 @@
     font-weight: bold;
     color: var(--primary-color);
 }
-
-/* fine roba da levare da qui */

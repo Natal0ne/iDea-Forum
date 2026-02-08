@@ -18,8 +18,7 @@
         </li>
         <li class="user-menu-wrapper">
           <div class="avatar-container" id="userMenuBtn">
-            <?php $avatar_path = !empty($post['avatar_url']) ? $post['avatar_url'] : 'assets/img/default-avatar.png'; ?>
-            <img src="<?php echo htmlspecialchars($avatar_path); ?>" alt="Avatar" class="avatar">
+            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_path']); ?>" alt="Avatar" class="avatar">
           </div>
           <div class="user-dropdown-menu hidden" id="userDropdown">
             <div class="dropdown-header">
