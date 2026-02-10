@@ -132,7 +132,7 @@ h6 {
     gap: 0 20px;
     padding: 20px;
     border-radius: 12px;
-    border: 2px solid var(--light-text-secondary-color);
+    box-shadow: var(--primary-color) 0 0 8px;
 }
 
 .post.op {
@@ -213,4 +213,73 @@ h6 {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--primary-color);
+}
+
+/* REPLY BUTTON E FORM */
+
+.reply-button-div {
+    text-align: right;
+}
+
+.reply-button-div a {
+    display: inline-block;
+    text-decoration: none;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 5px 8px;
+    color: var(--light-title-color);
+    background-color: var(--primary-color);
+    box-shadow: var(--primary-color) 0 0 8px;
+    transition: all 0.3s ease;
+}
+
+.reply-button-div a:hover {
+    transform: scale(1.1);
+}
+
+.reply-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.close-reply-btn {
+    margin-top: 10px;
+    padding: 10px 5px;
+    border: 1px solid var(--light-text-secondary-color);
+    border-radius: 12px;
+    background-color: var(--light-bg-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: var(--light-text-secondary-color) 0 0 8px;
+}
+
+.close-reply-btn:hover {
+    background-color: var(--light-text-secondary-color);
+    cursor: pointer;
+}
+
+.reply-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0 10px;
+}
+
+.reply-box h3 {
+    margin-bottom: 0px;
+}
+
+.reply-box textarea {
+    margin-top: 3px;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    text-indent: 10px each-line;
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    background-color: var(--light-bg-color);
+}
+
+.reply-box button.btn-submit {
+    box-shadow: var(--primary-color) 0 0 8px;
 }

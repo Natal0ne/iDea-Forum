@@ -155,8 +155,15 @@ pg_close($conn);
                                 <?php endforeach; ?>
                             </div>
                         <?php endif; ?>
+                        <div class="reply-button-div">
+                            <a href="#">
+                                <span style="position: relative; top: 2px">&#8617;</span>
+                                <span style="display: inline-block;">Reply</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <?php include "includes/reply_thread.php" ?>
             </div>
         <?php endif; ?>
 
@@ -199,8 +206,15 @@ pg_close($conn);
                                 <?php endforeach; ?>
                             </div>
                         <?php endif; ?>
+                        <div class="reply-button-div">
+                            <a href="#">
+                                <span style="position: relative; top: 2px">&#8617;</span>
+                                <span style="display: inline-block;">Reply</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <?php include "includes/reply_thread.php" ?>
             <?php endforeach; ?>
         </div>
     </div>

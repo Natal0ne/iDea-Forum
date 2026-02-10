@@ -48,6 +48,7 @@
     from {
         transform: scale(0.9);
     }
+
     to {
         transform: scale(1);
     }
@@ -84,7 +85,7 @@ input {
     padding: 10px 0;
     text-indent: 10px;
     border: 1px solid var(--primary-color);
-    border-radius: 6px;
+    border-radius: 12px;
     background-color: var(--light-bg-color);
 }
 
@@ -104,9 +105,9 @@ input {
 
 .btn-submit {
     margin-top: 10px;
-    padding: 10px 0px;
+    padding: 10px 5px;
     border: 1px solid var(--primary-color);
-    border-radius: 6px;
+    border-radius: 12px;
     background-color: var(--primary-color);
     color: #f4f4f4;
     font-weight: bold;
@@ -123,7 +124,7 @@ input {
 }
 
 .error-box {
-    border-radius: 6px;
+    border-radius: 12px;
     border: 1px solid #DC2626;
     text-align: center;
     margin-top: 10px;
@@ -158,7 +159,7 @@ input {
     padding: 10px 0;
     text-indent: 10px each-line;
     border: 1px solid var(--primary-color);
-    border-radius: 6px;
+    border-radius: 12px;
     background-color: var(--light-bg-color);
 }
 
@@ -170,7 +171,7 @@ input {
 }
 
 .drop-zone {
-    border-radius: 6px;
+    border-radius: 12px;
     border: 2px dashed var(--primary-color);
     height: 70px;
     text-align: center;
@@ -188,16 +189,15 @@ input {
     position: relative;
     width: 80px;
     height: 80px;
-    border-radius: 6px;
+    border-radius: 12px;
     overflow: hidden;
-    border-radius: 10px;
 }
 
 .thumbnail-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 16px;
+    border-radius: 12px;
 }
 
 .thumbnails {
@@ -234,7 +234,7 @@ input {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-radius: 12px;
 }
 
@@ -254,8 +254,8 @@ input {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
 }
-
