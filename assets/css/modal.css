@@ -161,6 +161,7 @@ input {
     border: 1px solid var(--primary-color);
     border-radius: 12px;
     background-color: var(--light-bg-color);
+    resize: vertical;
 }
 
 #fileInput {
