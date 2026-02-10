@@ -159,6 +159,7 @@ h6 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 180px;
 }
 
 .post-content {
@@ -192,6 +193,12 @@ h6 {
     gap: 0 20px;
 }
 
+.replies-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+}
+
 .replies-container h3 {
     color: var(--primary-color);
 }
@@ -204,6 +211,10 @@ h6 {
 
     .post-image {
         width: 100px;
+    }
+
+    .post-user-info {
+        width: auto;
     }
 }
 

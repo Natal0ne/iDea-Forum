@@ -124,7 +124,7 @@ pg_close($conn);
                 <div class="post op" id="post-<?php echo $main_post['id']; ?>">
                     <div class="post-user-info">
                         <div>
-                            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_url']); ?>" alt="Avatar" class="user-avatar">
+                            <img src="<?php echo htmlspecialchars($main_post['avatar_url']); ?>" alt="Avatar" class="user-avatar">
                         </div>
                         <strong>
                             <?php echo htmlspecialchars($main_post['username']); ?>
@@ -156,14 +156,19 @@ pg_close($conn);
                             </div>
                         <?php endif; ?>
                         <div class="reply-button-div">
-                            <a href="#">
+                            <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $main_post['id']; ?>" data-username="<?php echo htmlspecialchars($main_post['username']); ?>">
                                 <span style="position: relative; top: 2px">&#8617;</span>
                                 <span style="display: inline-block;">Reply</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <?php include "includes/reply_thread.php" ?>
+                <div id="reply-box-<?php echo $main_post['id']; ?>" class="reply-form-container hidden">
+                    <?php 
+                        $parent_id = $main_post['id']; // Passiamo l'ID al file incluso
+                        include "includes/reply_post.php"; 
+                    ?>
+                </div>
             </div>
         <?php endif; ?>
 
@@ -176,7 +181,7 @@ pg_close($conn);
                 <div class="post" id="post-<?php echo $post['id']; ?>">
                     <div class="post-user-info">
                         <div>
-                            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_url']); ?>" alt="Avatar" class="user-avatar">
+                            <img src="<?php echo htmlspecialchars($post['avatar_url']); ?>" alt="Avatar" class="user-avatar">
                         </div>
                         <strong>
                             <?php echo htmlspecialchars($post['username']); ?>
@@ -207,14 +212,19 @@ pg_close($conn);
                             </div>
                         <?php endif; ?>
                         <div class="reply-button-div">
-                            <a href="#">
+                            <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['username']); ?>">
                                 <span style="position: relative; top: 2px">&#8617;</span>
                                 <span style="display: inline-block;">Reply</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <?php include "includes/reply_thread.php" ?>
+                <div id="reply-box-<?php echo $post['id']; ?>" class="reply-form-container hidden">
+                    <?php 
+                        $parent_id = $post['id']; 
+                        include "includes/reply_post.php"; 
+                    ?>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -224,6 +234,7 @@ pg_close($conn);
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/welcome.js"></script>
+    <script src="assets/js/reply_handler.js"></script>
 </body>
 
 </html>
