@@ -124,8 +124,7 @@ pg_close($conn);
                 <div class="post op" id="post-<?php echo $main_post['id']; ?>">
                     <div class="post-user-info">
                         <div>
-                            <?php $avatar_path = !empty($post['avatar_url']) ? $post['avatar_url'] : 'assets/img/default-avatar.png'; ?>
-                            <img src="<?php echo htmlspecialchars($avatar_path); ?>" alt="Avatar" class="user-avatar">
+                            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_url']); ?>" alt="Avatar" class="user-avatar">
                         </div>
                         <strong>
                             <?php echo htmlspecialchars($main_post['username']); ?>
@@ -169,6 +168,9 @@ pg_close($conn);
             <?php foreach ($replies as $post): ?>
                 <div class="post" id="post-<?php echo $post['id']; ?>">
                     <div class="post-user-info">
+                        <div>
+                            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_url']); ?>" alt="Avatar" class="user-avatar">
+                        </div>
                         <strong>
                             <?php echo htmlspecialchars($post['username']); ?>
                         </strong>
