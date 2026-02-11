@@ -25,7 +25,7 @@
               <strong><?php echo htmlspecialchars($_SESSION['username'] ?? 'User'); ?></strong>
             </div>
             <ul>
-              <li><a href="profile_settings.php">Profile Settings</a></li>
+              <li><a href="includes/profile_settings.php">Profile Settings</a></li>
               <li><a href="site_settings.php">Site Settings</a></li>
               <li class="divider"></li>
               <li><a href="includes/logout.php" class="logout-link">Logout</a></li>
