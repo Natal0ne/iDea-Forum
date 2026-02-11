@@ -1,4 +1,6 @@
+
 <?php
+
 require_once 'db_connect.php';
 session_start();
 
@@ -41,17 +43,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $user) {
 }
 ?>
 <html>
-<h1 id="PfSettings">Profile Settings, welcome <?php echo htmlspecialchars($name); ?></h1>
+    <head>     
+<link rel="stylesheet" href="../assets/css/style.css">
+    </head>
+    <body>
+    <h1 id="PfSettings">Profile Settings, welcome <?php echo htmlspecialchars($name); ?></h1>
 
 <form id="PfSettingsForm" method="POST" action="profile_settings.php">
-    <textarea 
-        name="bio" 
-        id="bio" 
-        maxlength="500"
-        placeholder="Insert Bio"
-    ><?php echo htmlspecialchars($current_bio); ?></textarea><br><br>
+    <textarea name="bio" id="bio" maxlength="500" placeholder="Insert Bio">
+        <?php echo htmlspecialchars($current_bio); ?>
+    </textarea><br><br>
 
     <button id="submitBtn" type="submit"> Save </button>
 </form>
+</body>
 </html>
 

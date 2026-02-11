@@ -295,3 +295,74 @@ h6 {
 .reply-box button.btn-submit {
     box-shadow: var(--primary-color) 0 0 8px;
 }
+
+
+#PfSettings {
+    font-family: 'Bitcount Single', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Wrapper del form */
+#PfSettingsForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--light-bg-color);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: var(--primary-color) 0 0 15px;
+    width: 450px;
+    max-width: 90%;
+}
+
+/* Textarea della bio */
+#PfSettingsForm textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    background-color: var(--light-text-secondary-color);
+    color: var(--dark-text-color);
+    resize: vertical;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+#PfSettingsForm textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: var(--accent-color) 0 0 8px;
+    outline: none;
+}
+
+/* Input avatar */
+#PfSettingsForm input[type="file"] {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Bottone submit */
+#PfSettingsForm button {
+    padding: 12px 20px;
+    font-family: 'Bitcount Single', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--light-title-color);
+    background-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: var(--primary-color) 0 0 8px;
+    transition: all 0.3s ease;
+}
+
+#PfSettingsForm button:hover {
+    background-color: var(--accent-hover-color);
+    border-color: var(--accent-hover-color);
+    transform: scale(1.05);
+}
