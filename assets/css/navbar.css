@@ -223,17 +223,29 @@ nav li a::after {
 
 }
 
-input.search-bar {
+.search-wrapper{
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.search-wrapper form {
+  width: 100%;
+  display: flex;
+}
+
+input.search-bar {
   margin: 0;
   height: inherit;
   border-radius: 20px;
   border: 2px solid var(--light-bg-color);
   background-color: transparent;
   color: var(--light-title-color);
-  width: 35%;
   outline: none;
   font-weight: normal;
   padding: 7px 0;
@@ -248,4 +260,52 @@ input.search-bar::placeholder {
 
 input.search-bar:hover {
   box-shadow: var(--light-bg-color) 0 0 8px;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--light-bg-color);
+  color: var(--primary-color);
+  border-radius: 20px;
+  padding: 10px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+  max-height: 300px;
+  overflow-y: auto;
+
+  animation-name: suggestionsIn;
+  animation-duration: 0.3s;
+}
+
+@keyframes suggestionsIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Stile per i link dentro il dropdown */
+.search-dropdown a {
+  display: block;
+  padding: 10px 20px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.search-dropdown a:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.search-dropdown .no-results {
+  display: block;
+  padding: 10px 20px;
+  color: inherit;
 }
