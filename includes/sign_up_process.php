@@ -3,6 +3,7 @@ require_once 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    //$id = $_POST['user_id'];
     $username = trim($_POST['username']);
     $email    = trim($_POST['email']);
     $password = $_POST['password'];
@@ -58,16 +59,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $result = pg_execute($conn, $stmt_name, array($username, $email, $password_hash));
 
+
+    /*Per salvare id in user_settings -> user_id*/
+    $user = pg_fetch_assoc($result);
+    $user_id = $user['id'];
+    $settings_query = "
+    INSERT INTO user_settings (user_id)
+    VALUES ($1)
+";
+    $settings_result = pg_query_params(
+    $conn,
+    $settings_query,
+    array($user_id) 
+    );
+    if (!$settings_result) {
+    pg_query($conn, "ROLLBACK");
+    die("User settings insert failed: " . pg_last_error($conn));
+}
+
+pg_query($conn, "COMMIT");
+
     if ($result) {
         $user = pg_fetch_assoc($result);
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['user_avatar_url'] = $user['avatar_url'];
-        $_SESSION['role'] = $user['role'];       
+        $_SESSION['role'] = $user['role'];  
         header("Location: ../index.php");
         pg_close($conn);
-        exit;
+        exit;      
     }
-    
+   
+          
 }
