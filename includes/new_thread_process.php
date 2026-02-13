@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $thread_id = $thread_row["id"];
 
         // Inserimento post (contenuto del thread)
-        $query_post = "INSERT INTO posts (thread_id, user_id, content) VALUES ($1, $2, $3) RETURNING id";
+        $query_post = "INSERT INTO posts (thread_id, user_id, content, created_at) VALUES ($1, $2, $3, NOW()) RETURNING id";
 
         $res_post = pg_prepare($conn, "insert_post", $query_post);
         $res_post = pg_execute($conn, "insert_post", array($thread_id, $user_id, $content));

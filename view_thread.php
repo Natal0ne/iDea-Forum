@@ -1,45 +1,84 @@
 <?php require_once 'includes/init.php';
 
-$conn = connect_db();
-
-// recupero lo slug del thread
-$slug = $_GET['slug'] ?? '';
-
-if (empty($slug)) {
+if (!isset($_GET['slug'])) {  
     header("Location: index.php");
     exit;
 }
 
-// cerco il thread tramite slug
-$query_thread = "SELECT t.*, c.name as category_name, u.username as author_name
-                FROM threads t
-                JOIN categories c
-                ON t.category_id = c.id
-                LEFT JOIN users u ON t.user_id = u.id
-                WHERE t.slug = $1";
+$slug = $_GET['slug'];
 
-$res_thread = pg_query_params($conn, $query_thread, array($slug));
-$thread = pg_fetch_assoc($res_thread);
+$conn = connect_db();
 
-// se lo slug non esiste nel DB
-if (!$thread) {
-    die("Thread not found.");
+/* Recupero il thread */
+$stmt_name = "view_thread_query";
+$view_thread_query = "SELECT t.*, c.name as category_name, u.username as author_name 
+                        FROM threads t
+                        JOIN categories c ON t.category_id = c.id
+                        LEFT JOIN users u ON t.user_id = u.id
+                        WHERE t.slug = $1";
+
+if (!pg_prepare($conn, $stmt_name, $view_thread_query)) {
+    die("Prepare failed: " . pg_last_error());
 }
 
-$thread_id = $thread['id'];
+$result = pg_execute($conn, $stmt_name, array($slug));
 
-// aggiorno le visite totali del thread
-pg_query_params($conn, "UPDATE threads SET view_count = view_count + 1 WHERE id = $1", array($thread_id));
+if (!($result && pg_num_rows($result) > 0)) {
+    $_SESSION['view_thread_error'] = "No thread found";
+    header("Location: ../index.php");
+    pg_close($conn);
+    exit;
+}
 
-// recupero tutti i post relativi al thread
-$query_posts = "SELECT p.*, u.username, u.avatar_url, u.role, u.signature
-                FROM posts p
-                LEFT JOIN users u ON p.user_id = u.id
-                WHERE p.thread_id = $1
-                ORDER BY p.created_at ASC";
+$thread = pg_fetch_assoc($result);
 
-$res_post = pg_query_params($conn, $query_posts, array($thread_id));
-$posts = pg_fetch_all($res_post) ?: [];
+/* Recupero i post associati al thread */   //DA CAPIRE BENE COME FUNZIONA MA SEMPLIFICA LA VITA DI UN BOTTO
+$posts_CTE_query = "WITH RECURSIVE post_tree AS (
+                        SELECT 
+                            *,  
+                            0 as depth, 
+                            ARRAY[id] as path
+                        FROM posts 
+                        WHERE thread_id = {$thread['id']} AND parent_id IS NULL
+
+                        UNION ALL
+
+                        SELECT 
+                            p.*,
+                            pt.depth + 1, 
+                            pt.path || p.id
+                        FROM posts p
+                        JOIN post_tree pt ON p.parent_id = pt.id
+                        WHERE p.thread_id = {$thread['id']}
+                    )
+                    SELECT pt.*, u.*
+                    FROM post_tree pt
+                    LEFT JOIN users u ON pt.user_id = u.id
+                    ORDER BY pt.path";
+
+$result = pg_query($conn, $posts_CTE_query);
+
+if (!($result && pg_num_rows($result) > 0)) {
+    $_SESSION['view_thread_error'] = "No posts found";
+    header("Location: ../index.php");
+    pg_close($conn);
+    exit;
+}
+
+$posts = pg_fetch_all($result);
+
+
+/* Aggiorno le visualizzazione del thread */
+$update_views_query = "UPDATE threads SET view_count = view_count + 1 WHERE id = {$thread['id']}";
+
+pg_query($conn, $update_views_query);
+
+
+
+
+
+
+
 
 // recupero allegati per tutti i post del thread
 $query_attach = "SELECT pa.*
@@ -47,7 +86,7 @@ $query_attach = "SELECT pa.*
                 JOIN posts p ON pa.post_id = p.id
                 WHERE p.thread_id = $1";
 
-$res_attach = pg_query_params($conn, $query_attach, array($thread_id));
+$res_attach = pg_query_params($conn, $query_attach, array($thread['id']));
 $all_attachments = pg_fetch_all($res_attach) ?: [];
 
 // organizzo allegati in un array associativo [post_id => [file1, file2]]
@@ -69,7 +108,9 @@ pg_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDea</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/view_thread.css">
     <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -97,136 +138,59 @@ pg_close($conn);
             </p>
         </div>
 
-        <?php
-        // Separazione del post principale dalle risposte
-        // Assumiamo che il primo post dell'array (ordinato per data) sia quello principale 
-        // o quello che ha parent_id NULL/0
-        $main_post = null;
-        $replies = [];
-
-        foreach ($posts as $post) {
-            if ($post['parent_id'] === null || $post['parent_id'] == 0) {
-                // Se non abbiamo ancora un main post, questo è il primo (il principale)
-                if ($main_post === null) {
-                    $main_post = $post;
-                } else {
-                    // Se ci fossero altri post con parent_id 0, li trattiamo come risposte
-                    $replies[] = $post;
-                }
-            } else {
-                $replies[] = $post;
-            }
-        }
-        ?>
-        <!-- VISUALIZZAZIONE POST PRINCIPALE -->
-        <?php if ($main_post): ?>
-            <div class="main-post-section">
-                <div class="post op" id="post-<?php echo $main_post['id']; ?>">
-                    <div class="post-user-info">
-                        <div>
-                            <img src="<?php echo htmlspecialchars($main_post['avatar_url']); ?>" alt="Avatar" class="user-avatar">
-                        </div>
-                        <strong>
-                            <?php echo htmlspecialchars($main_post['username']); ?>
-                        </strong>
-                        <small class="badge-op">Author</small>
-                        <small>
-                            <?php echo htmlspecialchars($main_post['role']); ?>
-                        </small>
-                    </div>
-
-                    <div class="post-content-attachments">
-                        <div class="post-content">
-                            <p>
-                                <?php echo nl2br(htmlspecialchars($main_post['content'])); ?>
-                            </p>
-                        </div>
-
-                        <?php if (isset($attachments_by_post[$main_post['id']])): ?>
-                            <div class="attachments">
-                                <?php foreach ($attachments_by_post[$main_post['id']] as $file): ?>
-                                    <div class="file-item">
-                                        <?php if (strpos($file['file_type'], 'image') !== false): ?>
-                                            <img src="<?php echo $file['file_url']; ?>" class="post-image">
-                                        <?php else: ?>
-                                            <a href="<?php echo $file['file_url']; ?>" class="post_attachment">Download attachment</a>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="post-wrapper">
+                    <div class="post <?php if ($post['depth'] == 0): echo 'op'; endif ?>" id="post-<?php echo $post['id']; ?>" style="margin-left: <?php echo $post['depth'] * 40; ?>px; ">
+                        <div class="post-user-info">
+                            <div class="user-avatar">
+                                <img src="<?php echo htmlspecialchars($post['avatar_url']); ?>" alt="Avatar" class="user-avatar">
                             </div>
-                        <?php endif; ?>
-                        <div class="reply-button-div">
-                            <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $main_post['id']; ?>" data-username="<?php echo htmlspecialchars($main_post['username']); ?>">
-                                <span style="position: relative; top: 2px">&#8617;</span>
-                                <span style="display: inline-block;">Reply</span>
-                            </a>
+                            <strong>
+                                <?php echo htmlspecialchars($post['username']); ?>
+                            </strong>
+                            <?php if ($post['depth'] == 0): echo '<small class="badge-op">Author</small>'; endif?>
+                            <small>
+                                <?php echo htmlspecialchars($post['role']); ?>
+                            </small>
+                        </div>
+
+                        <div class="post-content-attachments">
+                            <div class="post-content">
+                                <p>
+                                    <?php echo nl2br(htmlspecialchars($post['content'])); ?>
+                                </p>
+                            </div>
+
+                            <?php if (isset($attachments_by_post[$post['id']])): ?>
+                                <div class="attachments">
+                                    <?php foreach ($attachments_by_post[$post['id']] as $file): ?>
+                                        <div class="file-item">
+                                            <?php if (strpos($file['file_type'], 'image') !== false): ?>
+                                                <img src="<?php echo $file['file_url']; ?>" class="post-image">
+                                            <?php else: ?>
+                                                <a href="<?php echo $file['file_url']; ?>" class="post_attachment">Download attachment</a>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="reply-button-div">
+                                <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['username']); ?>">
+                                    <span style="position: relative; top: 2px">&#8617;</span>
+                                    <span style="display: inline-block;">Reply</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="reply-box-<?php echo $main_post['id']; ?>" class="reply-form-container hidden">
-                    <?php 
-                        $parent_id = $main_post['id']; // Passiamo l'ID al file incluso
-                        include "includes/reply_post.php"; 
-                    ?>
-                </div>
+                    <div id="reply-box-<?php echo $post['id']; ?>" class="reply-form-container hidden">
+                        <?php 
+                            $parent_id = $post['id']; 
+                            include "includes/reply_post.php"; 
+                        ?>
+                    </div>
             </div>
-        <?php endif; ?>
-
-        <!-- CICLO PER MOSTRARE LE RISPOSTE -->
-        <div class="replies-container">
-            <h3>Replies (<?php echo count($replies); ?>)
-            </h3>
-
-            <?php foreach ($replies as $post): ?>
-                <div class="post" id="post-<?php echo $post['id']; ?>">
-                    <div class="post-user-info">
-                        <div>
-                            <img src="<?php echo htmlspecialchars($post['avatar_url']); ?>" alt="Avatar" class="user-avatar">
-                        </div>
-                        <strong>
-                            <?php echo htmlspecialchars($post['username']); ?>
-                        </strong>
-                        <small>
-                            <?php echo htmlspecialchars($post['role']); ?>
-                        </small>
-                    </div>
-
-                    <div class="post-content-attachments">
-                        <div class="post-content">
-                            <p>
-                                <?php echo nl2br(htmlspecialchars($post['content'])); ?>
-                            </p>
-                        </div>
-
-                        <?php if (isset($attachments_by_post[$post['id']])): ?>
-                            <div class="attachments">
-                                <?php foreach ($attachments_by_post[$post['id']] as $file): ?>
-                                    <div class="file-item">
-                                        <?php if (strpos($file['file_type'], 'image') !== false): ?>
-                                            <img src="<?php echo $file['file_url']; ?>" class="post-image">
-                                        <?php else: ?>
-                                            <a href="<?php echo $file['file_url']; ?>" class="post_attachment">Download attachment</a>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php endif; ?>
-                        <div class="reply-button-div">
-                            <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['username']); ?>">
-                                <span style="position: relative; top: 2px">&#8617;</span>
-                                <span style="display: inline-block;">Reply</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div id="reply-box-<?php echo $post['id']; ?>" class="reply-form-container hidden">
-                    <?php 
-                        $parent_id = $post['id']; 
-                        include "includes/reply_post.php"; 
-                    ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
+        <?php endforeach; ?>
+                    
     </div>
 
     <?php require_once "includes/footer.php" ?>

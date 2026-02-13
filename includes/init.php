@@ -34,4 +34,12 @@ if ($is_logged) {
     $result = pg_query($conn, $query);
 }
 
+// Aggiunto non ancora usato errore dalla view threads
+if (isset($_SESSION['view_thread_error'])) {
+
+    $view_thread_message = $_SESSION['view_thread_error'];
+    unset($_SESSION['view_thread_error']);
+    
+}
+
 ?>
