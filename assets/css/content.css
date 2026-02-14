@@ -76,6 +76,7 @@
 
 .online-users,
 .latest-threads {
+    height: 50%;
     box-shadow: var(--primary-color) 0 0 5px;
     border-radius: 12px;
     display: flex;

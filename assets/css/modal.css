@@ -156,8 +156,7 @@ input {
 .thread-modal-content textarea {
     margin-top: 3px;
     margin-bottom: 10px;
-    padding: 10px 0;
-    text-indent: 10px each-line;
+    padding: 10px;
     border: 1px solid var(--primary-color);
     border-radius: 12px;
     background-color: var(--light-bg-color);
