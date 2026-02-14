@@ -59,6 +59,7 @@
     align-items: center;
     font-family: "Bitcount Single";
     color: var(--primary-color);
+    align-items: end;
 }
 
 .side {

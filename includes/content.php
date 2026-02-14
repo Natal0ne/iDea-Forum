@@ -1,7 +1,7 @@
 <?php
 $conn = connect_db();
 
-$query = "SELECT * FROM categories";
+$query = "SELECT *,(SELECT COUNT(*) FROM threads WHERE category_id = categories.id) AS number_of_threads FROM categories";
 
 $result = pg_query($conn, $query);
 
@@ -30,6 +30,7 @@ if ($result && pg_num_rows($result) > 0) {
 
 }
 
+pg_close($conn);
 
 ?>
 
@@ -49,14 +50,19 @@ if ($result && pg_num_rows($result) > 0) {
                                     <p> <?php echo $c['description']; ?></p>
                                 </div>
                                 <div class="category-stat">
-                                    <div>threads: <?php echo rand(1, 100000) ?></div>
+                                    <div>threads: <?php echo $c['number_of_threads'] ?></div>
                                 </div>
                             </div>
                         <?php endif; ?>
                     <?php endforeach ?>
                     <?php if ($empty): ?>
-                        <div>
-                            <p> <?php echo $r['description']; ?> </p>
+                        <div class="category">
+                            <div class="category-main">
+                                <p> <?php echo $r['description']; ?> </p>
+                            </div>
+                            <div class="category-stat">
+                                <div>threads: <?php echo $r['number_of_threads'] ?></div>
+                            </div>
                         </div>
                     <?php endif; ?> 
                 </div>
