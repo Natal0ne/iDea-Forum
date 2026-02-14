@@ -51,7 +51,7 @@ $posts_CTE_query = "WITH RECURSIVE post_tree AS (
                         JOIN post_tree pt ON p.parent_id = pt.id
                         WHERE p.thread_id = {$thread['id']}
                     )
-                    SELECT pt.*, u.*
+                    SELECT pt.*, u.username as user_username, u.avatar_url as user_avatar_url, u.role as user_role
                     FROM post_tree pt
                     LEFT JOIN users u ON pt.user_id = u.id
                     ORDER BY pt.path";
@@ -72,6 +72,9 @@ $posts = pg_fetch_all($result);
 $update_views_query = "UPDATE threads SET view_count = view_count + 1 WHERE id = {$thread['id']}";
 
 pg_query($conn, $update_views_query);
+
+
+
 
 
 
@@ -127,9 +130,9 @@ pg_close($conn);
     <?php require_once 'includes/image_modal.php' ?>
 
 
-    <div class="thread-content">
+    <div class="thread">
 
-        <div class="thread-header">
+        <div class="thread-info">
             <h1 style="margin: 0px">
                 <?php echo htmlspecialchars($thread['title']); ?>
             </h1>
@@ -138,58 +141,79 @@ pg_close($conn);
             </p>
         </div>
 
+        <div class="thread-content">    
         <?php foreach ($posts as $post): ?>
-            <div class="post-wrapper">
-                    <div class="post <?php if ($post['depth'] == 0): echo 'op'; endif ?>" id="post-<?php echo $post['id']; ?>" style="margin-left: <?php echo $post['depth'] * 40; ?>px; ">
-                        <div class="post-user-info">
-                            <div class="user-avatar">
-                                <img src="<?php echo htmlspecialchars($post['avatar_url']); ?>" alt="Avatar" class="user-avatar">
-                            </div>
-                            <strong>
-                                <?php echo htmlspecialchars($post['username']); ?>
-                            </strong>
-                            <?php if ($post['depth'] == 0): echo '<small class="badge-op">Author</small>'; endif?>
-                            <small>
-                                <?php echo htmlspecialchars($post['role']); ?>
-                            </small>
-                        </div>
+            <div style="margin-left: <?php echo $post['depth'] * 40; ?>px; ">
+                <div class="post <?php if ($post['depth'] == 0): echo 'op'; endif ?>" id="post-<?php echo $post['id']; ?>">
 
-                        <div class="post-content-attachments">
-                            <div class="post-content">
-                                <p>
-                                    <?php echo nl2br(htmlspecialchars($post['content'])); ?>
-                                </p>
-                            </div>
-
-                            <?php if (isset($attachments_by_post[$post['id']])): ?>
-                                <div class="attachments">
-                                    <?php foreach ($attachments_by_post[$post['id']] as $file): ?>
-                                        <div class="file-item">
-                                            <?php if (strpos($file['file_type'], 'image') !== false): ?>
-                                                <img src="<?php echo $file['file_url']; ?>" class="post-image">
-                                            <?php else: ?>
-                                                <a href="<?php echo $file['file_url']; ?>" class="post_attachment">Download attachment</a>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            <?php endif; ?>
-                            <div class="reply-button-div">
-                                <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['username']); ?>">
-                                    <span style="position: relative; top: 2px">&#8617;</span>
-                                    <span style="display: inline-block;">Reply</span>
-                                </a>
-                            </div>
+                    <div class="post-user-info">
+                        <div class="user-avatar">
+                            <img src="<?php echo htmlspecialchars($post['user_avatar_url']); ?>" alt="Avatar" class="user-avatar">
                         </div>
+                        <strong><?php echo htmlspecialchars($post['user_username']); ?></strong>
+                        <?php if ($post['depth'] == 0): ?>
+                            <small class="badge-op">Author</small>
+                        <?php endif; ?>
+                        <small><?php echo htmlspecialchars($post['user_role']); ?></small>
                     </div>
+
+                    <div class="post-content-attachments">
+
+                        <div class="post-content">
+                            <p>
+                                <?php echo nl2br(htmlspecialchars($post['content'])); ?>
+                            </p>
+                        </div>
+
+                        <?php if (isset($attachments_by_post[$post['id']])): ?>
+                            <div class="attachments">
+                                <?php foreach ($attachments_by_post[$post['id']] as $file): ?>
+                                    <div class="file-item">
+                                        <?php if (strpos($file['file_type'], 'image') !== false): ?>
+                                            <img src="<?php echo $file['file_url']; ?>" class="post-image">
+                                        <?php else: ?>
+                                            <a href="<?php echo $file['file_url']; ?>" class="post_attachment">Download attachment</a>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="reply-button-div">
+                        <?php if (!$is_logged): ?>
+
+                            <a class='postSignInBtn' href="#">
+                                <span style="position: relative; top: 2px">&#8617;</span>
+                                <span style="display: inline-block;">Reply</span>
+                            </a>
+
+                        <?php else: ?>
+            
+                            <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['user_username']); ?>">
+                                <span style="position: relative; top: 2px">&#8617;</span>
+                                <span style="display: inline-block;">Reply</span>
+                            </a>
+                           
+                        <?php endif; ?>
+                         </div>
+
+                    </div>
+
+                </div>
+
+                <?php if ($is_logged): ?>
                     <div id="reply-box-<?php echo $post['id']; ?>" class="reply-form-container hidden">
                         <?php 
-                            $parent_id = $post['id']; 
+                            $parent_id = $post['id']; // Passiamo l'ID al file incluso
                             include "includes/reply_post.php"; 
                         ?>
                     </div>
+                <?php endif; ?>
+
             </div>
         <?php endforeach; ?>
+
+        </div>
                     
     </div>
 

@@ -21,6 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('fileInput');
     const fileList = document.getElementById('fileList');
 
+
+    const signinButtons = document.querySelectorAll('.postSignInBtn'); // quelli che ti escono al posto di reply se non sei loggato
+
+
+    signinButtons.forEach(button => {
+        // CORREZIONE 2: Aggiunto 'e' tra le parentesi tonde
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Assicurati che signInOverlay sia stato definito prima nel codice!
+            // const signInOverlay = document.getElementById('tuo_id_overlay');
+            signInOverlay.classList.remove('hidden');
+        });
+    });
+
+
+
+
     // Apre il modale SIGN IN da navbar
     if (navSignInBtn) {
         navSignInBtn.addEventListener('click', (e) => {
@@ -144,22 +162,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const images = document.querySelectorAll('.post-image');
 
     images.forEach(img => {
-        img.onclick = function() {
+        img.onclick = function () {
             imageModal.style.display = "block";
             modalImg.src = this.src; // Copia il percorso dell'immagine cliccata
         }
     });
 
     // Chiudi quando clicchi sulla X
-    if(closeBtn) {
-        closeBtn.onclick = function() {
+    if (closeBtn) {
+        closeBtn.onclick = function () {
             imageModal.style.display = "none";
         }
     }
 
     // Chiudi quando clicchi ovunque sullo sfondo scuro
-    if(imageModal) {
-        imageModal.onclick = function(e) {
+    if (imageModal) {
+        imageModal.onclick = function (e) {
             if (e.target !== modalImg) {
                 imageModal.style.display = "none";
             }
@@ -167,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Chiudi premendo il tasto ESC
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === "Escape") {
             imageModal.style.display = "none";
         }

@@ -132,8 +132,8 @@ nav li a::after {
   border: 2px solid var(--light-bg-color);
 }
 
-.avatar{
-  width:inherit;
+.avatar {
+  width: inherit;
   border-radius: inherit;
   text-align: center;
   align-content: center;
@@ -155,14 +155,15 @@ nav li a::after {
 
 
 .user-dropdown-menu {
-  position:absolute;
+  position: absolute;
   top: 100%;
   right: 0;
-  margin-top: 15px; /* Spazio dall'avatar */
+  margin-top: 15px;
+  /* Spazio dall'avatar */
   width: 200px;
   background-color: var(--light-bg-color);
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   z-index: 1500;
   padding: 10px;
   animation-name: dropdownIn;
@@ -174,6 +175,7 @@ nav li a::after {
     opacity: 0;
     transform: scale(0.8);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -181,7 +183,7 @@ nav li a::after {
 }
 
 .dropdown-header {
-  text-align: center; 
+  text-align: center;
   color: var(--primary-color);
   font-family: 'Bitcount Single';
   font-size: 1.2rem;
@@ -223,7 +225,7 @@ nav li a::after {
 
 }
 
-.search-wrapper{
+.search-wrapper {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -249,7 +251,7 @@ input.search-bar {
   outline: none;
   font-weight: normal;
   padding: 7px 0;
-  font-size: 18px;
+  font-size: 16px;
   transition: box-shadow 0.2s linear;
 }
 
@@ -285,6 +287,7 @@ input.search-bar:hover {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -301,7 +304,7 @@ input.search-bar:hover {
 }
 
 .search-dropdown a:hover {
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .search-dropdown .no-results {
