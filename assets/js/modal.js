@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const signInBtn = document.getElementById('signInBtn');
     const signInCloseBtn = document.getElementById('signInCloseBtn');
     const signInOverlay = document.getElementById('signInModal');
-    const signInErrorMsg = document.getElementById('signInErrorMsg');
+    const signInErrorMsg = document.getElementById('Z');
 
     const signUpBtn = document.getElementById('signUpBtn');
     const signUpCloseBtn = document.getElementById('signUpCloseBtn');
@@ -16,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const newThreadCloseBtn = document.getElementById('newThreadCloseBtn');
     const newThreadOverlay = document.getElementById('newThreadModal');
     const newThreadErrorMsg = document.getElementById('newThreadErrorMsg');
+
+    const profileSettingsBtn = document.getElementById('profileSettingsBtn')
+    const profileSettingsCloseBtn = document.getElementById('profileSettingsCloseBtn');
+    const profileSettingsOverlay = document.getElementById('profileSettingsModal');
+    const profileSettingsErrorMsg = document.getElementById('profileSettingsErrorMsg');
 
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
@@ -190,4 +195,19 @@ document.addEventListener('DOMContentLoaded', () => {
             imageModal.style.display = "none";
         }
     });
+
+    
+    // PROFILE SETTINGS MODAL 
+    if(profileSettingsBtn){
+        profileSettingsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            profileSettingsOverlay.classList.remove('hidden');
+        })
+    }
+
+    profileSettingsCloseBtn.addEventListener('click', (e) =>{
+        profileSettingsOverlay.classList.add('hidden');
+        profileSettingsErrorMsg.classList.add('hidden');
+    })
+    
 });

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/welcome.css">
     <link rel="stylesheet" href="assets/css/content.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/profile_settings.css">
 </head>
 
 <body>
@@ -28,10 +29,12 @@
         <h1 id="animatedWelcome">Welcome to iDea</h1>
     </div>
     <div class="content hidden">
-        <?php require_once 'includes/content.php' ?>
+            <?php require_once 'includes/content.php' ?>
+
     </div>
 
     <?php require_once "includes/footer.php" ?>
+    <?php require_once 'includes/profile_settings.php'?>
 
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>

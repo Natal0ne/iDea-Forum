@@ -43,4 +43,15 @@ if (isset($_SESSION['view_thread_error'])) {
     unset($_SESSION['view_thread_error']);
 }
 
+
+//Logica profile settings 
+
+$profile_settings_modal_class = "hidden";
+$profile_settings_error_message = "";
+
+if(isset($_SESSION['profile_settings_error'])){
+    $profile_settings_error_message = $_SESSION['profile_settings_error'];
+    $profile_settings_modal_class = "";
+    unset($_SESSION['profile_settings_error']);
+}
 ?>
