@@ -218,7 +218,7 @@ pg_close($conn);
     </div>
 
     <?php require_once "includes/footer.php" ?>
-
+    <?php  require_once "includes/profile_settings.php"?>
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/welcome.js"></script>

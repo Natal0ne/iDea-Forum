@@ -1,4 +1,4 @@
-<div id="profileSettingsModal" class="modal <?php echo $profile_settings_modal_class; ?>">
+<div id="profileSettingsModal" class="modal <?php echo $profile_settings_modal_class?>">
 
  <div class="modal-overlay"></div>
     

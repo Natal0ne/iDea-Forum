@@ -200,14 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // PROFILE SETTINGS MODAL 
     if(profileSettingsBtn){
         profileSettingsBtn.addEventListener('click', (e) => {
+            console.log('Bottone clickato');
             e.preventDefault();
             profileSettingsOverlay.classList.remove('hidden');
         })
     }
-
-    profileSettingsCloseBtn.addEventListener('click', (e) =>{
-        profileSettingsOverlay.classList.add('hidden');
-        profileSettingsErrorMsg.classList.add('hidden');
-    })
-    
+        profileSettingsCloseBtn.addEventListener('click', (e) =>{
+            profileSettingsOverlay.classList.add('hidden');
+            profileSettingsErrorMsg.classList.add('hidden');
+        })
+     
 });

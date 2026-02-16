@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="assets/css/welcome.css">
     <link rel="stylesheet" href="assets/css/content.css">
     <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="stylesheet" href="assets/css/profile_settings.css">
 </head>
 
 <body>
@@ -34,7 +33,7 @@
     </div>
 
     <?php require_once "includes/footer.php" ?>
-    <?php require_once 'includes/profile_settings.php'?>
+    <?php require_once "includes/profile_settings.php"?>
 
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>
