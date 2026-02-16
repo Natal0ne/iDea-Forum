@@ -68,9 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Apre il modale SIGN UP
     signUpBtn.addEventListener('click', (e) => {
+        console.log('cliccato su registrati');
         e.preventDefault();
         signInOverlay.classList.add('hidden');
-        signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
+        //signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale COMMENTATA PERCHE' NON APRIVA IL MODULO DI REGISTRAZIONE
         signUpOverlay.classList.remove('hidden');
     });
 
@@ -200,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // PROFILE SETTINGS MODAL 
     if(profileSettingsBtn){
         profileSettingsBtn.addEventListener('click', (e) => {
-            console.log('Bottone clickato');
             e.preventDefault();
             profileSettingsOverlay.classList.remove('hidden');
         })
