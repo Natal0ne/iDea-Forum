@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const signInBtn = document.getElementById('signInBtn');
     const signInCloseBtn = document.getElementById('signInCloseBtn');
     const signInOverlay = document.getElementById('signInModal');
-    const signInErrorMsg = document.getElementById('Z');
+    const signInErrorMsg = document.getElementById('signInErrorMsg');
 
     const signUpBtn = document.getElementById('signUpBtn');
     const signUpCloseBtn = document.getElementById('signUpCloseBtn');
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('cliccato su registrati');
         e.preventDefault();
         signInOverlay.classList.add('hidden');
-        //signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale COMMENTATA PERCHE' NON APRIVA IL MODULO DI REGISTRAZIONE
+        signInErrorMsg.classList.add('hidden'); // toglie la scritta di errore alla prossima apertura del modale
         signUpOverlay.classList.remove('hidden');
     });
 
