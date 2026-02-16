@@ -25,14 +25,14 @@
 
     <label for = "userid" class="form-label">Username</label>
     <input type = "text"  name = "username"  id = "username" class = "PFInput"
-    value = "<?php echo htmlspecialchars($current_username); ?>"/> 
+    value = "<?php echo htmlspecialchars($_SESSION['username']); ?>" placeholder="Username"/> 
 
     <label for="bio" id="label-bio" class = "form-label">Bio</label>
-    <textarea name="bio" id = "bio" rows="5" placeholder="Write a bio..."><?php echo htmlspecialchars($current_bio); ?></textarea>
+    <textarea name="bio" id = "bio" rows="5" placeholder="Write a bio..."><?php echo htmlspecialchars($_SESSION['user_bio']); ?></textarea>
     
     <label for="signature" id="label-signature" class = "form-label">Signature</label>
     <input type = "text"  name = "signature" id = "signature" class = "PFInput" placeholder="Enter a signature"        
-    value="<?php echo htmlspecialchars($current_signature); ?>"/> 
+    value="<?php echo htmlspecialchars($_SESSION['user_signature']); ?>"/> 
     
     <label class="form-label">Show Signature</label>
         <span id="showSignature">
