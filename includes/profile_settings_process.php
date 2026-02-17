@@ -10,65 +10,63 @@ $conn = connect_db();
 
 $user = $_SESSION["user_id"] ?? null;
 
-$current_username = "";
-$current_bio = "";
-$current_signature = "";
-$current_show_signatures = "No";
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $username = $_POST['username'];
+    $bio = $_POST['bio'];
+    $showSignature = $_POST['showSignature'] ?? "No";
+    $location = $_POST['location'];
+    $website = $_POST['website'];
+    $signature = $_POST['signature'];
+    $language = $_POST['language'];
 
-if ($user) {
-    $result = pg_query_params(
-        $conn,
-        "SELECT u.username, u.bio, u.signature, us.show_signatures
-         FROM users u
-         JOIN user_settings us ON u.id = us.user_id
-         WHERE u.id = $1",
-        array($user)
-    );
+    $stmt_name = "updateUsers";
 
-    if ($row = pg_fetch_assoc($result)) {
-        $current_username = $row["username"] ?? "";
-        $current_bio = $row["bio"] ?? "";
-        $current_signature = $row["signature"] ?? "";
-        $current_show_signatures = $row["show_signatures"] ?? "No";
+    //Aggiorna dati nella tabella users
+    $query = "UPDATE users SET username = $1, bio = $2, location = $3, website = $4, signature = $5 WHERE id = $6";
+
+    if(!pg_prepare($conn, $stmt_name, $query)){
+        die("Prepare failed: ".pg_last_error());
     }
-}
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && $user) {
+    $result = pg_execute($conn, $stmt_name, array($username, $bio, $location, $website,  $signature, $user));
 
-    $username = trim($_POST["username"] ?? "");
-    $bio = trim($_POST["bio"] ?? "");
-    $signature = trim($_POST["signature"] ?? "");
-    $show_signature = $_POST["showSignature"] ?? "No";
-
-    // Controllo username duplicato
-    $check = pg_query_params(
-        $conn,
-        "SELECT id FROM users WHERE username = $1 AND id <> $2",
-        array($username, $user)
-    );
-
-    if (pg_num_rows($check) > 0) {
-        $_SESSION['profile_settings_error'] = 'Username already used';
+    if(!$result){
+        $_SESSION['profile_settings_error'] = "Username already used";
         header("Location: ../index.php");
-        exit;
+
+        //die("Execute failed: " . pg_last_error());
+
     }
 
-    pg_query_params(
-        $conn,
-        "UPDATE users SET username = $1, bio = $2, signature = $3 WHERE id = $4",
-        array($username, $bio, $signature, $user)
-    );
+    $stmt_name = "insertIntoUserSettings";
 
-    pg_query_params(
-        $conn,
-        "UPDATE user_settings SET show_signatures = $1 WHERE user_id = $2",
-        array($show_signature, $user)
-    );
+    //Inserisci dati nella tabella user_settings se non ci sono
+    //Nel caso in cui ci siano allora fai l'update
+    $query = "INSERT INTO user_settings (user_id, language, show_signatures) VALUES ($1, $2, $3)
+    ON CONFLICT (user_id) DO UPDATE SET language = EXCLUDED.language, show_signatures = EXCLUDED.show_signatures";
 
-    $_SESSION['profile_settings_success'] = 'Profile updated successfully';
+    
+    $stmt_name = "upsert_user_settings";
+
+    if (!pg_prepare($conn, $stmt_name, $query)) {
+        die("Prepare failed: " . pg_last_error());
+    }
+
+    $result = pg_execute($conn, $stmt_name, array($user, $language, $showSignature));
+
+    if (!$result) {
+        die("Execute failed: " . pg_last_error());
+    }
+
     header("Location: ../index.php");
+    pg_close($conn);
     exit;
 }
 
+
+
+
+header("Location: ../index.php");
 pg_close($conn);
+exit;
 ?>
