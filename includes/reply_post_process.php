@@ -23,12 +23,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = pg_execute($conn, $stmt_name, array($thread_id, $user_id, $parent_id, $content));
 
     if ($result && pg_num_rows($result) > 0) {
+
+        $reply_count_query = "UPDATE threads SET reply_count = reply_count + 1 WHERE id = $thread_id";
+
+        $result = pg_query($conn, $reply_count_query);
+
         header("Location: ../view_thread.php?slug=" . $thread_slug);
         pg_close($conn);
-        exit;
+        exit;  
     }
     // TODO: DEVE MOSTRARE UN POPUP DI ERRORE CHIEDI RUBEN COME HA GESTITO TRY CATCH
-    header("Location: ../view_thread.php?slug=" . $thread_slug);
+    header("Location: ../index.php");
     pg_close($conn);
     exit;
 }
