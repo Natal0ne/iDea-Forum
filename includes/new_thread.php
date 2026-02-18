@@ -12,8 +12,31 @@
 
         <form action="includes/new_thread_process.php" method="POST" enctype="multipart/form-data">
 
-            <!-- PER ORA SETTATO AD UNO, MA DA RENDERE POSSIBILE LA SELEZIONE -->
-            <input type="hidden" name="category_id" value="1" ;>
+            <label for="category">Category:</label>
+            <select name="category_id" id="category" required>
+                <option value="" disabled selected>Choose a category...</option>
+                <?php
+
+                $conn = connect_db();
+                
+                $query_cats = "SELECT id, name FROM categories ORDER BY name ASC";
+                $res_cats = pg_query($conn, $query_cats);
+
+                if ($res_cats) {
+                    while ($row = pg_fetch_assoc($res_cats)) {
+                        $cat_id = $row['id'];
+                        // htmlspecialchars serve a evitare problemi se il nome contiene caratteri speciali
+                        $cat_name = htmlspecialchars($row['name']);
+
+                        echo "<option value=\"$cat_id\">$cat_name</option>";
+                    }
+                } else {
+                    echo "<option value=\"\">Error loading categories.</option>";
+                }
+
+                pg_close($conn);
+                ?>
+            </select>
 
             <label for="title">Title</label>
             <input type="text" id="title" name="title" required placeholder="Title" />

@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user_id = $_SESSION["user_id"];
 
     // Recupero dati input
-    $category_id = $_POST['category_id']; // TODO da vedere come settare la categoria (probabilmente mettendo un selettore di categoria nel form)
+    $category_id = $_POST['category_id'];
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
 

@@ -163,6 +163,19 @@ input {
     resize: vertical;
 }
 
+.modal select {
+    margin-top: 3px;
+    margin-bottom: 10px;
+    background: var(--light-bg-color);
+    border-radius: 12px;
+    padding: 10px 8px;
+    border: 1px solid var(--primary-color);
+}
+
+.modal select:invalid {
+    color: var(--light-text-primary-color);
+}
+
 #fileInput {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
