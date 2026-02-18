@@ -40,6 +40,19 @@ html {
     /* Compensa la Navbar fissa + un po' di spazio */
 }
 
+html::-webkit-scrollbar {
+    width: 6px;
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: var(--light-bg-color);
+    border-radius: 4px;
+}
+
+html::-webkit-scrollbar-track {
+    background-color: var(--primary-color);
+}
+
 body {
     margin: 0;
     padding: 0;
