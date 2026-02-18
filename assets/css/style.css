@@ -34,6 +34,12 @@
     --dark-text-secondary-color: #94A3B8;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 130px;
+    /* Compensa la Navbar fissa + un po' di spazio */
+}
+
 body {
     margin: 0;
     padding: 0;

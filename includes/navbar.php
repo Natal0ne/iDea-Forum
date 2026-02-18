@@ -2,7 +2,7 @@
   <div class="navbar-wrapper" id="navbarWrapper">
     <a class="logo" href="index.php">iDea</a>
     
-    <div class="search-wrapper">
+    <div class="search-wrapper" id="search">
       <form method="GET" id="searchForm">
         <input class="search-bar" id="searchInput" name="q" type="text" placeholder="Search discussion..." autocomplete="off">
       </form>

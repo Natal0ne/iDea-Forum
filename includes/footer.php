@@ -12,9 +12,9 @@
                 <h3>Explore</h3>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Discussions</a></li>
-                    <li><a href="#">Members</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="#threads">Discussions</a></li>
+                    <li><a href="#members">Members</a></li>
+                    <li><a href="#searchInput">Search</a></li>
                 </ul>
             </div>
 

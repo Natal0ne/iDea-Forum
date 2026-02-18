@@ -87,7 +87,7 @@ pg_close($conn);
 </div>
 
 <div class="side">
-    <div class="online-users">
+    <div id="members" class="online-users">
         <h3>online users</h3>
         <div class="users">
             <?php if (isset($online_users)): ?>
@@ -104,7 +104,7 @@ pg_close($conn);
             <?php endif; ?>
         </div>
     </div>
-    <div class="latest-threads">
+    <div id="threads" class="latest-threads">
         <h3>latest threads</h3>
         <div class="threads">
             <?php if (isset($latest_threads)): ?>
