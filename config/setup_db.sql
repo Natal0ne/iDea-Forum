@@ -110,3 +110,86 @@ ALTER TABLE post_votes OWNER TO www;
 --  POPOLAMENTO DATI (INSERT DI PROVA)
 -- =========================================================
 
+
+BEGIN;
+
+INSERT INTO public.users (
+id, username, email, password_hash, bio, location, website, signature, last_active_at) VALUES (
+'1'::integer, 'admin'::character varying, 'admin@idea.com'::character varying, 'admin'::character varying, 'Sono l''admin di iDea!'::text, NULL::character varying, NULL::character varying, NULL::text, NULL::timestamp without time zone)
+ returning id;
+
+INSERT INTO categories (
+    id, name, slug, description, sort_order, parent_id
+)
+VALUES 
+(1, 'Informations', 'informations', 'Some informations&rules about iDea', 0, NULL );
+
+COMMIT;
+
+
+BEGIN: 
+
+INSERT INTO threads 
+(category_id, user_id, title, slug, is_locked, is_sticky, view_count, reply_count, last_activity_at, created_at)
+VALUES
+(1, 1, 'iDea Rules', 'rules', true, false, 0, 0, NOW(), NOW())
+RETURNING id;
+
+INSERT INTO posts
+(thread_id, user_id, content, created_at)
+VALUES
+(1, 1,
+'1. Respect other members
+2. No spam
+3. No illegal content
+4. No hate speech
+5. Follow moderators instructions',
+NOW());
+
+COMMIT;
+
+
+BEGIN;
+
+INSERT INTO threads 
+(category_id, user_id, title, slug, is_locked, is_sticky, view_count, reply_count, last_activity_at, created_at)
+VALUES
+(1, 1, 'iDea Privacy Policy', 'privacy', true, false, 0, 0, NOW(), NOW())
+RETURNING id;
+
+INSERT INTO posts
+(thread_id, user_id, content, created_at)
+VALUES
+(1, 1,
+'At iDea, we believe that privacy is a right. 
+        We want to empower our users to be the masters of their identity. In this privacy policy, 
+        we want to help you understand how and why iDea collects, uses, 
+        information about you when you use our websites, widgets, APIs and emails.
+        We want this privacy policy to empower you to make better choices about how you use iDea. 
+        We''d love for you to read the whole policy',
+NOW());
+
+COMMIT;
+
+BEGIN;
+
+INSERT INTO threads 
+(category_id, user_id, title, slug, is_locked, is_sticky, view_count, reply_count, last_activity_at, created_at)
+VALUES
+(1, 1, 'FAQ', 'faq', true, false, 0, 0, NOW(), NOW())
+RETURNING id;
+
+INSERT INTO posts
+(thread_id, user_id, content, created_at)
+VALUES
+(1, 1,
+'Q: How do I change username?
+A: Go to profile settings.
+
+Q: How can I search threads?
+A: Use the search bar at the top of the page. ',
+NOW());
+
+COMMIT;
+
+

@@ -22,10 +22,10 @@
             <div class="footer-section links">
                 <h3>Support</h3>
                 <ul>
-                    <li><a href="#">Rules</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="view_thread.php?slug=rules">Rules</a></li>
+                    <li><a href="view_thread.php?slug=privacy">Privacy Policy</a></li>
+                    <li><a href="view_thread.php?slug=faq">FAQ</a></li>
+                    <li><a href = "#" >Contact us</a></li>
                 </ul>
             </div>
 
