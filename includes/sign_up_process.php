@@ -7,6 +7,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST['username']);
     $email    = trim($_POST['email']);
     $password = $_POST['password'];
+    $confirm_password = $POST['confirm_password'];
+
+    if (!($password === $confirm_password)) {
+
+        $_SESSION['sign_up_errors'] = 'The passwords do not match.';
+        header("Location: ../index.php");
+        exit;
+
+    } 
 
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 

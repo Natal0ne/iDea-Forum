@@ -43,6 +43,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // Controllo password uguale
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const submitBtn = document.getElementById("btnSubmit");
+
+    function validatePassword() {
+        if (password.value !== confirmPassword.value) {
+            // Imposta l'errore (blocca il form)
+            confirmPassword.setCustomValidity("The passwords do not match.");
+        } else {
+            // Rimuove l'errore (sblocca il form)
+            confirmPassword.setCustomValidity("");
+        }
+    }
+
+    password.addEventListener("input", validatePassword);
+    confirmPassword.addEventListener("input", validatePassword);
+    submitBtn.addEventListener("click", validatePassword);
+
+
+
 
     // Apre il modale SIGN IN da navbar
     if (navSignInBtn) {
@@ -197,17 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    
+
     // PROFILE SETTINGS MODAL 
-    if(profileSettingsBtn){
+    if (profileSettingsBtn) {
         profileSettingsBtn.addEventListener('click', (e) => {
             e.preventDefault();
             profileSettingsOverlay.classList.remove('hidden');
         })
     }
-        profileSettingsCloseBtn.addEventListener('click', (e) =>{
-            profileSettingsOverlay.classList.add('hidden');
-            profileSettingsErrorMsg.classList.add('hidden');
-        })
-     
+    profileSettingsCloseBtn.addEventListener('click', (e) => {
+        profileSettingsOverlay.classList.add('hidden');
+        profileSettingsErrorMsg.classList.add('hidden');
+    })
+
 });

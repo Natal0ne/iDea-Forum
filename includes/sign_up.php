@@ -25,7 +25,9 @@
             <input type="email" id="email" name="email" required placeholder="E-Mail" />
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required placeholder="Password" />
-            <button type="submit" class="btn-submit">Sign up</button>
+            <label for="confirmPassword">Ripeti Password</label>
+            <input type="password" id="confirmPassword" name="confirm_password" required placeholder="Conferma Password" />
+            <button type="submit" id="btnSubmit" class="btn-submit">Sign up</button>
         </form>
         <p class="switch-text">
             Already on iDea? 
