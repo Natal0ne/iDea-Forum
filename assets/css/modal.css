@@ -273,3 +273,7 @@ input {
     }
 }
 
+#profileSettingsModal .modal-content {
+    max-width: 450px;
+}
+
