@@ -32,7 +32,7 @@ if (!($result && pg_num_rows($result) > 0)) {
 
 $thread = pg_fetch_assoc($result);
 
-/* Recupero i post associati al thread */   //DA CAPIRE BENE COME FUNZIONA MA SEMPLIFICA LA VITA DI UN BOTTO
+/* Recupero i post associati al thread */
 $posts_CTE_query = "WITH RECURSIVE post_tree AS (
                         SELECT 
                             *,  
@@ -72,15 +72,6 @@ $posts = pg_fetch_all($result);
 $update_views_query = "UPDATE threads SET view_count = view_count + 1 WHERE id = {$thread['id']}";
 
 pg_query($conn, $update_views_query);
-
-
-
-
-
-
-
-
-
 
 
 // recupero allegati per tutti i post del thread

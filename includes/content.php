@@ -30,6 +30,21 @@ if ($result && pg_num_rows($result) > 0) {
 
 }
 
+
+$query = "SELECT threads.*, users.username, users.avatar_url
+          FROM threads 
+          LEFT JOIN users ON threads.user_id = users.id 
+          ORDER BY threads.created_at DESC 
+          LIMIT 30";
+
+$result = pg_query($conn, $query);
+
+if ($result && pg_num_rows($result) > 0) {
+
+    $latest_threads = pg_fetch_all($result);
+
+}
+
 pg_close($conn);
 
 ?>
@@ -89,7 +104,21 @@ pg_close($conn);
             <?php endif; ?>
         </div>
     </div>
-    <div class="latest-threads"> <!-- TODO DA FARE -->
+    <div class="latest-threads">
         <h3>latest threads</h3>
+        <div class="threads">
+            <?php if (isset($latest_threads)): ?>
+                <?php foreach ($latest_threads as $t): ?>
+                    <div class="thread">
+                        <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
+                            <img src="<?php echo $t['avatar_url']; ?>" alt="Avatar" class="avatar">
+                        </div>
+                        <a href="<?php echo "view_thread.php?slug=" . $t['slug'] ?>"><?php echo $t['title'] ?></a>
+                    </div>
+                <?php endforeach ?>
+            <?php else: ?>
+                <p> Query Error </p>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
