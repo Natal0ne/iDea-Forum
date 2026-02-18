@@ -20,6 +20,11 @@
 
     p {
         margin-top: 0;
+        border-radius: 12px;
+        display: inline-block;
+        padding: 5px;
+        box-shadow: var(--light-text-secondary-color) 0 0 8px;
+        border: 2px solid var(--primary-color);
     }
 }
 

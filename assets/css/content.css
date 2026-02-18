@@ -16,7 +16,18 @@
     }
 
     h2 {
+        display: inline-block;
         margin: 0;
+        transition: all 0.3s ease;
+    }
+    
+    h4 {
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    h2:hover, h4:hover {
+        transform: translateX(5px);
     }
 
     p {
@@ -148,10 +159,22 @@
     border-radius: 12px;
     padding: 6px;
     margin: 10px 10px;
+    transition: all 0.3s ease;
 
     a {
         text-decoration: none;
         color: var(--primary-color);
         font-size: 16px;
+        position: relative;
     }
+    /* position: relative di a e ::after servono a rendere l'area di a cliccabile maggiore (pari al tasto) */
+    a::after {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    }
+}
+
+.thread:hover {
+    transform: scale(1.05);
 }
