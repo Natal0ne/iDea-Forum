@@ -88,7 +88,9 @@ pg_close($conn);
 
 <div class="side">
     <div id="members" class="online-users">
-        <h3>online users</h3>
+        <div class="side-title">
+            <h3>online users</h3>
+        </div>
         <div class="users">
             <?php if (isset($online_users)): ?>
                 <?php foreach ($online_users as $u): ?>
@@ -110,9 +112,6 @@ pg_close($conn);
             <?php if (isset($latest_threads)): ?>
                 <?php foreach ($latest_threads as $t): ?>
                     <div class="thread">
-                        <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
-                            <img src="<?php echo $t['avatar_url']; ?>" alt="Avatar" class="avatar">
-                        </div>
                         <a href="<?php echo "view_thread.php?slug=" . $t['slug'] ?>"><?php echo $t['title'] ?></a>
                     </div>
                 <?php endforeach ?>

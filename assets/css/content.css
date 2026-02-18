@@ -84,15 +84,44 @@
     flex-direction: column;
     align-items: center;
     padding: 5px 0;
+    flex-grow: 1;
+
+    h3 {
+        margin-top: 8px;
+        margin-bottom: 3px;
+        border-bottom: solid var(--primary-color);
+    }
 }
 
 .online-users {
-    max-height: 500px;
+    max-height: 35vh;
+    align-items: stretch;
+}
+
+.side-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.users {
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
     overflow-y: auto;
 }
 
-.latest-threads {
-    flex-grow: 1;
+.users::-webkit-scrollbar {
+    width: 6px;
+}
+
+.users::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 4px;
+}
+
+.users::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 .user,
@@ -115,7 +144,10 @@
 
 .thread {
 
-    margin: 10px;
+    box-shadow: var(--primary-color) 0 0 5px;
+    border-radius: 12px;
+    padding: 6px;
+    margin: 10px 10px;
 
     a {
         text-decoration: none;
