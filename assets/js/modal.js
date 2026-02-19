@@ -231,4 +231,20 @@ document.addEventListener('DOMContentLoaded', () => {
         profileSettingsErrorMsg.classList.add('hidden');
     })
 
+    // CONTACT US MODAL
+    const contactModal = document.getElementById('contactUsModal');
+    const contactCloseBtn = document.getElementById('contactUsCloseBtn');
+    const contactUsBtnSubmit = document.getElementById('contactUsBtnSubmit');
+    
+    contactUsBtn) {
+        contactUsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            contactUsOverlay.classList.remove('hidden');
+        })
+    }
+    contactUsCloseBtn.addEventListener('click', (e) => {
+        contactUsOverlay.classList.add('hidden');
+        contactUsErrorMsg.classList.add('hidden');
+    })
+
 });
