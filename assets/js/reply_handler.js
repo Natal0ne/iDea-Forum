@@ -146,28 +146,72 @@ document.addEventListener('DOMContentLoaded', function () {
             container.appendChild(thumbContainer);
         });
     }
+    // Seleziona tutti i bottoni delete dei post
+    document.querySelectorAll('.deletePostBtn').forEach(btn => {
+      let confirmClick = false;
+      let timeout;
 
-      //Gestione deleThread per admin
+      btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const postId = this.getAttribute('data-post-id');
+          const attachmentsContainer = document.getElementById('attachments-' + postId);
 
+          if (!confirmClick) {
+              // Primo click
+              this.textContent = 'Confirm?';
+              this.style.backgroundColor = '#DC2626';
+              this.style.border = '2px solid #DC2626';
+              confirmClick = true;
 
-    const deleteThreadBtn = document.getElementById('deleteThreadBtn');
-    const title = document.getElementById('threadTitle');
+              // Reset dopo 3 secondi
+              timeout = setTimeout(() => {
+                  this.innerHTML = 'Delete';
+                  this.style.backgroundColor = '#334E68';
+                  this.style.border = '2px solid #334E68';
+                  confirmClick = false;
+              }, 3000);
+          } else {
+              // Secondo click
+              clearTimeout(timeout);
 
-    let confirmClick = false;
+              const formData = new FormData();
+              formData.append('post_id', postId);
 
-    deleteThreadBtn.addEventListener('click', function(e) {
-        e.preventDefault();
+              fetch('includes/delete_post_process.php', {
+                  method: 'POST',
+                  body: formData
+              })
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  // Nascondo contenuto e allegati senza ricaricare
+                  document.getElementById('post-text-' + postId).innerHTML = '<p style="color: gray; font-style: italic;">[This post has been deleted by an administrator]</p>';
+                  if (attachmentsContainer) attachmentsContainer.remove();
 
-        if(!confirmClick){
-            this.textContent = 'Confirm';
-            confirmClick = true;
-        }
-        else{
-            document.getElementById('deleteForm').submit();
-            title.textContent += ' [Deleted by Admin]';
-            confirmClick = false;
-        }
-    });
+                  // Rimuovo i bottoni quando elimino il post
+                  const buttonsDiv = this.closest('.post-buttons-div');
+                  if(buttonsDiv) buttonsDiv.remove();
 
+                  // Rimuovo un eventuale reply box aperta quando elimino il post
+                  const replyBox = document.getElementById('reply-box-' + postId);
+                  if(replyBox) replyBox.remove();
+
+                  // Se era il post principale, modifico il titolo del thread (solo temporaneamtente)
+                  if (data.is_op) {
+                      const titleElement = document.getElementById('threadTitle');
+                      if (titleElement) {
+                          titleElement.style.color = 'gray';
+                          // Aggiungiamo il tag se non è già presente
+                          if (!titleElement.textContent.includes('[Deleted]')) {
+                              titleElement.textContent += ' [Deleted by Admin]';
+                          }
+                      }
+                  }
+                } else {
+                    alert('Error: ' + data.message);
+                  }
+              })
+          }
+      });
+  });
 });
-

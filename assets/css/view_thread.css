@@ -237,3 +237,11 @@
 .reply-box button.btn-submit {
     box-shadow: var(--primary-color) 0 0 8px;
 }
+
+.post-buttons-div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}

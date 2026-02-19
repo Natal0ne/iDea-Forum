@@ -150,15 +150,16 @@ pg_close($conn);
                     </div>
 
                     <div class="post-content-attachments">
-
-                        <div class="post-content">
-                            <p>
-                                <?php echo nl2br(htmlspecialchars($post['content'])); ?>
-                            </p>
+                        <div class="post-content" id="post-text-<?php echo $post['id']; ?>">
+                            <?php if (!empty($post['deleted_at'])): ?>
+                                <p style="color: gray; font-style: italic;">[This post has been deleted by an administrator]</p>
+                            <?php else: ?>
+                                <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
+                            <?php endif; ?>
                         </div>
 
-                        <?php if (isset($attachments_by_post[$post['id']])): ?>
-                            <div class="attachments">
+                        <?php if (isset($attachments_by_post[$post['id']]) && empty($post['deleted_at'])): ?>
+                            <div class="attachments" id="attachments-<?php echo $post['id']; ?>">
                                 <?php foreach ($attachments_by_post[$post['id']] as $file): ?>
                                     <div class="file-item">
                                         <?php if (strpos($file['file_type'], 'image') !== false): ?>
@@ -171,40 +172,30 @@ pg_close($conn);
                             </div>
                         <?php endif; ?>
 
-                          <div class = "delete-button-div">
-                            
-                            <?php
-                                //Se l'utente è admin vede il bottone delete
-                                if($_SESSION['role'] === 'admin'): 
-                            ?>
-                                <form id="deleteForm" method="POST" action="includes/delete_thread.php">
-                                    <input type="hidden" name="thread_id" value="<?= $thread['id'] ?>">
-                                </form>
-                                <a class="deleteThreadBtn" id = "deleteThreadBtn" href = "#">
-                                <span style="display: inline-block; margin-right: 5px">Delete</span>
-                                </a>
-                            <?php endif; ?>
+                        <div class="post-buttons-div">
+                            <div class="delete-button-div">
+                                <!-- Mostra il tasto solo se l'utente è admin e il post non è già eliminato -->
+                                <?php if($_SESSION['role'] === 'admin' && empty($post['deleted_at'])): ?>
+                                    <a class="deletePostBtn" data-post-id="<?php echo $post['id']; ?>" href="#">
+                                        <span>Delete</span>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="reply-button-div">
+                                <!-- Mostra Reply solo se il post non è eliminato -->
+                                <?php if (empty($post['deleted_at'])): ?>
+                                    <?php if (!$is_logged): ?>
+                                        <a class='postSignInBtn' href="#"><span style="position: relative; top: 2px">&#8617;</span> Reply</a>
+                                    <?php else: ?>
+                                        <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['user_username']); ?>">
+                                            <span style="position: relative; top: 2px">&#8617;</span> Reply
+                                        </a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        <div class="reply-button-div">
-                        <?php if (!$is_logged): ?>
-
-                            <a class='postSignInBtn' href="#">
-                                <span style="position: relative; top: 2px">&#8617;</span>
-                                <span style="display: inline-block;">Reply</span>
-                            </a>
-
-                        <?php else: ?>
-
-                            <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['user_username']); ?>">
-                                <span style="position: relative; top: 2px">&#8617;</span>
-                                <span style="display: inline-block;">Reply</span>
-                            </a>
-
-                        <?php endif; ?>
-                         </div>
-
                     </div>
-
                 </div>
 
                 <?php if ($is_logged): ?>
