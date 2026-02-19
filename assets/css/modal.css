@@ -168,7 +168,7 @@ input {
     margin-bottom: 10px;
     background: var(--light-bg-color);
     border-radius: 12px;
-    padding: 10px 8px;
+    padding: 9px 8px;
     border: 1px solid var(--primary-color);
 }
 
@@ -276,4 +276,3 @@ input {
 #profileSettingsModal .modal-content {
     max-width: 450px;
 }
-
