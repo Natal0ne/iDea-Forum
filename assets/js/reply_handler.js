@@ -10,21 +10,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const username = this.getAttribute('data-username');
 
             if (targetBox) {
-                // Mostra il box rimuovendo la classe hidden
-                targetBox.classList.remove('hidden');
+              // Mostra il box rimuovendo la classe hidden
+              targetBox.classList.remove('hidden');
 
-                // Aggiorna il nome dell'utente a cui si risponde
-                const userSpan = targetBox.querySelector('.reply-target-user');
-                if (userSpan && username) {
-                    userSpan.innerText = '@' + username;
-                }
+              // Aggiorna il nome dell'utente a cui si risponde
+              const userSpan = targetBox.querySelector('.reply-target-user');
+              if (userSpan && username) userSpan.innerText = '@' + username;
 
-                // Focus automatico sulla textarea
-                const textarea = targetBox.querySelector('.reply-textarea');
-                if (textarea) textarea.focus();
+              // Focus automatico sulla textarea
+              const textarea = targetBox.querySelector('.reply-textarea');
+              if (textarea) textarea.focus();
 
-                // Scroll fluido verso il box aperto
-                targetBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              // Scroll fluido verso il box aperto
+              targetBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         });
     });
@@ -33,35 +31,31 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeButtons = document.querySelectorAll('.close-reply-btn');
     closeButtons.forEach(btn => {
         btn.addEventListener('click', function () {
-            // Risale al contenitore principale (.reply-form-container)
+            // Risale al container principale
             const container = this.closest('.reply-form-container');
 
             if (container) {
-                // Nasconde il box
-                container.classList.add('hidden');
+              // Nasconde il box
+              container.classList.add('hidden');
 
-                // Svuota il buffer dei file (input file)
-                const fileInput = container.querySelector('input[type="file"]');
-                if (fileInput) {
-                    fileInput.value = ""; // Questo cancella i file selezionati
-                }
+              // Svuota campi
+              const textarea = container.querySelector('.textarea, .reply-textarea');
+              if (textarea) textarea.value = "";
 
-                // Svuota la lista delle anteprime (thumbnails)
-                const fileList = container.querySelector('.reply-file-list');
-                if (fileList) {
-                    fileList.innerHTML = ""; // Cancella i quadratini delle immagini
-                }
+              // Svuota allegati (Specifico per questo box)
+              const fileInput = container.querySelector('input[type="file"]');
+              const fileList = container.querySelector('.reply-file-list');
 
-                // Svuota il testo scritto nella textarea
-                const textarea = container.querySelector('.reply-textarea');
-                if (textarea) {
-                    textarea.value = "";
-                }
+              if (fileInput) {
+                  fileInput.value = "";
+                  fileInput._accumulatedFiles = []; // Svuota l'array file relativo al post
+              }
+              if (fileList) fileList.innerHTML = "";
             }
         });
     });
 
-    //  GESTIONE DRAG & DROP E ANTEPRIME ---
+    // Gestione drag & drop e anteprime
     const replyBoxes = document.querySelectorAll('.reply-box');
 
     replyBoxes.forEach(box => {
@@ -71,7 +65,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!dropZone || !fileInput) return;
 
-        // Aggiorna css quando si trascina un file sopra
+        // Inizializziamo l'array accumulatore come proprietà dell'input
+        fileInput._accumulatedFiles = [];
+
+        // Funzione interna per gestire l'aggiunta
+        const handleReplyFiles = (newFiles) => {
+            // Accumula i file nell'array temporaneo
+            const filesArray = Array.from(newFiles);
+            fileInput._accumulatedFiles = fileInput._accumulatedFiles.concat(filesArray);
+
+            // Sincronizza l'input HTML per il PHP usando DataTransfer
+            const dt = new DataTransfer();
+            fileInput._accumulatedFiles.forEach(file => dt.items.add(file));
+
+            // --- CORREZIONE FONDAMENTALE ---
+            // 1. Svuotiamo prima il valore testuale (permette di selezionare lo stesso file due volte)
+            fileInput.value = "";
+            // 2. Assegniamo ORA la lista completa (questo popola l'input per il PHP)
+            fileInput.files = dt.files;
+            // -------------------------------
+
+            // Aggiorna le anteprime
+            updateReplyThumbnails(fileInput._accumulatedFiles, fileList);
+        };
+
+        // Aggiorna css quando si trascina un file sopra la dropzone
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropZone.classList.add('drop-zone--over');
@@ -83,39 +101,37 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // Quando il file viene rilasciato
+        // Quando file viene rilasciato sulla dropzone
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropZone.classList.remove('drop-zone--over');
-
-            if (e.dataTransfer.files.length) {
-                // Collega i file trascinati all'input file nascosto
-                fileInput.files = e.dataTransfer.files;
-                updateReplyThumbnails(fileInput.files, fileList);
+            if (e.dataTransfer.files && e.dataTransfer.files.length) {
+                handleReplyFiles(e.dataTransfer.files);
             }
         });
 
         // Quando i file vengono selezionati normalmente (cliccando)
         fileInput.addEventListener('change', () => {
-            if (fileInput.files.length) {
-                updateReplyThumbnails(fileInput.files, fileList);
+            if (fileInput.files && fileInput.files.length) {
+                handleReplyFiles(fileInput.files);
             }
         });
     });
 
-    /* Funzione per generare le anteprime delle immagini selezionate, files (file scelti) e container (div dove mettere le anteprime) */
-    function updateReplyThumbnails(files, container) {
-        container.innerHTML = ""; // Svuota anteprime precedenti di questo specifico box
+    // Funzione per generare le anteprime delle immagini selezionate
+    function updateReplyThumbnails(filesArray, container) {
+        container.innerHTML = ""; // Svuota anteprime precedenti di questo box
 
-        Array.from(files).forEach(file => {
+        filesArray.forEach((file, index) => {
             const thumbContainer = document.createElement('div');
             thumbContainer.className = 'thumbnail-container';
+            thumbContainer.style.position = 'relative';
 
             if (file.type.startsWith('image/')) {
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(file);
 
-                // Pulizia memoria quando l'immagine è caricata
+                // Pulizia memoria quando l'immagine viene caricata
                 img.onload = () => URL.revokeObjectURL(img.src);
 
                 thumbContainer.appendChild(img);

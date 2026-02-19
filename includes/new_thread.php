@@ -10,7 +10,7 @@
 
         <h2>New Thread</h2>
 
-        <form action="includes/new_thread_process.php" method="POST" enctype="multipart/form-data">
+        <form id="newThreadForm" action="includes/new_thread_process.php" method="POST" enctype="multipart/form-data">
 
             <label for="category">Category:</label>
             <select name="category_id" id="category" required>
@@ -18,7 +18,7 @@
                 <?php
 
                 $conn = connect_db();
-                
+
                 $query_cats = "SELECT id, name FROM categories ORDER BY name ASC";
                 $res_cats = pg_query($conn, $query_cats);
 
