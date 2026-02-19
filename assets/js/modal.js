@@ -26,6 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('fileInput');
     const fileList = document.getElementById('fileList');
 
+    const contactUsModal = document.getElementById('contactUsModal');
+    const contactUsCloseBtn = document.getElementById('contactUsCloseBtn');
+    const contactUsLink = document.getElementById('contactUsLink');
+    const contactUsErrorMsg = document.getElementById('contactUsErrorMsg');
 
     const signinButtons = document.querySelectorAll('.postSignInBtn'); // quelli che ti escono al posto di reply se non sei loggato
 
@@ -218,8 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    // PROFILE SETTINGS MODAL 
+    // PROFILE SETTINGS MODAL
     if (profileSettingsBtn) {
         profileSettingsBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -232,19 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // CONTACT US MODAL
-    const contactModal = document.getElementById('contactUsModal');
-    const contactCloseBtn = document.getElementById('contactUsCloseBtn');
-    const contactUsBtnSubmit = document.getElementById('contactUsBtnSubmit');
-    
-    contactUsBtn) {
-        contactUsBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            contactUsOverlay.classList.remove('hidden');
-        })
-    }
+    contactUsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      contactUsModal.classList.remove('hidden');
+    });
     contactUsCloseBtn.addEventListener('click', (e) => {
-        contactUsOverlay.classList.add('hidden');
-        contactUsErrorMsg.classList.add('hidden');
-    })
+      contactUsModal.classList.add('hidden');
+      contactUsErrorMsg.classList.add('hidden');
+    });
 
 });

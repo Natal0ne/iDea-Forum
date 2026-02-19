@@ -2,27 +2,27 @@
 require_once 'config.php';
 
 // Logica sign_in e sign_up modal in caso di errore
-$sign_in_modal_class = "hidden"; 
+$sign_in_modal_class = "hidden";
 $sign_in_error_message = "";
 
-$sign_up_modal_class = "hidden"; 
+$sign_up_modal_class = "hidden";
 $sign_up_error_message = "";
 
 if (isset($_SESSION['sign_in_error'])) {
 
     $sign_in_error_message = $_SESSION['sign_in_error'];
-    $sign_in_modal_class = ""; 
+    $sign_in_modal_class = "";
     unset($_SESSION['sign_in_error']);
 
 } elseif (isset($_SESSION['sign_up_errors'])) {
 
     $sign_up_error_message = $_SESSION['sign_up_errors'];
-    $sign_up_modal_class = ""; 
+    $sign_up_modal_class = "";
     unset($_SESSION['sign_up_errors']);
-    
+
 }
 
-//Logica sign_in e sign_up a buon fine 
+//Logica sign_in e sign_up a buon fine
 $is_logged = isset($_SESSION['user_id']);
 
 if ($is_logged) {
@@ -44,7 +44,7 @@ if (isset($_SESSION['view_thread_error'])) {
 }
 
 
-//Logica profile settings 
+//Logica profile settings
 
 $profile_settings_modal_class = "hidden";
 $profile_settings_error_message = "";
@@ -53,5 +53,16 @@ if(isset($_SESSION['profile_settings_error'])){
     $profile_settings_error_message = $_SESSION['profile_settings_error'];
     $profile_settings_modal_class = "";
     unset($_SESSION['profile_settings_error']);
+}
+
+
+// Logica contact us
+$contact_us_modal_class = "hidden";
+$contact_us_error_message = "";
+
+if(isset($_SESSION['contact_us_error'])) {
+    $contact_us_error_message = $_SESSION['contact_us_error'];
+    $contact_us_modal_class = "";
+    unset($_SESSION['contact_us_error']);
 }
 ?>

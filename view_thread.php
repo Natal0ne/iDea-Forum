@@ -1,6 +1,6 @@
 <?php require_once 'includes/init.php';
 
-if (!isset($_GET['slug'])) {  
+if (!isset($_GET['slug'])) {
     header("Location: index.php");
     exit;
 }
@@ -11,7 +11,7 @@ $conn = connect_db();
 
 /* Recupero il thread */
 $stmt_name = "view_thread_query";
-$view_thread_query = "SELECT t.*, c.name as category_name, u.username as author_name 
+$view_thread_query = "SELECT t.*, c.name as category_name, u.username as author_name
                         FROM threads t
                         JOIN categories c ON t.category_id = c.id
                         LEFT JOIN users u ON t.user_id = u.id
@@ -34,18 +34,18 @@ $thread = pg_fetch_assoc($result);
 
 /* Recupero i post associati al thread */
 $posts_CTE_query = "WITH RECURSIVE post_tree AS (
-                        SELECT 
-                            *,  
-                            0 as depth, 
+                        SELECT
+                            *,
+                            0 as depth,
                             ARRAY[id] as path
-                        FROM posts 
+                        FROM posts
                         WHERE thread_id = {$thread['id']} AND parent_id IS NULL
 
                         UNION ALL
 
-                        SELECT 
+                        SELECT
                             p.*,
-                            pt.depth + 1, 
+                            pt.depth + 1,
                             pt.path || p.id
                         FROM posts p
                         JOIN post_tree pt ON p.parent_id = pt.id
@@ -114,6 +114,7 @@ pg_close($conn);
 
     <div class="bg-gradient"></div>
 
+    <?php require_once "includes/contact_us.php"?>
     <?php require_once 'includes/sign_up.php' ?>
     <?php require_once 'includes/sign_in.php' ?>
     <?php require_once 'includes/new_thread.php' ?>
@@ -132,7 +133,7 @@ pg_close($conn);
             </p>
         </div>
 
-        <div class="thread-content">    
+        <div class="thread-content">
         <?php foreach ($posts as $post): ?>
             <div style="margin-left: <?php echo $post['depth'] * 40; ?>px; ">
                 <div class="post <?php if ($post['depth'] == 0): echo 'op'; endif ?>" id="post-<?php echo $post['id']; ?>">
@@ -179,12 +180,12 @@ pg_close($conn);
                             </a>
 
                         <?php else: ?>
-            
+
                             <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['user_username']); ?>">
                                 <span style="position: relative; top: 2px">&#8617;</span>
                                 <span style="display: inline-block;">Reply</span>
                             </a>
-                           
+
                         <?php endif; ?>
                          </div>
 
@@ -194,9 +195,9 @@ pg_close($conn);
 
                 <?php if ($is_logged): ?>
                     <div id="reply-box-<?php echo $post['id']; ?>" class="reply-form-container hidden">
-                        <?php 
+                        <?php
                             $parent_id = $post['id']; // Passiamo l'ID al file incluso
-                            include "includes/reply_post.php"; 
+                            include "includes/reply_post.php";
                         ?>
                     </div>
                 <?php endif; ?>
@@ -205,11 +206,12 @@ pg_close($conn);
         <?php endforeach; ?>
 
         </div>
-                    
+
     </div>
 
     <?php require_once "includes/footer.php" ?>
-    <?php  require_once "includes/profile_settings.php"?>
+    <?php require_once "includes/profile_settings.php"?>
+
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/welcome.js"></script>
