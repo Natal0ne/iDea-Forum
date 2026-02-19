@@ -125,7 +125,7 @@ pg_close($conn);
     <div class="thread">
 
         <div class="thread-info">
-            <h1 style="margin: 0px">
+            <h1  id = "threadTitle" style="margin: 0px">
                 <?php echo htmlspecialchars($thread['title']); ?>
             </h1>
             <p>Categoria:
@@ -171,6 +171,20 @@ pg_close($conn);
                             </div>
                         <?php endif; ?>
 
+                          <div class = "delete-button-div">
+                            
+                            <?php
+                                //Se l'utente è admin vede il bottone delete
+                                if($_SESSION['role'] === 'admin'): 
+                            ?>
+                                <form id="deleteForm" method="POST" action="includes/delete_thread.php">
+                                    <input type="hidden" name="thread_id" value="<?= $thread['id'] ?>">
+                                </form>
+                                <a class="deleteThreadBtn" id = "deleteThreadBtn" href = "#">
+                                <span style="display: inline-block; margin-right: 5px">Delete</span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
                         <div class="reply-button-div">
                         <?php if (!$is_logged): ?>
 

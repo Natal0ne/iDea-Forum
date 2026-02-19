@@ -146,4 +146,28 @@ document.addEventListener('DOMContentLoaded', function () {
             container.appendChild(thumbContainer);
         });
     }
+
+      //Gestione deleThread per admin
+
+
+    const deleteThreadBtn = document.getElementById('deleteThreadBtn');
+    const title = document.getElementById('threadTitle');
+
+    let confirmClick = false;
+
+    deleteThreadBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if(!confirmClick){
+            this.textContent = 'Confirm';
+            confirmClick = true;
+        }
+        else{
+            document.getElementById('deleteForm').submit();
+            title.textContent += ' [Deleted by Admin]';
+            confirmClick = false;
+        }
+    });
+
 });
+

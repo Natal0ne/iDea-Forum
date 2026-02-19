@@ -171,6 +171,26 @@
     transform: scale(1.1);
 }
 
+.delete-button-div {
+    text-align: right;
+}
+
+.delete-button-div a {
+    display: inline-block;
+    text-decoration: none;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 5px 8px;
+    color: var(--light-title-color);
+    background-color: var(--primary-color);
+    box-shadow: var(--primary-color) 0 0 8px;
+    transition: all 0.3s ease;
+}
+
+.delete-button-div a:hover {
+    transform: scale(1.1);
+}
+
 .reply-box {
     display: flex;
     flex-direction: column;
