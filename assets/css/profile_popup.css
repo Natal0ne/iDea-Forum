@@ -13,8 +13,8 @@
 
 .profile-popup {
     position: absolute;
-    top: 30px;
-    left: 0;
+    top: 50%;
+    left: 50%;
     z-index: 100;
     width: 280px;
     background-color: var(--light-bg-color);
@@ -28,7 +28,7 @@
     justify-content: center;
 
     scale: 1;
-    translate: 0 0;
+    translate: -50% -50%;
 
     animation: profilePopupIn 0.3s ease;
 }
