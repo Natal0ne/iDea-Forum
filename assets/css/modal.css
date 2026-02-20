@@ -91,7 +91,7 @@ input {
 
 .modal h2 {
     margin: 0;
-    font-family: 'Bitcount Single';
+    font-family: "Bitcount Single";
     font-size: 2.5rem;
     font-weight: 500;
     color: var(--primary-color);
@@ -111,7 +111,9 @@ input {
     background-color: var(--primary-color);
     color: #f4f4f4;
     font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
 
 .btn-submit:hover {
@@ -125,7 +127,7 @@ input {
 
 .error-box {
     border-radius: 12px;
-    border: 1px solid #DC2626;
+    border: 1px solid #dc2626;
     text-align: center;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -220,7 +222,6 @@ input {
     margin-top: 10px;
 }
 
-
 /* CSS per il modale preview immagine */
 
 /* Sfondo del modal */
@@ -275,5 +276,22 @@ input {
 }
 
 #profileSettingsModal .modal-content {
-    max-width: 450px;
+    .modal-content {
+        max-width: 450px;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        border: 1px solid var(--primary-color);
+        width: 50px;
+        height: 50px;
+    }
+
+    .pf-avatar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
 }
