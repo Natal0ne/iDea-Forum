@@ -275,16 +275,9 @@ input {
     }
 }
 
-#profileSettingsModal .modal-content {
+#profileSettingsModal {
     .modal-content {
         max-width: 450px;
-    }
-
-    .avatar {
-        border-radius: 50%;
-        border: 1px solid var(--primary-color);
-        width: 50px;
-        height: 50px;
     }
 
     .pf-avatar-container {
@@ -293,5 +286,46 @@ input {
         align-items: flex-start;
         justify-content: center;
         margin-bottom: 5px;
+    }
+
+    .avatar-wrapper {
+        position: relative;
+        border-radius: 50%;
+        border: 1px solid var(--primary-color);
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .avatar-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .avatar-edit-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .avatar-wrapper:hover .avatar-edit-overlay {
+        opacity: 1;
+    }
+
+    .edit-icon {
+        color: white;
+        font-size: 24px;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
 }

@@ -1,5 +1,6 @@
 <?php require_once "profile_settings_data.php"; ?>
-
+<!-- Link alla CDN di font awesome (messo qua tanto serve solo per modificare avatar) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <div id="profileSettingsModal" class="modal <?php echo $profile_settings_modal_class; ?>">
 
  <div class="modal-overlay"></div>
@@ -24,12 +25,18 @@
         <form action="includes/profile_settings_process.php" method="post" enctype="multipart/form-data">
             <div class="pf-avatar-container">
                 <label>Avatar</label>
-                <img src="<?php echo htmlspecialchars(
-                    $_SESSION["user_avatar_url"],
-                ); ?>"
-                alt="Avatar"
-                class="avatar"
-                id="avatarPreview">
+                <div class="avatar-wrapper" onclick="document.getElementById('avatarInput').click();">
+                    <img src="<?php echo htmlspecialchars(
+                        $_SESSION["user_avatar_url"],
+                    ); ?>"
+                    alt="Avatar"
+                    id="avatarPreview">
+
+                    <div class="avatar-edit-overlay">
+                        <span class="edit-icon"><i class="fa-solid fa-pencil"></i></span>
+                    </div>
+
+                </div>
 
             <!-- input nascosto -->
                 <input type="file"
