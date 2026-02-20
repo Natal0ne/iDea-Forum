@@ -19,8 +19,22 @@
             <?php endif; ?>
         </div>
 
-        <form action="includes/profile_settings_process.php" method="post">
+        <form action="includes/profile_settings_process.php" method="post" enctype="multipart/form-data">
+        <div class="avatar-container">
+            <label>Avatar</label>
+            <img src="<?php echo htmlspecialchars($_SESSION['user_avatar_url']); ?>" 
+            alt="Avatar" 
+            class="avatar" 
+            id="avatarPreview">
 
+        <!-- input nascosto -->
+            <input type="file" 
+            name="avatar" 
+            id="avatarInput" 
+            accept="image/*" 
+            style="display: none;">
+        </div></br>
+        
         <label for = "username" class="form-label">Username</label>
         <input type = "text"  name = "username"  id = "username" class = "PFInput"
         value = "<?php echo htmlspecialchars($_SESSION['username']); ?>" placeholder="Username"/>

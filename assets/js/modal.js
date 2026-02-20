@@ -219,6 +219,35 @@ document.addEventListener("DOMContentLoaded", () => {
     profileSettingsErrorMsg.classList.add("hidden");
   });
 
+  // CHANGE PFP LOGIC
+  document.addEventListener('click', (e) => {   
+    const avatarPreview = document.getElementById("avatarPreview");
+    const avatarInput = document.getElementById("avatarInput");
+    
+    //Apri file picker quando clicchi su immagine
+    avatarPreview.addEventListener("click", function() {
+        avatarInput.click();
+    });
+
+     // Anteprima immediata quando selezioni una nuova immagine
+    avatarInput.addEventListener("change", function() {
+        const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        avatarPreview.src = e.target.result;
+      }
+
+      reader.readAsDataURL(file);
+    }
+
+  
+  });
+  });
+
+
   // CONTACT US MODAL
   contactUsLink.addEventListener("click", (e) => {
     e.preventDefault();

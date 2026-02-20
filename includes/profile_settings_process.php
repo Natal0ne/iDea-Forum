@@ -58,11 +58,40 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         die("Execute failed: " . pg_last_error());
     }
 
-    header("Location: ../index.php");
-    pg_close($conn);
-    exit;
 }
 
+//GESTIONE CAMBIO AVATAR
+
+if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
+
+    $targetDir = "../assets/img/";
+
+    $fileExtension = strtolower(pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION));
+    $fileName = uniqid("avatar_", true) . "." . $fileExtension;
+    $targetFile = $targetDir . $fileName;
+
+    $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+
+    if (in_array($fileExtension, $allowed)) {
+
+        $check = getimagesize($_FILES["avatar"]["tmp_name"]);
+
+        if ($check !== false) {
+
+            if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $targetFile)) {
+
+                $avatarPath = "assets/img/" . $fileName;
+
+                pg_prepare($conn, "change_img", "UPDATE users SET avatar_url = $1 WHERE id = $2");
+                pg_execute($conn, "change_img", array($avatarPath, $_SESSION['user_id']));
+
+                $_SESSION['user_avatar_url'] = $avatarPath;
+            } else {
+                die("Errore nel salvataggio file");
+            }
+        }
+    }
+}
 
 
 

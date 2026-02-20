@@ -129,6 +129,7 @@ nav li a::after {
   width: 35px;
   border-radius: 50%;
   object-fit: cover;
+  overflow: hidden;  /*L'immagine non sborda ma da problemi su pf settings*/
   border: 2px solid var(--light-bg-color);
 }
 
@@ -146,6 +147,7 @@ nav li a::after {
   cursor: pointer;
   box-shadow: var(--light-bg-color) 0 0 8px;
 }
+
 
 .user-menu-wrapper {
   position: relative;
