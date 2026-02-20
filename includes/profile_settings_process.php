@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $query = "INSERT INTO user_settings (user_id, language, show_signatures) VALUES ($1, $2, $3)
     ON CONFLICT (user_id) DO UPDATE SET language = EXCLUDED.language, show_signatures = EXCLUDED.show_signatures";
 
-    
+
     $stmt_name = "upsert_user_settings";
 
     if (!pg_prepare($conn, $stmt_name, $query)) {
@@ -64,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
 
-    $targetDir = "../assets/img/";
+    $targetDir = "../uploads/avatars/";
 
     $fileExtension = strtolower(pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION));
     $fileName = uniqid("avatar_", true) . "." . $fileExtension;
@@ -80,7 +80,7 @@ if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
 
             if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $targetFile)) {
 
-                $avatarPath = "assets/img/" . $fileName;
+                $avatarPath = "uploads/avatars/" . $fileName;
 
                 pg_prepare($conn, "change_img", "UPDATE users SET avatar_url = $1 WHERE id = $2");
                 pg_execute($conn, "change_img", array($avatarPath, $_SESSION['user_id']));

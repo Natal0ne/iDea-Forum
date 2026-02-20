@@ -135,7 +135,8 @@ nav li a::after {
 }
 
 .avatar {
-  width: inherit;
+  width: 35px;
+  height: 35px;
   border-radius: inherit;
   text-align: center;
   align-content: center;
