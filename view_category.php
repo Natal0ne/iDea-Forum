@@ -58,6 +58,31 @@ if (!($result && pg_num_rows($result) > 0)) {
 
 $threads = pg_fetch_all($result);
 
+
+$query = "SELECT * FROM users WHERE last_active_at > NOW() - INTERVAL '5 minutes' ";
+
+$result = pg_query($conn, $query);
+
+if ($result && pg_num_rows($result) > 0) {
+
+    $online_users = pg_fetch_all($result);
+
+}
+
+$query = "SELECT threads.*, users.username, users.avatar_url
+          FROM threads 
+          LEFT JOIN users ON threads.user_id = users.id 
+          ORDER BY threads.created_at DESC 
+          LIMIT 30";
+
+$result = pg_query($conn, $query);
+
+if ($result && pg_num_rows($result) > 0) {
+
+    $latest_threads = pg_fetch_all($result);
+
+}
+
 pg_close($conn);
 ?>
 
@@ -88,44 +113,82 @@ pg_close($conn);
     <?php require_once 'includes/image_modal.php' ?>
 
 
-    <div class="category">
-        
-        <div class="category-header">
-            <h1><?php echo htmlspecialchars($category['name']); ?></h1>
-            <p><?php echo htmlspecialchars($category['description']); ?></p>
-        </div>
-
-        <div class="thread-list">
-            <?php foreach ($threads as $thread): ?>
-
-            <div class="thread">
-
-                <div class="thread-main">
-
-                    <img src="<?php echo htmlspecialchars($thread['avatar_url']); ?>" alt="Avatar" class="author-avatar">
-                    
-                    <div>
-                        <a href="<?php echo "view_thread.php?slug=" . $thread['thread_slug'] ?>" ><h3> <?php echo $thread['title']; ?> </h3></a>
-                        <p>Created by <strong><?php echo $thread['author_name'] ?></strong></p>
-                    </div>
-                    
-                </div>
-
-                <div class="thread-stats">
-                    <div class="stat">
-                        Replies: <?php echo $thread['reply_count'] ?>
-                    </div>
-                    <div class="stat">
-                        Views: <?php echo $thread['view_count'] ?>
-                    </div>
-                </div>
-
+    <div class="content">
+        <div class="category">
+            
+            <div class="category-header">
+                <h1><?php echo htmlspecialchars($category['name']); ?></h1>
+                <p><?php echo htmlspecialchars($category['description']); ?></p>
             </div>
 
-            <?php endforeach; ?>
+            <div class="thread-list">
+                <?php foreach ($threads as $thread): ?>
 
+                <div class="thread">
+
+                    <div class="thread-main">
+
+                        <img src="<?php echo htmlspecialchars($thread['avatar_url']); ?>" alt="Avatar" class="author-avatar">
+                        
+                        <div>
+                            <a href="<?php echo "view_thread.php?slug=" . $thread['thread_slug'] ?>" ><h3> <?php echo $thread['title']; ?> </h3></a>
+                            <p>Created by <strong><?php echo $thread['author_name'] ?></strong></p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="thread-stats">
+                        <div class="stat">
+                            Replies: <?php echo $thread['reply_count'] ?>
+                        </div>
+                        <div class="stat">
+                            Views: <?php echo $thread['view_count'] ?>
+                        </div>
+                    </div>
+
+                </div>
+
+                <?php endforeach; ?>
+
+            </div>
+                        
         </div>
-                    
+
+        <div class="side">
+            <div id="members" class="online-users">
+                <div class="side-title">
+                    <h3>online users</h3>
+                </div>
+                <div class="users">
+                    <?php if (isset($online_users)): ?>
+                        <?php foreach ($online_users as $u): ?>
+                        <div class="user <?php echo $u['role']; ?>">
+                            <div class="avatar-container"> <!-- Riutilizzo la classe della navbar -->
+                                <img src="<?php echo $u['avatar_url']; ?>" alt="Avatar" class="avatar">
+                            </div>
+                            <p><?php echo $u['username']; ?></p>
+                        </div>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <p> 0 </p>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div id="threads" class="latest-threads">
+                <h3>latest threads</h3>
+                <div class="threads">
+                    <?php if (isset($latest_threads)): ?>
+                        <?php foreach ($latest_threads as $t): ?>
+                            <div class="thread">
+                                <a href="<?php echo "view_thread.php?slug=" . $t['slug'] ?>"><?php echo $t['title'] ?></a>
+                            </div>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <p> Query Error </p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </div>
 
     <?php require_once "includes/footer.php" ?>
