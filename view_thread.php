@@ -51,7 +51,9 @@ $posts_CTE_query = "WITH RECURSIVE post_tree AS (
                         JOIN post_tree pt ON p.parent_id = pt.id
                         WHERE p.thread_id = {$thread['id']}
                     )
-                    SELECT pt.*, u.username as user_username, u.avatar_url as user_avatar_url, u.role as user_role
+                    SELECT pt.*, u.username as user_username, u.avatar_url as user_avatar_url, u.role as user_role,
+                    u.created_at as user_created_at, u.bio as user_bio, u.reputation as user_reputation,
+                    u.last_active_at as user_last_active_at, u.is_banned as user_is_banned, u.reputation as user_reputation
                     FROM post_tree pt
                     LEFT JOIN users u ON pt.user_id = u.id
                     ORDER BY pt.path";
@@ -107,6 +109,7 @@ pg_close($conn);
     <link rel="stylesheet" href="assets/css/view_thread.css">
     <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/profile_popup.css">
     <link rel="stylesheet" href="assets/css/footer.css">
 </head>
 
@@ -139,14 +142,23 @@ pg_close($conn);
                 <div class="post <?php if ($post['depth'] == 0): echo 'op'; endif ?>" id="post-<?php echo $post['id']; ?>">
 
                     <div class="post-user-info">
-                        <div class="user-avatar">
-                            <img src="<?php echo htmlspecialchars($post['user_avatar_url']); ?>" alt="Avatar" class="user-avatar">
-                        </div>
-                        <strong><?php echo htmlspecialchars($post['user_username']); ?></strong>
+
+                        <img src="<?php echo htmlspecialchars($post['user_avatar_url']); ?>"
+                                alt="Avatar"
+                                class="user-avatar profile-trigger"
+                                onclick="toggleProfilePopup(event, <?php echo $post['id']; ?>)">
+
+                        <strong class="profile-trigger" onclick="toggleProfilePopup(event, <?php echo $post['id']; ?>)">
+                            <?php echo htmlspecialchars($post['user_username']); ?>
+                        </strong>
                         <?php if ($post['depth'] == 0): ?>
                             <small class="badge-op">Author</small>
                         <?php endif; ?>
                         <small><?php echo htmlspecialchars($post['user_role']); ?></small>
+
+                        <div id="popup-<?php echo $post['id']; ?>" class="profile-popup hidden">
+                            <?php include 'includes/profile_popup.php'; ?>
+                        </div>
                     </div>
 
                     <div class="post-content-attachments">

@@ -220,10 +220,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // CHANGE PFP LOGIC
-  document.addEventListener('click', (e) => {   
+  document.addEventListener('click', (e) => {
     const avatarPreview = document.getElementById("avatarPreview");
     const avatarInput = document.getElementById("avatarInput");
-    
+
     //Apri file picker quando clicchi su immagine
     avatarPreview.addEventListener("click", function() {
         avatarInput.click();
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
       reader.readAsDataURL(file);
     }
 
-  
+
   });
   });
 
@@ -265,14 +265,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const controlPanelOverlay = document.getElementById("controlPanelModal");
   const controlPanelErrorMsg = document.getElementById("controlPanelErrorMsg");
 
-  controlPanelBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    controlPanelOverlay.classList.remove("hidden");
-  });
+  if (controlPanelBtn) {
+    controlPanelBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      controlPanelOverlay.classList.remove("hidden");
+    });
+  }
+  if (controlPanelCloseBtn) {
+    controlPanelCloseBtn.addEventListener("click", (e) => {
+      controlPanelOverlay.classList.add("hidden");
+      controlPanelErrorMsg.classList.add("hidden");
+    });
+  }
 
-  controlPanelCloseBtn.addEventListener("click", (e) => {
-    controlPanelOverlay.classList.add("hidden");
-    controlPanelErrorMsg.classList.add("hidden");
+  // POPUP UTENTE
+  // chiudi popup se clicchi fuori
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.profile-popup')) {
+      document.querySelectorAll('.profile-popup').forEach(p => {
+        p.classList.add('hidden');
+      });
+    }
   });
-
 });
+
+// Funzione per i popup, va messa fuori da DOMContentLoaded altrimenti attributo onclick non funziona
+function toggleProfilePopup(event, postId) {
+  event.stopPropagation();
+
+  const targetId = 'popup-' + postId;
+  const currentPopup = document.getElementById(targetId);
+
+  if (!currentPopup) {
+    console.error("Popup not found for ID: ", targetId);
+  }
+
+  // chiudi eventuali altri popup aperti
+  document.querySelectorAll('.profile-popup').forEach(p => {
+    if (p.id !== targetId) p.classList.add('hidden');
+  });
+
+    currentPopup.classList.toggle('hidden');
+}
