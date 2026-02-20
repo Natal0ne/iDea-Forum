@@ -1,8 +1,14 @@
 <div class="profile-popup-header">
     <img src="<?php echo $post['user_avatar_url']; ?>" alt="<?php echo $post['user_name']; ?>">
     <p><?php echo $post['user_username']; ?></p>
+    <?php echo $post['user_role']; ?>
 </div>
 <div class="profile-popup-body">
+    <div class="profile-popup-bio">
+        <p>
+           <?php echo !isset($post['user_bio']) ? 'Bio not available.' : htmlspecialchars($post['user_bio']); ?>
+        </p>
+    </div>
     <div class="profile-popup-info">
         <div class="profile-popup-info-labels">
             <div class="profile-popup-info-item-label">Last Active: </div>

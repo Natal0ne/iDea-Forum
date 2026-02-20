@@ -76,6 +76,26 @@
     }
 }
 
+.profile-popup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-popup-bio {
+    text-align: center;
+    border-radius: 12px;
+    padding: 5px 0;
+    border: 2px solid var(--primary-color);
+    background-color: var(--light-text-secondary-color);
+
+    p {
+        color: var(--dark-text-color);
+        font-style: italic;
+        margin: 0;
+    }
+}
+
 .profile-popup-info {
     display: flex;
     flex-direction: row;
