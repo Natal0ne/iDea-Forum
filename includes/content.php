@@ -30,7 +30,6 @@ if ($result && pg_num_rows($result) > 0) {
 
 }
 
-
 $query = "SELECT threads.*, users.username, users.avatar_url
           FROM threads 
           LEFT JOIN users ON threads.user_id = users.id 
@@ -53,7 +52,7 @@ pg_close($conn);
     <?php if (isset($roots)): ?>
         <?php foreach ($roots as $r): ?>
             <div class="root-category-block">
-                <a href="<?php echo $r['slug']; ?>" ><h2><?php echo $r['name']; ?></h2></a>
+                <a href="<?php echo "view_category.php?slug=" . $r['slug'] ?>"><h2><?php echo $r['name']; ?></h2></a>
                 <div class="categories">
                     <?php $empty = true; ?>
                     <?php foreach ($children as $c): ?> 
@@ -61,7 +60,7 @@ pg_close($conn);
                             <?php $empty = false; ?>
                             <div class="category">
                                 <div class="category-main">
-                                    <a href="<?php echo $c['slug']; ?>"><h4> <?php echo $c['name']; ?> </h4></a>
+                                    <a href="<?php echo "view_category.php?slug=" . $c['slug'] ?>"><h4> <?php echo $c['name']; ?> </h4></a>
                                     <p> <?php echo $c['description']; ?></p>
                                 </div>
                                 <div class="category-stat">
