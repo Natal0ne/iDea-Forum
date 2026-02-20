@@ -261,6 +261,7 @@ input {
     font-weight: bold;
     cursor: pointer;
     z-index: 2001;
+    user-select: none;
 }
 
 @keyframes imageOverlayIn {
