@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
               // Reset dopo 3 secondi
               timeout = setTimeout(() => {
-                  this.innerHTML = 'Delete';
+                  this.innerHTML = '<span style="margin-right: 5px;">&#10006;</span>Delete';
                   this.style.backgroundColor = '#334E68';
                   this.style.border = '2px solid #334E68';
                   confirmClick = false;

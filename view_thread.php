@@ -189,7 +189,7 @@ pg_close($conn);
                                 <!-- Mostra il tasto solo se l'utente è admin e il post non è già eliminato -->
                                 <?php if(isset($_SESSION['role']) && ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'moderator') && empty($post['deleted_at'])): ?>
                                     <a class="deletePostBtn" data-post-id="<?php echo $post['id']; ?>" href="#">
-                                        <span>Delete</span>
+                                        <span style="margin-right: 5px;">&#10006;</span>Delete
                                     </a>
                                 <?php endif; ?>
                             </div>
