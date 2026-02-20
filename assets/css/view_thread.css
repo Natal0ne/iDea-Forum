@@ -75,6 +75,7 @@
     flex-direction: column;
     gap: 20px 0;
     flex: 1;
+    min-width: 0; /* serve per non far uscire gli attachments dal contenitore padre causando overflow grafico */
 }
 
 .post-user-info {
@@ -112,8 +113,13 @@
 
 .attachments {
     display: flex;
-    flex-flow: wrap row;
+    flex-direction: row;
     gap: 0 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+    width: 100%;
+
+    overscroll-behavior-x: contain;
 }
 
 .replies-container {

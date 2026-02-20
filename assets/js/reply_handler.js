@@ -214,4 +214,19 @@ document.addEventListener('DOMContentLoaded', function () {
           }
       });
   });
+
+  // Permette scroll orizzontale su attachments di view thread
+  document.querySelectorAll('.attachments').forEach(container => {
+      container.addEventListener('wheel', (e) => {
+          // Se lo scroll è prevalentemente verticale (deltaY)
+          if (e.deltaY !== 0) {
+              // Impedisce alla pagina di scrollare verticalmente
+              e.preventDefault();
+
+              // Trasforma lo scroll verticale in orizzontale
+              // Moltiplichiamo per un valore (es. 1.5) se vogliamo lo scroll più veloce
+              container.scrollLeft += e.deltaY * 0.2;
+          }
+      }, { passive: false });
+  });
 });
