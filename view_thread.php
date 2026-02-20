@@ -175,7 +175,7 @@ pg_close($conn);
                         <div class="post-buttons-div">
                             <div class="delete-button-div">
                                 <!-- Mostra il tasto solo se l'utente è admin e il post non è già eliminato -->
-                                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin' && empty($post['deleted_at'])): ?>
+                                <?php if(isset($_SESSION['role']) && ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'moderator') && empty($post['deleted_at'])): ?>
                                     <a class="deletePostBtn" data-post-id="<?php echo $post['id']; ?>" href="#">
                                         <span>Delete</span>
                                     </a>

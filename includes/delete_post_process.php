@@ -2,7 +2,7 @@
 require_once 'config.php';
 header('Content-Type: application/json');
 
-if ($_SESSION['role'] === 'admin' && isset($_POST['post_id'])) {
+if (($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'moderator') && isset($_POST['post_id'])) {
     $conn = connect_db();
     $post_id = intval($_POST['post_id']);
 
