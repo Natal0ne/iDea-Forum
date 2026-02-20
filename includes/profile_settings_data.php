@@ -27,3 +27,5 @@ if (isset($_SESSION["user_id"])) {
 
     pg_close($conn);
 }
+
+?>

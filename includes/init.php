@@ -56,6 +56,18 @@ if(isset($_SESSION['profile_settings_error'])){
 }
 
 
+//Logica panel control
+
+$control_panel_modal_class = "hidden";
+$control_panel_error_message = "";
+
+if(isset($_SESSION['control_panel_error'])){
+    $control_panel_error_message = $_SESSION['control_panel_error'];
+    $control_panel_modal_class = "";
+    unset($_SESSION['control_panel_error']);
+}
+
+
 // Logica contact us
 $contact_us_modal_class = "hidden";
 $contact_us_error_message = "";

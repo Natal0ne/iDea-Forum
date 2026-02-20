@@ -29,7 +29,9 @@
             </div>
             <ul>
               <li class="profileSettingsBtn"><a id = "profileSettingsBtn" href="#">Profile Settings</a></li>
-              <li><a href="site_settings.php">Site Settings</a></li>
+              <?php if ($_SESSION['role'] === 'admin'): ?>
+              <li><a id = "controlPanelBtn" href="#">Control Panel</a></li>
+              <?php endif; ?>
               <li class="divider"></li>
               <li><a href="includes/logout.php" class="logout-link">Logout</a></li>
             </ul>

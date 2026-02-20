@@ -18,15 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const newThreadForm = document.getElementById("newThreadForm");
 
   const profileSettingsBtn = document.getElementById("profileSettingsBtn");
-  const profileSettingsCloseBtn = document.getElementById(
-    "profileSettingsCloseBtn",
-  );
-  const profileSettingsOverlay = document.getElementById(
-    "profileSettingsModal",
-  );
-  const profileSettingsErrorMsg = document.getElementById(
-    "profileSettingsErrorMsg",
-  );
+  const profileSettingsCloseBtn = document.getElementById("profileSettingsCloseBtn");
+  const profileSettingsOverlay = document.getElementById("profileSettingsModal");
+  const profileSettingsErrorMsg = document.getElementById("profileSettingsErrorMsg");
 
   const dropZone = document.getElementById("dropZone");
   const fileInput = document.getElementById("fileInput");
@@ -214,12 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // PROFILE SETTINGS MODAL
-  if (profileSettingsBtn) {
-    profileSettingsBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      profileSettingsOverlay.classList.remove("hidden");
-    });
-  }
+
+  profileSettingsBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    profileSettingsOverlay.classList.remove("hidden");
+  });
+
   profileSettingsCloseBtn.addEventListener("click", (e) => {
     profileSettingsOverlay.classList.add("hidden");
     profileSettingsErrorMsg.classList.add("hidden");
@@ -234,4 +228,22 @@ document.addEventListener("DOMContentLoaded", () => {
     contactUsModal.classList.add("hidden");
     contactUsErrorMsg.classList.add("hidden");
   });
+
+  // MODALE CONTROL PANEL
+
+  const controlPanelBtn = document.getElementById("controlPanelBtn");
+  const controlPanelCloseBtn = document.getElementById("controlPanelCloseBtn");
+  const controlPanelOverlay = document.getElementById("controlPanelModal");
+  const controlPanelErrorMsg = document.getElementById("controlPanelErrorMsg");
+
+  controlPanelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    controlPanelOverlay.classList.remove("hidden");
+  });
+
+  controlPanelCloseBtn.addEventListener("click", (e) => {
+    controlPanelOverlay.classList.add("hidden");
+    controlPanelErrorMsg.classList.add("hidden");
+  });
+
 });

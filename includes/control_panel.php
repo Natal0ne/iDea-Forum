@@ -1,25 +1,24 @@
-<?php require_once 'profile_settings_data.php'; ?>
-
-<div id="profileSettingsModal" class="modal <?php echo $profile_settings_modal_class?>">
+<div id="controlPanelModal" class="modal <?php echo $control_panel_modal_class?>">
 
  <div class="modal-overlay"></div>
 
     <div class="modal-content">
 
       <div class="close-btn-div">
-            <span id='profileSettingsCloseBtn' class="close-btn">&times;</span>
+            <span id='controlPanelCloseBtn' class="close-btn">&times;</span>
       </div>
 
-        <h2>Profile settings</h2>
-        <div id='profileSettingsErrorMsg'>
-            <?php if (!empty($profile_settings_error_message)): ?>
+        <h2>Panel Control</h2>
+
+        <div id='controlPanelErrorMsg'>
+            <?php if (!empty($control_panel_error_message)): ?>
                 <div class="error-box">
-                    <p class="error"><?php echo htmlspecialchars($profile_settings_error_message); ?></p>
+                    <p class="error"><?php echo htmlspecialchars($control_panel_error_message); ?></p>
                 </div>
             <?php endif; ?>
         </div>
 
-        <form action="includes/profile_settings_process.php" method="post">
+        <form action="includes/profile_settings_process.php" method="post"> <!-- form sticky da fare -->
 
         <label for = "username" class="form-label">Username</label>
         <input type = "text"  name = "username"  id = "username" class = "PFInput"
