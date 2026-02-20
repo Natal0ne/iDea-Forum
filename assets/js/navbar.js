@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dropdown.classList.add('hidden');
           dropdownFlag = false;
         }
-      });    
+      });
 
     document.addEventListener('click', function(e) {
         if(!dropdown.contains(e.target) && !userMenuBtn.contains(e.target)) {
@@ -75,14 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
       suggestions.classList.remove('hidden');
       });
   });
-  
+
   // VEDETE SE VOLETE IMPLEMENTARLO
   // chiudi il suggestion dropdown se clicchi fuori
-  /* 
+
   document.addEventListener('click', function(e) {
       if(!searchInput.contains(e.target) && !suggestions.contains(e.target)) {
           suggestions.classList.add('hidden');
       }
   });
-  */
+
 });

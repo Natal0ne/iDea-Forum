@@ -138,7 +138,7 @@ pg_close($conn);
 
         <div class="thread-content">
         <?php foreach ($posts as $post): ?>
-            <div style="margin-left: <?php echo $post['depth'] * 40; ?>px; ">
+            <div style="margin-left: <?php echo $post['depth'] * 4; ?>vw; ">
                 <div class="post <?php if ($post['depth'] == 0): echo 'op'; endif ?>" id="post-<?php echo $post['id']; ?>">
 
                     <div class="post-user-info">
