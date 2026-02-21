@@ -1,3 +1,5 @@
+<?php require_once "includes/contact_us.php"?>
+
 <footer>
     <div class="footer-container hidden">
         <div class="footer-content">

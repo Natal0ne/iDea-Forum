@@ -1,7 +1,13 @@
 <?php
   if($is_logged) {
+    require_once 'includes/new_thread.php';
     require_once "includes/profile_settings.php";
     require_once "includes/control_panel.php";
+  }
+
+  if(!$is_logged) {
+    require_once 'includes/sign_up.php';
+    require_once 'includes/sign_in.php';
   }
 ?>
 

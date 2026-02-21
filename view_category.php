@@ -84,6 +84,7 @@ if ($result && pg_num_rows($result) > 0) {
 }
 
 pg_close($conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -105,13 +106,7 @@ pg_close($conn);
 
     <div class="bg-gradient"></div>
 
-    <?php require_once "includes/contact_us.php"?>
-    <?php require_once 'includes/sign_up.php' ?>
-    <?php require_once 'includes/sign_in.php' ?>
-    <?php require_once 'includes/new_thread.php' ?>
     <?php require_once 'includes/navbar.php' ?>
-    <?php require_once 'includes/image_modal.php' ?>
-
 
     <div class="content">
         <div class="category">
@@ -192,7 +187,6 @@ pg_close($conn);
     </div>
 
     <?php require_once "includes/footer.php" ?>
-    <?php require_once "includes/profile_settings.php"?>
 
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>

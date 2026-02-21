@@ -13,27 +13,17 @@
         <div id='contactUsErrorMsg'>
             <?php if (!empty($contact_us_error_message)): ?>
                 <div class="error-box">
-                    <p class="error"><?php echo htmlspecialchars(
-                        $contact_us_error_message,
-                    ); ?></p>
+                    <p class="error"><?php echo htmlspecialchars($contact_us_error_message); ?></p>
                 </div>
             <?php endif; ?>
         </div>
 
         <form action="includes/contact_us_process.php" method="POST">
             <label for="contact_name">Name</label>
-            <input type="text" id="contact_name" name="name" required placeholder="Your Name" value="<?php echo isset(
-                $_SESSION["user_id"],
-            )
-                ? $_SESSION["username"]
-                : ""; ?>" />
+            <input type="text" id="contact_name" name="name" required placeholder="Your Name" value="<?php echo isset($_SESSION["user_id"]) ? $_SESSION["username"] : ""; ?>" />
 
             <label for="contact_email">Email</label>
-            <input type="email" id="contact_email" name="email" required placeholder="E-Mail" value="<?php echo isset(
-                $_SESSION["user_id"],
-            )
-                ? $_SESSION["email"]
-                : ""; ?>"/>
+            <input type="email" id="contact_email" name="email" required placeholder="E-Mail" value="<?php echo isset($_SESSION["user_id"]) ? $_SESSION["email"] : ""; ?>"/>
 
             <label for="contact_subject">Subject</label>
             <input type="text" id="contact_subject" name="subject" required placeholder="What is this about?" />
