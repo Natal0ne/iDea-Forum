@@ -50,19 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmPassword = document.getElementById("confirmPassword");
   const submitBtn = document.getElementById("btnSubmit");
 
-  function validatePassword() {
-    if (password.value !== confirmPassword.value) {
-      // Imposta l'errore (blocca il form)
-      confirmPassword.setCustomValidity("The passwords do not match.");
-    } else {
-      // Rimuove l'errore (sblocca il form)
-      confirmPassword.setCustomValidity("");
-    }
-  }
+  if (password) {
 
-  password.addEventListener("input", validatePassword);
-  confirmPassword.addEventListener("input", validatePassword);
-  submitBtn.addEventListener("click", validatePassword);
+    function validatePassword() {
+      if (password.value !== confirmPassword.value) {
+        // Imposta l'errore (blocca il form)
+        confirmPassword.setCustomValidity("The passwords do not match.");
+      } else {
+        // Rimuove l'errore (sblocca il form)
+        confirmPassword.setCustomValidity("");
+      }
+    }
+
+    password.addEventListener("input", validatePassword);
+    confirmPassword.addEventListener("input", validatePassword);
+    submitBtn.addEventListener("click", validatePassword);
+
+  }
 
   // Apre il modale SIGN IN da navbar
   if (navSignInBtn) {
@@ -72,34 +76,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Apre il modale SIGN IN
-  signInBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // Impedisce al link di navigare
-    signInOverlay.classList.remove("hidden");
-    signUpErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
-    signUpOverlay.classList.add("hidden");
-  });
+  if (signInBtn) {
 
-  // Chiude il modale SIGN IN
-  signInCloseBtn.addEventListener("click", () => {
-    signInOverlay.classList.add("hidden");
-    signInErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
-  });
+    // Apre il modale SIGN IN
+    signInBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // Impedisce al link di navigare
+      signInOverlay.classList.remove("hidden");
+      signUpErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
+      signUpOverlay.classList.add("hidden");
+    });
 
-  // Apre il modale SIGN UP
-  signUpBtn.addEventListener("click", (e) => {
-    console.log("cliccato su registrati");
-    e.preventDefault();
-    signInOverlay.classList.add("hidden");
-    signInErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
-    signUpOverlay.classList.remove("hidden");
-  });
+    // Chiude il modale SIGN IN
+    signInCloseBtn.addEventListener("click", () => {
+      signInOverlay.classList.add("hidden");
+      signInErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
+    });
 
-  // Chiude il modale SIGN UP
-  signUpCloseBtn.addEventListener("click", () => {
-    signUpOverlay.classList.add("hidden");
-    signUpErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
-  });
+  }
+
+  if (signUpBtn) {
+
+    // Apre il modale SIGN UP
+    signUpBtn.addEventListener("click", (e) => {
+      console.log("cliccato su registrati");
+      e.preventDefault();
+      signInOverlay.classList.add("hidden");
+      signInErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
+      signUpOverlay.classList.remove("hidden");
+    });
+
+    // Chiude il modale SIGN UP
+    signUpCloseBtn.addEventListener("click", () => {
+      signUpOverlay.classList.add("hidden");
+      signUpErrorMsg.classList.add("hidden"); // toglie la scritta di errore alla prossima apertura del modale
+    });
+
+  }
 
   // Apre il modale NEW THREAD
   if (newThreadBtn) {

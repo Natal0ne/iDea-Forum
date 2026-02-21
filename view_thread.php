@@ -1,4 +1,6 @@
-<?php require_once 'includes/init.php';
+<?php 
+
+require_once 'includes/init.php';
 
 if (!isset($_GET['slug'])) {
     header("Location: index.php");
@@ -225,7 +227,6 @@ pg_close($conn);
 
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/modal.js"></script>
-    <script src="assets/js/welcome.js"></script>
     <script src="assets/js/reply_handler.js"></script>
 </body>
 
