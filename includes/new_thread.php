@@ -16,19 +16,62 @@
             <select name="category_id" id="category" required>
                 <option value="" disabled selected>Choose a category...</option>
                 <?php
-
                 $conn = connect_db();
 
-                $query_cats = "SELECT id, name FROM categories ORDER BY name ASC";
+                $query_cats = "SELECT id, name, parent_id FROM categories ORDER BY parent_id ASC NULLS FIRST, name ASC";
                 $res_cats = pg_query($conn, $query_cats);
 
                 if ($res_cats) {
-                    while ($row = pg_fetch_assoc($res_cats)) {
-                        $cat_id = $row['id'];
-                        // htmlspecialchars serve a evitare problemi se il nome contiene caratteri speciali
-                        $cat_name = htmlspecialchars($row['name']);
+                    $all_categories = pg_fetch_all($res_cats) ?: [];
 
-                        echo "<option value=\"$cat_id\">$cat_name</option>";
+                    $parents = [];
+                    $children = [];
+                    $admin_category = null;
+
+                    foreach ($all_categories as $cat) {
+                        if ($cat['id'] == 1) {
+                            $admin_category = $cat;
+                        } elseif ($cat['parent_id'] === null) {
+                            $parents[] = $cat;
+                        } else {
+                            $children[$cat['parent_id']][] = $cat;
+                        }
+                    }
+
+                    // Se l'utente è admin, metto la categoria 1 in alto e selezionabile
+                    if ($admin_category && isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+                        $adm_name = htmlspecialchars($admin_category['name']);
+                        echo "<option value=\"{$admin_category['id']}\">---- $adm_name (Admin Only) ----</option>";
+
+                        // Se la categoria admin ha dei figli, li metto subito sotto (anche se non dovrebbe)
+                        if (isset($children[$admin_category['id']])) {
+                            foreach ($children[$admin_category['id']] as $child) {
+                                echo "<option value=\"{$child['id']}\">&nbsp;&nbsp;&nbsp;" . htmlspecialchars($child['name']) . "</option>";
+                            }
+                        }
+                    }
+
+                    // Scorro le categorie
+                    foreach ($parents as $parent) {
+                        // Skip categoria admin se l'abbiamo già gestita o se non siamo admin
+                        if ($parent['id'] == 1) continue;
+
+                        $parent_name = htmlspecialchars($parent['name']);
+                        $parent_id = $parent['id'];
+
+                        if (isset($children[$parent_id])) {
+                            // Se ha figli, uso optgroup (padre non selezionabile)
+                            echo "<optgroup label=\"$parent_name\">";
+                            foreach ($children[$parent_id] as $child) {
+                                $child_id = $child['id'];
+                                $child_name = htmlspecialchars($child['name']);
+                                echo "<option value=\"$child_id\">$child_name</option>";
+                            }
+                            echo "</optgroup>";
+                        } else {
+                            // Se è un padre senza figli, lo mostro disabilitato (come titolo)
+                            echo "<option value=\"\" disabled>── $parent_name ──</option>";
+                        }
                     }
                 } else {
                     echo "<option value=\"\">Error loading categories.</option>";
