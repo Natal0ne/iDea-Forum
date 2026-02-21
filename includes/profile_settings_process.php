@@ -66,6 +66,13 @@ if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
 
     $targetDir = "../assets/img/";
 
+    if(!is_dir($targetDir)) {
+        // Errore nel caso in cui non riesce a creare la cartella uploads
+        if(!mkdir($targetDir, 0777, true)) {
+            $error_msg = "Impossible creating avatar folder.";
+        }
+    }
+
     $fileExtension = strtolower(pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION));
     $fileName = uniqid("avatar_", true) . "." . $fileExtension;
     $targetFile = $targetDir . $fileName;

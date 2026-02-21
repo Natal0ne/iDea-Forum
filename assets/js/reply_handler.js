@@ -218,14 +218,22 @@ document.addEventListener('DOMContentLoaded', function () {
   // Permette scroll orizzontale su attachments di view thread
   document.querySelectorAll('.attachments').forEach(container => {
       container.addEventListener('wheel', (e) => {
-          // Se lo scroll è prevalentemente verticale (deltaY)
+
+          // CONTROLLO TOUCHPAD:
+          // Se l'evento ha una componente orizzontale (deltaX), significa che
+          // l'utente sta usando un touchpad per scorrere lateralmente in modo naturale.
+          // In questo caso, NON faccio nulla e lascio che si comporti nativamente.
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+              return;
+          }
+
+          // GESTIONE MOUSE:
+          // Se lo scroll è prevalentemente verticale (tipico della rotellina del mouse),
+          // lo convertiamo in orizzontale.
           if (e.deltaY !== 0) {
-              // Impedisce alla pagina di scrollare verticalmente
               e.preventDefault();
 
-              // Trasforma lo scroll verticale in orizzontale
-              // Moltiplichiamo per un valore (es. 1.5) se vogliamo lo scroll più veloce
-              container.scrollLeft += e.deltaY * 0.2;
+              container.scrollLeft += e.deltaY;
           }
       }, { passive: false });
   });
