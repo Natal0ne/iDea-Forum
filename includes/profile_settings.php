@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_profile_settin
             <?php endif; ?>
         </div>
 
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post" enctype="multipart/form-data"> <!-- $_SERVER['PHP_SELF'] non posso usarlo perchè sennò non funzionarebbe per le pagine con url variabile -->
             <div class="pf-avatar-container">
                 <label>Avatar</label>
                 <div class="avatar-wrapper" onclick="document.getElementById('avatarInput').click();">
