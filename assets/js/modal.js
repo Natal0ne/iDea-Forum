@@ -122,26 +122,37 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Chiude il modale NEW THREAD
-  newThreadCloseBtn.addEventListener("click", () => {
-    allFiles = [];
-    fileList.innerHTML = "";
-    fileInput.value = "";
-    newThreadOverlay.classList.add("hidden");
-    newThreadForm.reset();
-  });
+  if (newThreadCloseBtn) {
+    newThreadCloseBtn.addEventListener("click", () => {
+      allFiles = [];
+      fileList.innerHTML = "";
+      fileInput.value = "";
+      newThreadOverlay.classList.add("hidden");
+      newThreadForm.reset();
+    });
+  }
 
   // Cambio css quando draggo sulla dropZone
-  dropZone.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    dropZone.classList.add("drop-zone--over");
-  });
-
-  // Quando il file esce dalla dropZone o viene rilasciato
-  ["dragleave", "dragend"].forEach((type) => {
-    dropZone.addEventListener(type, () => {
-      dropZone.classList.remove("drop-zone--over");
+  if (dropZone) {
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("drop-zone--over");
     });
-  });
+
+    // Quando il file esce dalla dropZone o viene rilasciato
+    ["dragleave", "dragend"].forEach((type) => {
+      dropZone.addEventListener(type, () => {
+        dropZone.classList.remove("drop-zone--over");
+      });
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("drop-zone--over");
+      handleFiles(e.dataTransfer.files);
+    });
+  }
+
 
   function handleFiles(files) {
     const newFiles = Array.from(files);
@@ -155,15 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
     updateThumbnailList();
   }
 
-  dropZone.addEventListener("drop", (e) => {
-    e.preventDefault();
-    dropZone.classList.remove("drop-zone--over");
-    handleFiles(e.dataTransfer.files);
-  });
 
-  fileInput.addEventListener("change", () => {
-    handleFiles(fileInput.files);
-  });
+  if (fileInput) {
+    fileInput.addEventListener("change", () => {
+      handleFiles(fileInput.files);
+    });
+  }
 
   function updateThumbnailList() {
     fileList.innerHTML = ""; // Ora svuotare qui è giusto, perché allFiles contiene TUTTO
@@ -237,29 +245,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarPreview = document.getElementById("avatarPreview");
     const avatarInput = document.getElementById("avatarInput");
 
-    //Apri file picker quando clicchi su immagine
-    avatarPreview.addEventListener("click", function () {
-      avatarInput.click();
-    });
+    if (avatarPreview && avatarInput) {
+      //Apri file picker quando clicchi su immagine
+      avatarPreview.addEventListener("click", function () {
+        avatarInput.click();
+      });
 
-    // Anteprima immediata quando selezioni una nuova immagine
-    avatarInput.addEventListener("change", function () {
-      const file = this.files[0];
+      // Anteprima immediata quando selezioni una nuova immagine
+      avatarInput.addEventListener("change", function () {
+        const file = this.files[0];
 
-      if (file) {
-        const reader = new FileReader();
+        if (file) {
+          const reader = new FileReader();
 
-        reader.onload = function (e) {
-          avatarPreview.src = e.target.result;
+          reader.onload = function (e) {
+            avatarPreview.src = e.target.result;
+          }
+
+          reader.readAsDataURL(file);
         }
 
-        reader.readAsDataURL(file);
-      }
 
-
-    });
-  });
-
+      });
+    }
+});
 
   // CONTACT US MODAL
   contactUsLink.addEventListener("click", (e) => {

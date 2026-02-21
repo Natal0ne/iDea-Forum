@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'includes/init.php';
 
@@ -34,6 +34,7 @@ if (!($result && pg_num_rows($result) > 0)) {
 
 $thread = pg_fetch_assoc($result);
 
+$current_user_id = $_SESSION['user_id'] ?? 0;
 /* Recupero i post associati al thread */
 $posts_CTE_query = "WITH RECURSIVE post_tree AS (
                         SELECT
@@ -53,14 +54,24 @@ $posts_CTE_query = "WITH RECURSIVE post_tree AS (
                         JOIN post_tree pt ON p.parent_id = pt.id
                         WHERE p.thread_id = {$thread['id']}
                     )
-                    SELECT pt.*, u.username as user_username, u.avatar_url as user_avatar_url, u.role as user_role,
-                    u.created_at as user_created_at, u.bio as user_bio, u.reputation as user_reputation,
-                    u.last_active_at as user_last_active_at, u.is_banned as user_is_banned, u.reputation as user_reputation
+                    SELECT pt.*,
+                           u.username as user_username,
+                           u.avatar_url as user_avatar_url,
+                           u.role as user_role,
+                           u.created_at as user_created_at,
+                           u.bio as user_bio,
+                           u.reputation as user_reputation,
+                           u.last_active_at as user_last_active_at,
+                           u.is_banned as user_is_banned,
+                           -- Calcola il punteggio totale (somma di 1 e -1)
+                           COALESCE((SELECT SUM(vote_value) FROM post_votes WHERE post_id = pt.id), 0) as vote_score,
+                           -- Recupera il voto dell'utente loggato ($1)
+                           COALESCE((SELECT vote_value FROM post_votes WHERE post_id = pt.id AND user_id = $1), 0) as user_voted
                     FROM post_tree pt
                     LEFT JOIN users u ON pt.user_id = u.id
                     ORDER BY pt.path";
 
-$result = pg_query($conn, $posts_CTE_query);
+$result = pg_query_params($conn, $posts_CTE_query, array($current_user_id));
 
 if (!($result && pg_num_rows($result) > 0)) {
     $_SESSION['view_thread_error'] = "No posts found";
@@ -113,6 +124,7 @@ pg_close($conn);
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/profile_popup.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -182,6 +194,49 @@ pg_close($conn);
                         <?php endif; ?>
 
                         <div class="post-buttons-div">
+
+                            <div class="vote-controls-div" data-post-id="<?php echo $post['id']; ?>">
+                                <?php if ($is_logged): ?>
+                                <!-- Freccia su -->
+                                <a href="javascript:void(0)"
+                                   class="vote-link up <?php echo ($post['user_voted'] == 1) ? 'active' : ''; ?>"
+                                   onclick="handleVote(<?php echo $post['id']; ?>, 1)">
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                </a>
+
+                                <!-- Punteggio  post -->
+                                <span class="vote-score" id="score-<?php echo $post['id']; ?>">
+                                    <?php echo $post['vote_score']; ?>
+                                </span>
+
+                                <!-- Freccia giu -->
+                                <a href="javascript:void(0)"
+                                   class="vote-link down <?php echo ($post['user_voted'] == -1) ? 'active' : ''; ?>"
+                                   onclick="handleVote(<?php echo $post['id']; ?>, -1)">
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                </a>
+                                <?php else: ?>
+                                <!-- Freccia su -->
+                                <a href="#"
+                                   class="postSignInBtn vote-link up">
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                </a>
+
+                                <!-- Punteggio  post -->
+                                <span class="vote-score" id="score-<?php echo $post['id']; ?>">
+                                    <?php echo $post['vote_score']; ?>
+                                </span>
+
+                                <!-- Freccia giu -->
+                                <a href="#"
+                                   class="postSignInBtn vote-link down">
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                </a>
+
+                                <?php endif; ?>
+                            </div>
+
+
                             <div class="delete-button-div">
                                 <!-- Mostra il tasto solo se l'utente è admin e il post non è già eliminato -->
                                 <?php if(isset($_SESSION['role']) && ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'moderator') && empty($post['deleted_at'])): ?>
@@ -197,7 +252,8 @@ pg_close($conn);
                                     <?php if (!$is_logged): ?>
                                         <a class='postSignInBtn' href="#"><span style="position: relative; top: 2px">&#8617;</span> Reply</a>
                                     <?php else: ?>
-                                        <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['user_username']); ?>">
+
+                                    <a href="javascript:void(0)" class="reply-link" data-target="reply-box-<?php echo $post['id']; ?>" data-username="<?php echo htmlspecialchars($post['user_username']); ?>">
                                             <span style="position: relative; top: 2px">&#8617;</span> Reply
                                         </a>
                                     <?php endif; ?>

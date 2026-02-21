@@ -159,42 +159,72 @@
 
 .reply-button-div {
     text-align: right;
-}
-
-.reply-button-div a {
-    display: inline-block;
-    text-decoration: none;
-    border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    padding: 5px 8px;
-    color: var(--light-title-color);
-    background-color: var(--primary-color);
-    box-shadow: var(--primary-color) 0 0 8px;
-    transition: all 0.3s ease;
-}
-
-.reply-button-div a:hover {
-    transform: scale(1.1);
+    a {
+        display: inline-block;
+        text-decoration: none;
+        border: 2px solid var(--primary-color);
+        border-radius: 12px;
+        padding: 5px 8px;
+        color: var(--light-title-color);
+        background-color: var(--primary-color);
+        box-shadow: var(--primary-color) 0 0 8px;
+        transition: all 0.3s ease;
+    }
+    a:hover {
+        transform: scale(1.1);
+    }
 }
 
 .delete-button-div {
     text-align: right;
+    a {
+        display: inline-block;
+        text-decoration: none;
+        border: 2px solid var(--primary-color);
+        border-radius: 12px;
+        padding: 5px 8px;
+        color: var(--light-title-color);
+        background-color: var(--primary-color);
+        box-shadow: var(--primary-color) 0 0 8px;
+        transition: all 0.3s ease;
+    }
+    a:hover {
+        transform: scale(1.1);
+    }
 }
 
-.delete-button-div a {
-    display: inline-block;
-    text-decoration: none;
+.vote-controls-div {
+
+    border-radius: 16px;
     border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    padding: 5px 8px;
-    color: var(--light-title-color);
-    background-color: var(--primary-color);
-    box-shadow: var(--primary-color) 0 0 8px;
-    transition: all 0.3s ease;
-}
-
-.delete-button-div a:hover {
-    transform: scale(1.1);
+    span {
+        padding: 0 5px;
+        font-size: 1.2em;
+    }
+    a {
+        display: inline-block;
+        text-decoration: none;
+        border: 2px solid var(--primary-color);
+        border-radius: 12px;
+        padding: 3px 5px;
+        color: var(--light-title-color);
+        background-color: var(--primary-color);
+        box-shadow: var(--primary-color) 0 0 8px;
+        transition: all 0.3s ease;
+    }
+    a:hover {
+        transform: scale(1.1);
+    }
+    .vote-link.up.active {
+        background-color: #27ae60;
+        border-color: #27ae60;
+        scale: 1.2;
+    }
+    .vote-link.down.active {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+        scale: 1.2;
+    }
 }
 
 .reply-box {

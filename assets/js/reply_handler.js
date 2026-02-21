@@ -238,3 +238,25 @@ document.addEventListener('DOMContentLoaded', function () {
       }, { passive: false });
   });
 });
+
+// Funzione per i voti (upvote/downvote)
+function handleVote(postId, voteValue) {
+  fetch('includes/vote_process.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `post_id=${postId}&vote_value=${voteValue}`
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Aggiorna il testo del punteggio
+        document.getElementById(`score-${postId}`).innerText = data.new_score;
+
+        const container = document.querySelector(`.vote-controls-div[data-post-id="${postId}"]`);
+        container.querySelector('.up').classList.toggle('active', data.user_vote === 1);
+        container.querySelector('.down').classList.toggle('active', data.user_vote === -1);
+      } else {
+        alert(data.message);
+      }
+    });
+}

@@ -14,13 +14,14 @@
     <link rel="stylesheet" href="assets/css/welcome.css">
     <link rel="stylesheet" href="assets/css/content.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
     <div class="bg-gradient"></div>
 
     <?php require_once 'includes/navbar.php' ?>
-    
+
     <div class="welcome <?php if ($is_logged) echo "hidden" ?>">
         <h1 id="animatedWelcome">Welcome to iDea</h1>
     </div>
