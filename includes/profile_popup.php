@@ -1,5 +1,5 @@
 <div class="profile-popup-header">
-    <img src="<?php echo $post['user_avatar_url']; ?>" alt="user avatar">
+    <img src="<?php echo $post['user_avatar_url']; ?>" alt="Avatar">
     <p><?php echo $post['user_username']; ?></p>
     <?php echo $post['user_role']; ?>
 </div>
