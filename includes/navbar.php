@@ -1,3 +1,11 @@
+<?php
+  if($is_logged) {
+    require_once "includes/profile_settings.php";
+    require_once "includes/control_panel.php";
+  }
+?>
+
+
 <nav id="navbar">
   <div class="navbar-wrapper" id="navbarWrapper">
     <a class="logo" href="index.php">iDea</a>

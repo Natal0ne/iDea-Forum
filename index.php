@@ -23,8 +23,6 @@
     <?php require_once 'includes/sign_up.php' ?>
     <?php require_once 'includes/sign_in.php' ?>
     <?php require_once 'includes/new_thread.php' ?>
-    <?php require_once "includes/profile_settings.php"?>
-    <?php require_once "includes/control_panel.php"?>
     <?php require_once 'includes/navbar.php' ?>
     
 

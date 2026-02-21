@@ -208,16 +208,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // PROFILE SETTINGS MODAL
+  if (profileSettingsBtn) {
+    profileSettingsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      profileSettingsOverlay.classList.remove("hidden");
+    });
 
-  profileSettingsBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    profileSettingsOverlay.classList.remove("hidden");
-  });
-
-  profileSettingsCloseBtn.addEventListener("click", (e) => {
-    profileSettingsOverlay.classList.add("hidden");
-    profileSettingsErrorMsg.classList.add("hidden");
-  });
+    profileSettingsCloseBtn.addEventListener("click", (e) => {
+      profileSettingsOverlay.classList.add("hidden");
+      profileSettingsErrorMsg.classList.add("hidden");
+    });
+  }
 
   // CHANGE PFP LOGIC
   document.addEventListener('click', (e) => {
@@ -225,26 +226,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarInput = document.getElementById("avatarInput");
 
     //Apri file picker quando clicchi su immagine
-    avatarPreview.addEventListener("click", function() {
-        avatarInput.click();
+    avatarPreview.addEventListener("click", function () {
+      avatarInput.click();
     });
 
-     // Anteprima immediata quando selezioni una nuova immagine
-    avatarInput.addEventListener("change", function() {
-        const file = this.files[0];
+    // Anteprima immediata quando selezioni una nuova immagine
+    avatarInput.addEventListener("change", function () {
+      const file = this.files[0];
 
-    if (file) {
-      const reader = new FileReader();
+      if (file) {
+        const reader = new FileReader();
 
-      reader.onload = function(e) {
-        avatarPreview.src = e.target.result;
+        reader.onload = function (e) {
+          avatarPreview.src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
       }
 
-      reader.readAsDataURL(file);
-    }
 
-
-  });
+    });
   });
 
 
@@ -305,5 +306,5 @@ function toggleProfilePopup(event, postId) {
     if (p.id !== targetId) p.classList.add('hidden');
   });
 
-    currentPopup.classList.toggle('hidden');
+  currentPopup.classList.toggle('hidden');
 }
