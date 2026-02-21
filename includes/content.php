@@ -11,7 +11,7 @@ if ($result && pg_num_rows($result) > 0) {
     $children = [];
 
     while ($c = pg_fetch_assoc($result)) {
-    
+
         if ($c['parent_id'] === NULL) {
             $roots[] = $c;
         } else {
@@ -31,9 +31,9 @@ if ($result && pg_num_rows($result) > 0) {
 }
 
 $query = "SELECT threads.*, users.username, users.avatar_url
-          FROM threads 
-          LEFT JOIN users ON threads.user_id = users.id 
-          ORDER BY threads.created_at DESC 
+          FROM threads
+          LEFT JOIN users ON threads.user_id = users.id
+          ORDER BY threads.created_at DESC
           LIMIT 30";
 
 $result = pg_query($conn, $query);
@@ -52,10 +52,14 @@ pg_close($conn);
     <?php if (isset($roots)): ?>
         <?php foreach ($roots as $r): ?>
             <div class="root-category-block">
+                <?php if($r['id'] == 1): ?>
                 <a href="<?php echo "view_category.php?slug=" . $r['slug'] ?>"><h2><?php echo $r['name']; ?></h2></a>
+                <?php else: ?>
+                <h2><?php echo $r['name']; ?></h2>
+                <?php endif; ?>
                 <div class="categories">
                     <?php $empty = true; ?>
-                    <?php foreach ($children as $c): ?> 
+                    <?php foreach ($children as $c): ?>
                         <?php if ($c['parent_id'] === $r['id']): ?>
                             <?php $empty = false; ?>
                             <div class="category">
@@ -78,7 +82,7 @@ pg_close($conn);
                                 <div>threads: <?php echo $r['number_of_threads'] ?></div>
                             </div>
                         </div>
-                    <?php endif; ?> 
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach ?>

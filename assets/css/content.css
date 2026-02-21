@@ -13,22 +13,17 @@
 
     a {
         text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+        transform: translateX(1px)
+    }
+
+    a:hover {
+        transform: translateX(10px);
     }
 
     h2 {
-        display: inline-block;
         margin: 0;
-        transition: all 0.3s ease;
-    }
-
-    h4 {
-        display: inline-block;
-        transition: all 0.3s ease;
-    }
-
-    h2:hover,
-    h4:hover {
-        transform: translateX(5px);
     }
 
     p {
