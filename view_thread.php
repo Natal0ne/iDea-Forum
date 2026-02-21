@@ -63,6 +63,8 @@ $posts_CTE_query = "WITH RECURSIVE post_tree AS (
                            u.reputation as user_reputation,
                            u.last_active_at as user_last_active_at,
                            u.is_banned as user_is_banned,
+                           u.location as user_location,
+                           u.signature as user_signature,
                            -- Calcola il punteggio totale (somma di 1 e -1)
                            COALESCE((SELECT SUM(vote_value) FROM post_votes WHERE post_id = pt.id), 0) as vote_score,
                            -- Recupera il voto dell'utente loggato ($1)
@@ -176,6 +178,11 @@ pg_close($conn);
                                 <p style="color: gray; font-style: italic;">[This post has been deleted by an administrator]</p>
                             <?php else: ?>
                                 <p><?php echo nl2br(htmlspecialchars($post['content'])); ?></p>
+                                <?php if($post['user_signature']): ?>
+                                <div class="post-signature">
+                                   <p><?php echo nl2br(htmlspecialchars($post['user_signature'])); ?></p>
+                                </div>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
 

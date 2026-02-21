@@ -88,6 +88,9 @@
 }
 
 .post-content {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
     border: 2px solid var(--primary-color);
     border-radius: 12px;
     padding: 20px;
@@ -98,6 +101,12 @@
     margin: 0;
 }
 
+.post-signature {
+    border-top: 2px dashed var(--dark-text-color);
+    padding-top: 5px;
+    color: var(--dark-text-color);
+    font-style: italic;
+}
 .post-image {
     border-radius: 12px;
     object-fit: cover;
