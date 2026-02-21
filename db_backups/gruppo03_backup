@@ -237,7 +237,7 @@ CREATE TABLE public.user_settings (
     language character varying(5) DEFAULT 'en'::character varying,
     receive_newsletter boolean DEFAULT true,
     email_notifications boolean DEFAULT true,
-    show_signatures boolean DEFAULT true
+    show_signatures boolean DEFAULT false
 );
 
 
@@ -661,4 +661,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 
 \unrestrict HxhoYzABATJ9pGZUbuHn6CeDKQZ4pKksKhSpGIIYUia4bnf0lecB3ASwvQzLoCe
-
